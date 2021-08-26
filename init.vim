@@ -1,3 +1,7 @@
+" # First install
+" On Windows:
+"   git clone git@github.com:marcusbfs/nvim-config.git %LOCALAPPDATA%\nvim && nvim -c PlugInstall
+
 " Leaderkey
 let mapleader = "\<Space>"
 let maplocalleader = ','
