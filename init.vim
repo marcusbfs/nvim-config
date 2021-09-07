@@ -14,15 +14,24 @@ colorscheme evening
 "--- Plugins ---"
 call plug#begin(stdpath('config') . '/plugged')
 
+Plug 'justinmk/vim-sneak'
+Plug 'machakann/vim-highlightedyank'
+Plug 'rust-lang/rust.vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'jiangmiao/auto-pairs'
 Plug 'scrooloose/nerdcommenter'
 Plug 'junegunn/vim-easy-align'
 Plug 'kien/rainbow_parentheses.vim'
+Plug 'neoclide/coc.nvim'
 
 call plug#end()
 
 filetype plugin indent on
+
+" rust
+let g:rustfmt_autosave = 1
+let g:rustfmt_emit_files = 1
+let g:rustfmt_fail_silently = 0
 
 " Nerd comments
 
