@@ -11,6 +11,11 @@ nmap <silent> <leader>q :q<CR>
 " Yank entire line
 nnoremap Y y$
 
+" Delete word - TODO
+imap <C-BS> <C-W>
+noremap! <C-BS> <C-w>
+noremap! <C-h> <C-w>
+
 " Reselect when using ">" or "<" in vmode
 vnoremap < <gv
 vnoremap > >gv
