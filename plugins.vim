@@ -7,6 +7,11 @@ Plug 'morhetz/gruvbox'
 " UI
 Plug 'machakann/vim-highlightedyank'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
+" Edit
+Plug 'mg979/vim-visual-multi', {'branch': 'master'} " ctrl-n
 
 " Navigation
 Plug 'andymass/vim-matchup'
@@ -14,20 +19,16 @@ Plug 'jiangmiao/auto-pairs'
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install()  }  }
 Plug 'junegunn/fzf.vim'
-Plug 'junegunn/vim-easy-align'
-Plug 'justinmk/vim-sneak'
+Plug 'junegunn/vim-easy-align' " ga
+Plug 'justinmk/vim-sneak' " s/S
 
 Plug 'preservim/nerdtree'
 Plug 'ryanoasis/vim-devicons'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 
 " Auto-completion
-" Plug 'nvim-lua/completion-nvim'
-" Plug 'hrsh7th/vim-vsnip'
-" Plug 'hrsh7th/vim-vsnip-integ'
 
 " Lang
-" Plug 'neovim/nvim-lspconfig'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Utils
@@ -37,6 +38,9 @@ call plug#end()
 
 " === Set colorscheme ===
 colorscheme gruvbox
+
+" === Airline ===
+let g:airline_theme='base16'
 
 " Plugins config
 
@@ -61,7 +65,14 @@ nnoremap <leader>; :call nerdcommenter#Comment(0,"toggle")<CR>
 vnoremap <leader>; :call nerdcommenter#Comment(0,"toggle")<CR>
 
 " === Nerdtree ===
-nnoremap <leader>nt :NERDTree<cr>
+nnoremap <leader>nt :NERDTree<CR>
+nnoremap <leader>ntt :NERDTreeToggle<CR>
+nnoremap <leader>ntf :NERDTreeFind<CR>
+" Some hotkeys in NERDTree buffer:
+" o: open/unfold
+" m: menu
+" s: open in vertical split
+" i: open in horizontal split
 
 " === Easy Align ===
 " Start interactive EasyAlign in visual mode (e.g. vipga)
@@ -72,4 +83,3 @@ nmap ga <Plug>(EasyAlign)"
 " === Fzf ===
 nnoremap <leader>bo :Buffers <cr>
 nnoremap <leader>fo :Files <cr>
-

@@ -1,7 +1,7 @@
 " Edit .vimrc
 execute "nnoremap <leader>ev :e " . vimrc_path . "<cr>"
 " Reload ~/.vimrc
-execute "nmap <leader>sop :source " . vimrc_path . "<cr>"
+execute "nnoremap <leader>sop :source " . vimrc_path . "<cr>"
 
 " Save current buffer
 nmap <silent> <leader>w :w<CR>
@@ -36,6 +36,13 @@ nnoremap <leader>wrl :vertical resize +10 <cr>
 nnoremap <leader>wrh :vertical resize -10 <cr>
 nnoremap <leader>wrk :resize +10 <cr>
 nnoremap <leader>wrj :resize -10 <cr>
+
+" Tabs
+nnoremap <leader>tc :tabc <cr>
+nnoremap <leader>te :tabe <cr>
+nnoremap <leader>tn :tabn <cr>
+nnoremap <leader>tp :tabp <cr>
+
 
 " Copy visual to system clipboard
 vnoremap <c-c> "+y
