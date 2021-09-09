@@ -6,27 +6,37 @@ Plug 'morhetz/gruvbox'
 
 " UI
 Plug 'machakann/vim-highlightedyank'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 " Navigation
-Plug 'justinmk/vim-sneak'
+Plug 'andymass/vim-matchup'
 Plug 'jiangmiao/auto-pairs'
-
-Plug 'junegunn/vim-easy-align'
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install()  }  }
 Plug 'junegunn/fzf.vim'
+Plug 'junegunn/vim-easy-align'
+Plug 'justinmk/vim-sneak'
 
 Plug 'preservim/nerdtree'
-Plug 'andymass/vim-matchup'
+Plug 'ryanoasis/vim-devicons'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+
+" Auto-completion
+" Plug 'nvim-lua/completion-nvim'
+" Plug 'hrsh7th/vim-vsnip'
+" Plug 'hrsh7th/vim-vsnip-integ'
 
 " Lang
-"Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'rust-lang/rust.vim'
+" Plug 'neovim/nvim-lspconfig'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Utils
 Plug 'scrooloose/nerdcommenter'
 
 call plug#end()
+
+" === Set colorscheme ===
+colorscheme gruvbox
 
 " Plugins config
 
@@ -48,7 +58,10 @@ let g:NERDSpaceDelims = 1
 let g:NERDCompactSexyComs = 1
 " Mapping
 nnoremap <leader>; :call nerdcommenter#Comment(0,"toggle")<CR>
-vnoremap <leader>; :call nerdcommenter#Comment(0,"toggle")<CR> gv
+vnoremap <leader>; :call nerdcommenter#Comment(0,"toggle")<CR>
+
+" === Nerdtree ===
+nnoremap <leader>nt :NERDTree<cr>
 
 " === Easy Align ===
 " Start interactive EasyAlign in visual mode (e.g. vipga)
@@ -60,10 +73,3 @@ nmap ga <Plug>(EasyAlign)"
 nnoremap <leader>bo :Buffers <cr>
 nnoremap <leader>fo :Files <cr>
 
-" === Rust ===
-let g:rustfmt_autosave = 1
-let g:rustfmt_emit_files = 1
-let g:rustfmt_fail_silently = 0
-
-" === Set colorscheme ===
-colorscheme gruvbox

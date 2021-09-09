@@ -16,6 +16,9 @@ filetype plugin indent on
 " Colorscheme
 " colorscheme evening
 
+" Enable mouse
+set mouse=a
+
 " Wrap test visually only - does not affects the buffer
 set wrap
 

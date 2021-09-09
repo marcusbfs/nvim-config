@@ -1,13 +1,15 @@
 " Leaderkey
-let mapleader = "\<Space>"
+let g:mapleader = "\<Space>"
+let g:maplocalleader = ','
 
 " Set vimrc path
 let vimrc_path = stdpath('config') . '/init.vim'
 
-" runtime stdpath('config') . '/options.vim'
-" runtime stdpath('config') . '/plugins.vim'
-" runtime stdpath('config') . '/remaps.vim'
-
+" Source other files
 runtime options.vim
 runtime plugins.vim
 runtime remaps.vim
+
+" === LSP configuration ===
+runtime coc.vim
+runtime treesitter.vim
