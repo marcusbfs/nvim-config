@@ -1,5 +1,5 @@
 " Edit .vimrc
-execute "nnoremap <leader>ev :e " . vimrc_path . "<cr>"
+execute "nnoremap <leader>ev :edit " . vimrc_path . "<cr>"
 " Reload ~/.vimrc
 execute "nnoremap <leader>sop :source " . vimrc_path . "<cr>"
 
@@ -22,7 +22,7 @@ vnoremap > >gv
 
 " Navigation between buffers
 nnoremap <leader>bl <c-^>
-nnoremap <leader>bd :bd <cr>
+nnoremap <leader>bd :bdelete <cr>
 
 " Split panes
 nnoremap <leader>wsh :vertical split <cr>
@@ -43,10 +43,10 @@ nnoremap <leader>wrk :resize +10 <cr>
 nnoremap <leader>wrj :resize -10 <cr>
 
 " Tabs
-nnoremap <leader>tc :tabc <cr>
-nnoremap <leader>te :tabe <cr>
-nnoremap <leader>tn :tabn <cr>
-nnoremap <leader>tp :tabp <cr>
+nnoremap <leader>tc :tabclose <cr>
+nnoremap <leader>te :tabedit <cr>
+nnoremap <leader>tn :tabnext <cr>
+nnoremap <leader>tp :tabprevious <cr>
 
 
 " Copy visual to system clipboard
