@@ -9,12 +9,14 @@ set tabstop=4
 set shiftwidth=4
 set smarttab
 
+" Terminal colors
+if has('termguicolors')
+    set termguicolors
+endif
+
 " Syntax
 syntax enable
 filetype plugin indent on
-
-" Colorscheme
-" colorscheme evening
 
 " Enable mouse
 set mouse=a
@@ -39,6 +41,14 @@ au VimLeave * set guicursor=a:ver10-blinkon0
 " Text width
 "set textwidth=79
 "set colorcolumn=+1
+
+" Undo options
+let undo_dir = stdpath('config') . "/.vim-undo-dir"
+if !isdirectory(undo_dir)
+    call mkdir(undo_dir, "", 0700)
+endif
+execute "set undodir=" . undo_dir
+set undofile
 
 " Do I need this?
 set noerrorbells visualbell t_vb=

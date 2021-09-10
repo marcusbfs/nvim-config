@@ -22,7 +22,6 @@ vnoremap > >gv
 
 " Navigation between buffers
 nnoremap <leader>bl <c-^>
-nnoremap <leader>bd :bdelete <cr>
 
 " Split panes
 nnoremap <leader>wsh :vertical split <cr>

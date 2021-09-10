@@ -2,7 +2,6 @@ call plug#begin(stdpath('config') . '/plugged')
 
 " Colorschemes
 " Plug 'dracula/vim', { 'as': 'dracula' }
-Plug 'morhetz/gruvbox'
 
 " UI
 Plug 'liuchengxu/vim-which-key'
@@ -10,21 +9,29 @@ Plug 'machakann/vim-highlightedyank'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'akinsho/bufferline.nvim'
 
 " Edit
 Plug 'mg979/vim-visual-multi', {'branch': 'master'} " ctrl-n
+Plug 'scrooloose/nerdcommenter'
+
+" Depends on termcolor
+if has('termguicolors')
+    Plug 'norcalli/nvim-colorizer.lua'
+    Plug 'sainnhe/gruvbox-material'
+endif
 
 " Navigation
 Plug 'andymass/vim-matchup'
 Plug 'jiangmiao/auto-pairs'
 
-Plug 'junegunn/fzf', { 'do': { -> fzf#install()  }  }
-Plug 'junegunn/fzf.vim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim' 
 Plug 'junegunn/vim-easy-align' " ga[ENTER]
 Plug 'justinmk/vim-sneak' " s/S
 
 Plug 'preservim/nerdtree'
-Plug 'ryanoasis/vim-devicons'
+Plug 'kyazdani42/nvim-web-devicons'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 
 " Auto-completion
@@ -33,12 +40,13 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Utils
-Plug 'scrooloose/nerdcommenter'
+Plug 'famiu/bufdelete.nvim'
+Plug 'AckslD/nvim-neoclip.lua'
 
 call plug#end()
 
 " === Set colorscheme ===
-colorscheme gruvbox
+" colorscheme gruvbox
 
 " === Airline ===
 let g:airline_theme='base16'
@@ -81,11 +89,61 @@ xmap ga <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)"
 
-" === Fzf ===
-nnoremap <leader>bo :Buffers <cr>
-nnoremap <leader>fo :Files <cr>
+" === Telescope ===
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
 " === which key ===
 set timeout 
-set timeoutlen=500
+set timeoutlen=1000
 nnoremap <silent> <leader> :<c-u>WhichKey '<Space>'<CR>
+
+" === bufdelete ===
+nnoremap <leader>bd :Bdelete <cr>
+
+" === Color stuff ===
+if has('termguicolors')
+    " === colorizer ===  
+    lua require'colorizer'.setup()
+    " ===  ===  
+    set background=dark
+    let g:gruvbox_material_background = 'medium'
+    let g:gruvbox_material_palette = 'original'
+    colorscheme gruvbox-material
+endif
+
+" === Bufferline ===
+lua << EOF
+require("bufferline").setup{}
+EOF
+
+nnoremap <silent> <A-.>  ::BufferLineCycleNext<CR>
+nnoremap <silent> <A-,>  :BufferLineCyclePrev<CR>
+nnoremap <silent> <A-1> <Cmd>BufferLineGoToBuffer 1<CR>
+nnoremap <silent> <A-2> <Cmd>BufferLineGoToBuffer 2<CR>
+nnoremap <silent> <A-3> <Cmd>BufferLineGoToBuffer 3<CR>
+nnoremap <silent> <A-4> <Cmd>BufferLineGoToBuffer 4<CR>
+
+" === Dev Icons ===
+lua << EOF
+require'nvim-web-devicons'.setup {
+ -- your personnal icons can go here (to override)
+ -- DevIcon will be appended to `name`
+ override = {
+  zsh = {
+    icon = "",
+    color = "#428850",
+    name = "Zsh"
+  }
+ };
+ -- globally enable default icons (default to false)
+ -- will get overriden by `get_icons` option
+ default = true;
+}
+EOF
+
+" === neoclip ===
+lua require('neoclip').setup()
+nnoremap <silent> <leader>fy :Telescope neoclip <cr>
