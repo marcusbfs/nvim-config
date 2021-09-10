@@ -5,6 +5,7 @@ call plug#begin(stdpath('config') . '/plugged')
 Plug 'morhetz/gruvbox'
 
 " UI
+Plug 'liuchengxu/vim-which-key'
 Plug 'machakann/vim-highlightedyank'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'vim-airline/vim-airline'
@@ -19,7 +20,7 @@ Plug 'jiangmiao/auto-pairs'
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install()  }  }
 Plug 'junegunn/fzf.vim'
-Plug 'junegunn/vim-easy-align' " ga
+Plug 'junegunn/vim-easy-align' " ga[ENTER]
 Plug 'justinmk/vim-sneak' " s/S
 
 Plug 'preservim/nerdtree'
@@ -83,3 +84,8 @@ nmap ga <Plug>(EasyAlign)"
 " === Fzf ===
 nnoremap <leader>bo :Buffers <cr>
 nnoremap <leader>fo :Files <cr>
+
+" === which key ===
+set timeout 
+set timeoutlen=500
+nnoremap <silent> <leader> :<c-u>WhichKey '<Space>'<CR>
