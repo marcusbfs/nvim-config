@@ -77,6 +77,8 @@ vnoremap <leader>; :call nerdcommenter#Comment(0,"toggle")<CR>
 nnoremap <leader>nt :NERDTree<CR>
 nnoremap <leader>ntt :NERDTreeToggle<CR>
 nnoremap <leader>ntf :NERDTreeFind<CR>
+" Exit Vim if NERDTree is the only window remaining in the only tab.
+autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif"
 " Some hotkeys in NERDTree buffer:
 " o: open/unfold
 " m: menu
