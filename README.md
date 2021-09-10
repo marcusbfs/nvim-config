@@ -1,14 +1,14 @@
 ### Windows
 
 ```cmd
-git clone git@github.com:marcusbfs/nvim-config.git %LOCALAPPDATA%\nvim && nvim -c PlugInstall
+git clone https://github.com/marcusbfs/nvim-config.git %LOCALAPPDATA%\nvim && nvim -c PlugInstall
 ```
 
 
 ### Unix
 
 ```bash
-mkdir -p ~/.config && git clone git@github.com:marcusbfs/nvim-config.git ~/.config/nvim && nvim -c PlugInstall
+mkdir -p ~/.config && git clone https://github.com/marcusbfs/nvim-config.git ~/.config/nvim && nvim -c PlugInstall
 ```
 
 #### Requirements
