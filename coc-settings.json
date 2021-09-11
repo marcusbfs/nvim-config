@@ -1,5 +1,0 @@
-{
-    "coc.preferences.formatOnSaveFiletypes": [ "rust", "python"],
-    "python.formatting.provider" : "black",
-    "python.venvPath" : "venv"
-}
