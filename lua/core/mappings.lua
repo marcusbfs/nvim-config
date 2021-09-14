@@ -160,7 +160,8 @@ end
 -- Tree plugin
 M.tree = function()
 	map('n', '<leader>nt', ':CHADopen<CR>', {noremap = true, silent = true})
-    -- require("chadtree").chadtree_settings.keymap.primary = ["o"] 
+    -- quit chadtree if its the last and only buffer
+    vim.fn.execute("autocmd BufEnter * if winnr('$') == 1 && &ft=='CHADtree' | quit | endif")
 end
 
 -- Bufferline
