@@ -1,3 +1,4 @@
 plugged/
 .vim-undo-dir/
 plugin/
+lua-language-server/

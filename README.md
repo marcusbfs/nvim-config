@@ -1,22 +1,17 @@
 ### Windows
 
 ```cmd
-git clone https://github.com/marcusbfs/nvim-config.git %LOCALAPPDATA%\nvim && nvim -c PlugInstall
+git clone https://github.com/marcusbfs/nvim-config.git %LOCALAPPDATA%\nvim && nvim -c PackerSync
 ```
-
 
 ### Unix
 
 ```bash
-mkdir -p ~/.config && git clone https://github.com/marcusbfs/nvim-config.git ~/.config/nvim && nvim -c PlugInstall
+mkdir -p ~/.config && git clone https://github.com/marcusbfs/nvim-config.git ~/.config/nvim && nvim -c PackerSync
 ```
 
 #### Requirements
 
-- nodejs >= 12.12 (for coc.nvim):
-
-```bash
-curl -sL install-node.now.sh/lts | bash
-```
-
+- nvim 0.5.0
 - C++ compiler (for treesitter)
+- language servers

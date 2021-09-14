@@ -1,0 +1,232 @@
+local cmd = vim.cmd
+local map = vim.api.nvim_set_keymap
+
+--Remap space as leader key
+vim.api.nvim_set_keymap('', '<Space>', '<Nop>', { noremap = true, silent = true })
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
+
+local M = {}
+
+-- these mappings will only be called during initialization
+M.misc = function()
+   local function non_config_mappings()
+      -- temp
+      map("n", "<leader>ec", ":edit d:\\Desktop\\chadnv <CR>", { noremap = true, silent = true })
+
+      -- use ESC to turn off search highlighting
+      map("n", "<Esc>", ":noh <CR>", { noremap = true, silent = true })
+	  
+	  --Remap for dealing with word wrap
+	  map('n', 'k', "v:count == 0 ? 'gk' : 'k'", { noremap = true, expr = true, silent = true })
+	  map('n', 'j', "v:count == 0 ? 'gj' : 'j'", { noremap = true, expr = true, silent = true })
+
+	  -- Edit .vimrc
+	  vim.fn.execute("nnoremap <silent> <leader>ev :edit " .. vimrc_path .. " <cr>")
+
+	  -- Reload ~/.vimrc
+	  vim.fn.execute("nnoremap <leader>sop :source " .. vimrc_path .. "<cr>")
+
+	  -- Save current buffer
+	  map('n', '<leader>w', ':w<CR>', { noremap = true, silent = true})
+
+	  -- Quit
+	  map('n', '<leader>q', ':q<CR>', { noremap = true, silent = true})
+
+	  -- can i stop using escape
+	  map('i', 'jk', '<ESC>', { noremap = true, silent = true})
+	  map('i', 'kj', '<ESC>', { noremap = true, silent = true})
+	  map('i', 'jj', '<ESC>', { noremap = true, silent = true})
+
+	  -- Yank entire line
+	  map('n', 'Y', 'y$', {noremap = true, silent = true})
+
+	  -- Reselect when using ">" or "<" in vmode
+	  map('v', '<', '<gv', {noremap = true, silent = true})
+	  map('v', '>', '>gv', {noremap = true, silent = true})
+
+	  -- Navigation between buffers
+	  map('n', '<leader>bl', '<c-^>', {noremap = true, silent = true})
+
+	  -- Split panes
+	  map('n', '<leader>wsh', ':vertical split <cr>', {noremap = true, silent = true})
+	  map('n', '<leader>wsv', ':split <cr>', {noremap = true, silent = true})
+
+	  -- Navigation between panes
+	  map('n', 'H', '<c-w>h', {noremap = true, silent = true})
+	  map('n', 'L', '<c-w>l', {noremap = true, silent = true})
+	  map('n', 'J', '<c-w>j', {noremap = true, silent = true})
+	  map('n', 'K', '<c-w>k', {noremap = true, silent = true})
+	  map('n', '<c-H>', '<c-w>h', {noremap = true, silent = true})
+	  map('n', '<c-L>', '<c-w>l', {noremap = true, silent = true})
+	  map('n', '<c-J>', '<c-w>j', {noremap = true, silent = true})
+	  map('n', '<c-K>', '<c-w>k', {noremap = true, silent = true})
+
+	  -- Resize panes
+	  map('n', '<leader>wrl', ':vertical resize +10 <cr>', {noremap = true, silent = true})
+	  map('n', '<leader>wrh', ':vertical resize -10 <cr>', {noremap = true, silent = true})
+	  map('n', '<leader>wrk', ':resize +10 <cr>', {noremap = true, silent = true})
+	  map('n', '<leader>wrj', ':resize -10 <cr>', {noremap = true, silent = true})
+
+	  -- Tabs
+	  map('n', '<leader>tc', ':tabclose <cr>', {noremap = true, silent = true})
+	  map('n', '<leader>te', ':tabedit <cr>', {noremap = true, silent = true})
+	  map('n', '<leader>tn', ':tabnext <cr>', {noremap = true, silent = true})
+	  map('n', '<leader>tp', ':tabprevious <cr>', {noremap = true, silent = true})
+
+	  -- Copy visual to system clipboard
+	  map('v', '<c-c>', '"+y', {noremap = true, silent = true})
+
+	  --Remap for dealing with word wrap
+	  map('n', 'k', "v:count == 0 ? 'gk' : 'k'", { noremap = true, expr = true, silent = true })
+	  map('n', 'j', "v:count == 0 ? 'gj' : 'j'", { noremap = true, expr = true, silent = true })
+
+	  -- Packer
+	  map('n', '<leader>ps', ":PackerSync<cr>", { noremap = true, silent = true })
+   end
+
+   local function optional_mappings()
+      -- don't yank text on cut ( x )
+      if not config.options.copy_cut then
+         map({ "n", "v" }, "x", '"_x')
+      end
+
+      -- don't yank text on delete ( dd )
+      if not config.options.copy_del then
+         map({ "n", "v" }, "dd", '"_dd')
+      end
+
+      -- navigation within insert mode
+      if config.options.insert_nav then
+         local inav = maps.insert_nav
+
+         map("i", inav.backward, "<Left>")
+         map("i", inav.end_of_line, "<End>")
+         map("i", inav.forward, "<Right>")
+         map("i", inav.next_line, "<Up>")
+         map("i", inav.prev_line, "<Down>")
+         map("i", inav.top_of_line, "<ESC>^i")
+      end
+   end
+
+   local function commands()
+      -- Add Packer commands because we are not loading it at startup
+      cmd "silent! command PackerClean lua require 'plugins' require('packer').clean()"
+      cmd "silent! command PackerCompile lua require 'plugins' require('packer').compile()"
+      cmd "silent! command PackerInstall lua require 'plugins' require('packer').install()"
+      cmd "silent! command PackerStatus lua require 'plugins' require('packer').status()"
+      cmd "silent! command PackerSync lua require 'plugins' require('packer').sync()"
+      cmd "silent! command PackerUpdate lua require 'plugins' require('packer').update()"
+
+   end
+
+   non_config_mappings()
+   commands()
+   -- require("core.mappings").on_attach()
+end
+
+-- below are all plugin related mappings
+
+M.telescope = function()
+   map('n', '<leader>ff', ':Telescope find_files<cr>', {noremap = true, silent = true})
+   map('n', '<leader>fg', ':Telescope live_grep<cr>', {noremap = true, silent = true})
+   map('n', '<leader>fb', ':Telescope buffers<cr>', {noremap = true, silent = true})
+   map('n', '<leader>fh', ':Telescope help_tags<cr>', {noremap = true, silent = true})
+end
+
+-- nvim-comment
+M.comment = function()
+	map('n', '<leader>;', ":CommentToggle <cr>", { noremap = true, silent = true })
+	map('v', '<leader>;', ":CommentToggle <cr>", { noremap = true, silent = true })
+end
+
+-- Easy Align
+M.easy_align = function()
+	-- Start interactive EasyAlign in visual mode (e.g. vipga)
+	map('x', 'ga', '<Plug>(EasyAlign)', {silent = true})
+	-- Start interactive EasyAlign for a motion/text object (e.g. gaip)
+	map('n', 'ga', '<Plug>(EasyAlign)"', {silent = true})
+end
+
+-- bufdelete
+M.bufdelete = function()
+	map('n', '<leader>bd', ':Bdelete <cr>', {noremap = true, silent = true})
+end
+
+-- neoclip
+M.neoclip = function()
+	map('n', '<leader>fy', ':Telescope neoclip unnamed <cr>', {noremap = true, silent = true})
+end
+
+-- Nerdtree
+M.nerdtree = function()
+	map('n', '<leader>nt', ':NERDTree<CR>', {noremap = true, silent = true})
+	map('n', '<leader>ntt', ':NERDTreeToggle<CR>', {noremap = true, silent = true})
+	map('n', '<leader>ntf', ':NERDTreeFind<CR>', {noremap = true, silent = true})
+	-- Exit Vim if NERDTree is the only window remaining in the only tab.
+	vim.fn.execute("autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif")
+	-- Some hotkeys in NERDTree buffer:
+	-- o: open/unfold
+	-- m: open menu
+	-- s: open in vertical split
+	-- i: open in horizontal split
+end
+
+-- Bufferline
+M.bufferline = function()
+	map('n', '<A-.>', ':BufferLineCycleNext<CR>', {noremap = true, silent = true})
+	map('n', '<A-,>', ':BufferLineCyclePrev<CR>', {noremap = true, silent = true})
+	map('n', '<A-1>', '<Cmd>BufferLineGoToBuffer 1<CR>', {noremap = true, silent = true})
+	map('n', '<A-2>', '<Cmd>BufferLineGoToBuffer 2<CR>', {noremap = true, silent = true})
+	map('n', '<A-3>', '<Cmd>BufferLineGoToBuffer 3<CR>', {noremap = true, silent = true})
+	map('n', '<A-4>', '<Cmd>BufferLineGoToBuffer 4<CR>', {noremap = true, silent = true})
+end
+
+-- Zen mode
+M.truezen = function()
+   map("n",  "<leader>za", ":TZAtaraxis <CR>", {noremap = true, silent = true})
+   map("n", "<leader>zf", ":TZFocus <CR>", {noremap = true, silent = true})
+   map("n", "<leader>zm", ":TZMinimalist <CR>",{noremap = true, silent = true})
+end
+
+
+-- Lsp on_attach keybindings
+M.on_attach = function (_, bufnr)
+-- M.on_attach = function ()
+   local function buf_set_keymap(...)
+      vim.api.nvim_buf_set_keymap(bufnr, ...)
+   end
+   local function buf_set_option(...)
+      vim.api.nvim_buf_set_option(bufnr, ...)
+   end
+
+   -- Enable completion triggered by <c-x><c-o>
+   buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
+
+   -- Mappings.
+   local opts = { noremap = true, silent = true }
+   -- local buf_set_keymap = map
+
+   -- See `:help vim.lsp.*` for documentation on any of the below functions
+   buf_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
+   buf_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
+   buf_set_keymap("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
+   buf_set_keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
+   buf_set_keymap("n", "gk", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
+   buf_set_keymap("n", "<space>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", opts)
+   buf_set_keymap("n", "<space>wr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", opts)
+   buf_set_keymap("n", "<space>wl", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", opts)
+   buf_set_keymap("n", "<space>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
+   buf_set_keymap("n", "<space>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
+   buf_set_keymap("n", "<space>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
+   buf_set_keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
+   buf_set_keymap("n", "<space>e", "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>", opts)
+   buf_set_keymap("n", "[d", "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>", opts)
+   buf_set_keymap("n", "]d", "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>", opts)
+   -- buf_set_keymap("n", "<space>q", "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>", opts)
+   buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+   buf_set_keymap("v", "<space>ca", "<cmd>lua vim.lsp.buf.range_code_action()<CR>", opts)
+end
+
+return M
+

@@ -15,6 +15,9 @@ vim.o.smarttab = true
 -- Enable mouse
 vim.o.mouse = "a"
 
+-- Do not save when switching buffers (note: this is now a default on master)
+vim.o.hidden = true
+
 -- Wrap test visually only - does not affects the buffer
 vim.o.wrap = true
 
@@ -64,3 +67,29 @@ vim.o.background = "dark"
 vim.api.nvim_set_var("gruvbox_material_background", 'medium')
 vim.api.nvim_set_var("gruvbox_material_palette", 'original')
 vim.fn.execute("colorscheme gruvbox-material")
+
+-- disable some builtin vim plugins
+local disabled_built_ins = {
+   "2html_plugin",
+   "getscript",
+   "getscriptPlugin",
+   "gzip",
+   "logipat",
+   "netrw",
+   "netrwPlugin",
+   "netrwSettings",
+   "netrwFileHandlers",
+   "matchit",
+   "tar",
+   "tarPlugin",
+   "rrhelper",
+   "spellfile_plugin",
+   "vimball",
+   "vimballPlugin",
+   "zip",
+   "zipPlugin",
+}
+
+for _, plugin in pairs(disabled_built_ins) do
+	vim.g["loaded_" .. plugin] = 1
+end
