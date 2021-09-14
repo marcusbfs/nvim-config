@@ -13,14 +13,14 @@ local servers = {
 }
 
 for _, lsp in ipairs(servers) do
-   nvim_lsp[lsp].setup {
+   nvim_lsp[lsp].setup({
       on_attach = on_attach,
       capabilities = capabilities,
       -- root_dir = vim.loop.cwd{},
       flags = {
          debounce_text_changes = 150,
       },
-   }
+   })
 end
 
 -- replace the default lsp diagnostic symbols

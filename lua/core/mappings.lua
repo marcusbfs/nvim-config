@@ -122,7 +122,6 @@ M.misc = function()
 
    non_config_mappings()
    commands()
-   -- require("core.mappings").on_attach()
 end
 
 -- below are all plugin related mappings
@@ -158,18 +157,10 @@ M.neoclip = function()
 	map('n', '<leader>fy', ':Telescope neoclip unnamed <cr>', {noremap = true, silent = true})
 end
 
--- Nerdtree
-M.nerdtree = function()
-	map('n', '<leader>nt', ':NERDTree<CR>', {noremap = true, silent = true})
-	map('n', '<leader>ntt', ':NERDTreeToggle<CR>', {noremap = true, silent = true})
-	map('n', '<leader>ntf', ':NERDTreeFind<CR>', {noremap = true, silent = true})
-	-- Exit Vim if NERDTree is the only window remaining in the only tab.
-	vim.fn.execute("autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif")
-	-- Some hotkeys in NERDTree buffer:
-	-- o: open/unfold
-	-- m: open menu
-	-- s: open in vertical split
-	-- i: open in horizontal split
+-- Tree plugin
+M.tree = function()
+	map('n', '<leader>nt', ':CHADopen<CR>', {noremap = true, silent = true})
+    -- require("chadtree").chadtree_settings.keymap.primary = ["o"] 
 end
 
 -- Bufferline

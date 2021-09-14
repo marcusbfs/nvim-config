@@ -122,8 +122,7 @@ return packer.startup(function()
         end,
     }
 
-      -- load luasnips + cmp related in insert mode only
-
+    -- load luasnips + cmp related in insert mode only
     use {
         "rafamadriz/friendly-snippets",
         event = "InsertEnter",
@@ -247,14 +246,13 @@ return packer.startup(function()
     use 'justinmk/vim-sneak'
 
     use {
-        'preservim/nerdtree',
+        'ms-jpq/chadtree',
+        branch = "chad",
         cmd={
-            "NERDTree",
-            "NERDTreeToggle",
-            "NERDTreeFind"
+            "CHADopen",
         },
         setup = function()
-            require("core.mappings").nerdtree()
+            require("core.mappings").tree()
         end
     }
 
