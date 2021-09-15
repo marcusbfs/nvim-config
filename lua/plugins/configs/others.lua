@@ -154,4 +154,12 @@ M.formatter = function()
     end
 end
 
+M.neogit = function()
+    local present, neogit = pcall(require, "neogit")
+    if not present then
+        return
+    end
+    neogit.setup {}
+end
+
 return M

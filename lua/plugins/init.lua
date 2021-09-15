@@ -19,6 +19,10 @@ return packer.startup(
         }
 
         use {
+            "nvim-lua/popup.nvim"
+        }
+
+        use {
             "kyazdani42/nvim-web-devicons",
             after = "packer.nvim",
             config = function()
@@ -88,16 +92,20 @@ return packer.startup(
         }
 
         use {
-            "folke/which-key.nvim",
+            "TimUntersberger/neogit",
+            cmd = "Neogit",
+            setup = function()
+                require("core.mappings").neogit()
+            end,
             config = function()
-                require("which-key").setup()
+                require("plugins.configs.others").neogit()
             end
         }
 
         -- lsp stuff
         use {
             "neovim/nvim-lspconfig",
-            opt = true,
+            ft = {"rs", "py", "lua", "h", "cpp"},
             setup = function()
                 require("core.utils").packer_lazy_load "nvim-lspconfig"
                 -- reload the current file so lsp actually starts for it
@@ -205,7 +213,7 @@ return packer.startup(
 
         use {
             "nvim-telescope/telescope.nvim",
-            cmd = "Telescope",
+            -- cmd = "Telescope",
             config = function()
                 require "plugins.configs.telescope"
             end,
@@ -276,6 +284,13 @@ return packer.startup(
         }
 
         -- Utils
+        use {
+            "folke/which-key.nvim",
+            config = function()
+                require("which-key").setup()
+            end
+        }
+
         use {
             "famiu/bufdelete.nvim",
             cmd = "Bdelete",

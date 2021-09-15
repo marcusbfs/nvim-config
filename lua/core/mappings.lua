@@ -232,4 +232,8 @@ M.formatter = function()
     common_map("n", "<leader>fc", ":Format<cr>")
 end
 
+-- neogit
+M.neogit = function()
+    common_map("n", "<leader>gg", ":Neogit<cr>")
+end
 return M
