@@ -76,5 +76,5 @@ vim.notify = function(msg, log_level, _opts)
     end
 end
 
--- invoke sumneko
-require "plugins.configs.sumneko"
+-- invoke sumneko - this is too heavy!
+-- require "plugins.configs.sumneko"

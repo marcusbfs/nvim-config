@@ -15,9 +15,6 @@ local M = {}
 -- these mappings will only be called during initialization
 M.misc = function()
     local function non_config_mappings()
-        -- temp
-        map("n", "<leader>ec", ":edit d:\\Desktop\\chadnv <CR>", {noremap = true, silent = true})
-
         -- use ESC to turn off search highlighting
         map("n", "<Esc>", ":noh <CR>", {noremap = true, silent = true})
 
