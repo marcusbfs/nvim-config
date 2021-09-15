@@ -139,7 +139,7 @@ end
 
 -- neoclip
 M.neoclip = function()
-    common_map("n", "<leader>fy", "<cmd>lua require('telescope').extensions.neoclip.unnamed()")
+    common_map("n", "<leader>fy", "<cmd>lua require('telescope').extensions.neoclip.unnamed()<cr>")
 end
 
 -- nvim-comment
