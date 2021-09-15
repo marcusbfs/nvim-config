@@ -1,8 +1,6 @@
 local present, bufferline = pcall(require, "bufferline")
 if not present then
-   return
+    return
 end
 
-
-bufferline.setup {
-}
+bufferline.setup {}

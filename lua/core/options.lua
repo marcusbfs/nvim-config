@@ -34,7 +34,7 @@ vim.o.incsearch = true
 vim.o.autoread = true
 
 -- Cursors
-vim.o.guicursor="n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20"
+vim.o.guicursor = "n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20"
 
 -- ... and reset cursor after exiting
 vim.fn.execute("au VimLeave * set guicursor=a:ver10-blinkon0")
@@ -45,7 +45,7 @@ vim.fn.execute("au VimLeave * set guicursor=a:ver10-blinkon0")
 
 -- Undo options
 if (not vim.fn.isdirectory(undo_dir)) then
-    vim.fn.execute("call mkdir(undo_dir, \"\", 0700)")
+    vim.fn.execute('call mkdir(undo_dir, "", 0700)')
 end
 vim.fn.execute("set undodir=" .. undo_dir)
 vim.opt.undofile = true
@@ -56,43 +56,43 @@ vim.fn.execute("autocmd GUIEnter * set visualbell t_vb=")
 
 --Decrease update time
 vim.o.updatetime = 250
-vim.wo.signcolumn = 'yes'
+vim.wo.signcolumn = "yes"
 
 --Case insensitive searching UNLESS /C or capital in search
 vim.o.ignorecase = true
 vim.o.smartcase = true
 
 -- Plugins settings
-vim.api.nvim_set_var("sneak#label", '1')
+vim.api.nvim_set_var("sneak#label", "1")
 
 -- Colorscheme
 vim.o.background = "dark"
-vim.api.nvim_set_var("gruvbox_material_background", 'medium')
-vim.api.nvim_set_var("gruvbox_material_palette", 'original')
+vim.api.nvim_set_var("gruvbox_material_background", "medium")
+vim.api.nvim_set_var("gruvbox_material_palette", "original")
 vim.fn.execute("colorscheme gruvbox-material")
 
 -- disable some builtin vim plugins
 local disabled_built_ins = {
-   "2html_plugin",
-   "getscript",
-   "getscriptPlugin",
-   "gzip",
-   "logipat",
-   "netrw",
-   "netrwPlugin",
-   "netrwSettings",
-   "netrwFileHandlers",
-   "matchit",
-   "tar",
-   "tarPlugin",
-   "rrhelper",
-   "spellfile_plugin",
-   "vimball",
-   "vimballPlugin",
-   "zip",
-   "zipPlugin",
+    "2html_plugin",
+    "getscript",
+    "getscriptPlugin",
+    "gzip",
+    "logipat",
+    "netrw",
+    "netrwPlugin",
+    "netrwSettings",
+    "netrwFileHandlers",
+    "matchit",
+    "tar",
+    "tarPlugin",
+    "rrhelper",
+    "spellfile_plugin",
+    "vimball",
+    "vimballPlugin",
+    "zip",
+    "zipPlugin"
 }
 
 for _, plugin in pairs(disabled_built_ins) do
-	vim.g["loaded_" .. plugin] = 1
+    vim.g["loaded_" .. plugin] = 1
 end

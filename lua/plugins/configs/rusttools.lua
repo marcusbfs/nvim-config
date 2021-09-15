@@ -2,11 +2,12 @@ local on_attach = require("core.mappings").on_attach
 local capabilities = require("plugins.configs.lsp_capabilities").capabilities
 
 opts = {
-    tools = { -- rust-tools options
+    tools = {
+        -- rust-tools options
         -- Automatically set inlay hints (type hints)
         autoSetHints = true,
         -- Whether to show hover actions inside the hover window
-        -- This overrides the default hover handler 
+        -- This overrides the default hover handler
         hover_with_actions = true,
         runnables = {
             -- whether to use telescope for selection menu or not
@@ -43,16 +44,20 @@ opts = {
             -- padding from the right if right_align is true
             right_align_padding = 7,
             -- The color of the hints
-            highlight = "Comment",
+            highlight = "Comment"
         },
         hover_actions = {
             -- the border that is used for the hover window
             -- see vim.api.nvim_open_win()
             border = {
-                {"╭", "FloatBorder"}, {"─", "FloatBorder"},
-                {"╮", "FloatBorder"}, {"│", "FloatBorder"},
-                {"╯", "FloatBorder"}, {"─", "FloatBorder"},
-                {"╰", "FloatBorder"}, {"│", "FloatBorder"}
+                {"╭", "FloatBorder"},
+                {"─", "FloatBorder"},
+                {"╮", "FloatBorder"},
+                {"│", "FloatBorder"},
+                {"╯", "FloatBorder"},
+                {"─", "FloatBorder"},
+                {"╰", "FloatBorder"},
+                {"│", "FloatBorder"}
             },
             -- whether the hover action window gets automatically focused
             auto_focus = false
@@ -71,19 +76,19 @@ opts = {
             -- true for all crates.io and external crates, false only the local
             -- crates
             -- default: true
-            full = true,
+            full = true
         }
     },
     -- all the opts to send to nvim-lspconfig
     -- these override the defaults set by rust-tools.nvim
     -- see https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md#rust_analyzer
     server = {
-        on_attach=on_attach,
-        capabilities=capabilities,
+        on_attach = on_attach,
+        capabilities = capabilities
     } -- rust-analyer options
 
     -- on_attach=on_attach,
     -- capabilities=capabilities,
 }
 
-require('rust-tools').setup(opts)
+require("rust-tools").setup(opts)

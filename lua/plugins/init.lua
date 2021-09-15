@@ -1,270 +1,295 @@
 local present, packer = pcall(require, "plugins.packerInit")
 
 if not present then
-   return false
+    return false
 end
 
 local use = packer.use
 
-return packer.startup(function()
-    -- Packer can manage itself
-    use {
-        "wbthomason/packer.nvim",
-        event = "VimEnter",
-    }
+return packer.startup(
+    function()
+        -- Packer can manage itself
+        use {
+            "wbthomason/packer.nvim",
+            event = "VimEnter"
+        }
 
-    use {
-        "nvim-lua/plenary.nvim",
-    }
+        use {
+            "nvim-lua/plenary.nvim"
+        }
 
-    use {
-        "kyazdani42/nvim-web-devicons",
-        after = "packer.nvim",
-        config = function()
-            require "plugins.configs.icons"
-        end,
-    }
+        use {
+            "kyazdani42/nvim-web-devicons",
+            after = "packer.nvim",
+            config = function()
+                require "plugins.configs.icons"
+            end
+        }
 
-    use {
-        "famiu/feline.nvim",
-        after = "nvim-web-devicons",
-        config = function()
-            require "plugins.configs.statusline"
-        end,
-    }
+        use {
+            "famiu/feline.nvim",
+            after = "nvim-web-devicons",
+            config = function()
+                require "plugins.configs.statusline"
+            end
+        }
 
-    use {
-        "akinsho/bufferline.nvim",
-        after = "nvim-web-devicons",
-        config = function()
-            require "plugins.configs.bufferline"
-        end,
-        setup = function()
-            require("core.mappings").bufferline()
-        end,
-    }
+        use {
+            "akinsho/bufferline.nvim",
+            after = "nvim-web-devicons",
+            config = function()
+                require "plugins.configs.bufferline"
+            end,
+            setup = function()
+                require("core.mappings").bufferline()
+            end
+        }
 
-    use {
-        "lukas-reineke/indent-blankline.nvim",
-        event = "BufRead",
-        config = function()
-            require("plugins.configs.others").blankline()
-        end,
-    }
+        use {
+            "lukas-reineke/indent-blankline.nvim",
+            event = "BufRead",
+            config = function()
+                require("plugins.configs.others").blankline()
+            end
+        }
 
-    use {
-        "norcalli/nvim-colorizer.lua",
-        event = "BufRead",
-        config = function()
-            require("plugins.configs.others").colorizer()
-        end,
-    }
+        use {
+            "norcalli/nvim-colorizer.lua",
+            event = "BufRead",
+            config = function()
+                require("plugins.configs.others").colorizer()
+            end
+        }
 
-    use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate',
-        event = "BufRead",
-        config = function()
-            require "plugins.configs.treesitter"
-        end
-    }
+        use {
+            "nvim-treesitter/nvim-treesitter",
+            run = ":TSUpdate",
+            event = "BufRead",
+            config = function()
+                require "plugins.configs.treesitter"
+            end
+        }
 
-    -- git stuff
-    use {
-        "lewis6991/gitsigns.nvim",
-        opt = true,
-        config = function()
-            require "plugins.configs.gitsigns"
-        end,
-        setup = function()
-            require("core.utils").packer_lazy_load "gitsigns.nvim"
-        end,
-    }
+        -- git stuff
+        use {
+            "lewis6991/gitsigns.nvim",
+            opt = true,
+            config = function()
+                require "plugins.configs.gitsigns"
+            end,
+            setup = function()
+                require("core.utils").packer_lazy_load "gitsigns.nvim"
+            end
+        }
 
-    use {
-        'machakann/vim-highlightedyank',
-        event='TextYankPost'
-    }
+        use {
+            "machakann/vim-highlightedyank",
+            event = "TextYankPost"
+        }
 
-    use {'folke/which-key.nvim', 
-        config = function()
-            require("which-key").setup()
-        end
-    }
+        use {
+            "folke/which-key.nvim",
+            config = function()
+                require("which-key").setup()
+            end
+        }
 
-   -- lsp stuff
-    use {
-        "neovim/nvim-lspconfig",
-        opt = true,
-        setup = function()
-            require("core.utils").packer_lazy_load "nvim-lspconfig"
-            -- reload the current file so lsp actually starts for it
-            vim.defer_fn(function()
-                vim.cmd "silent! e %"
-            end, 0)
-        end,
-        config = function()
-            require "plugins.configs.lspconfig"
-        end,
-    }
+        -- lsp stuff
+        use {
+            "neovim/nvim-lspconfig",
+            opt = true,
+            setup = function()
+                require("core.utils").packer_lazy_load "nvim-lspconfig"
+                -- reload the current file so lsp actually starts for it
+                vim.defer_fn(
+                    function()
+                        vim.cmd "silent! e %"
+                    end,
+                    0
+                )
+            end,
+            config = function()
+                require "plugins.configs.lspconfig"
+            end
+        }
 
-    use {
-        "ray-x/lsp_signature.nvim",
-        after = "nvim-lspconfig",
-        config = function()
-            require("plugins.configs.others").signature()
-        end,
-    }
+        use {
+            "ray-x/lsp_signature.nvim",
+            after = "nvim-lspconfig",
+            config = function()
+                require("plugins.configs.others").signature()
+            end
+        }
 
-    use {
-        "andymass/vim-matchup",
-        opt = true,
-        setup = function()
-            require("core.utils").packer_lazy_load "vim-matchup"
-        end,
-    }
+        use {
+            "andymass/vim-matchup",
+            opt = true,
+            setup = function()
+                require("core.utils").packer_lazy_load "vim-matchup"
+            end
+        }
 
-    -- load luasnips + cmp related in insert mode only
-    use {
-        "rafamadriz/friendly-snippets",
-        event = "InsertEnter",
-    }
+        -- load luasnips + cmp related in insert mode only
+        use {
+            "rafamadriz/friendly-snippets",
+            event = "InsertEnter"
+        }
 
-    use {
-        "hrsh7th/nvim-cmp",
-        after = "friendly-snippets",
-        config = function()
-            require "plugins.configs.cmp"
-        end,
-    }
+        use {
+            "hrsh7th/nvim-cmp",
+            after = "friendly-snippets",
+            config = function()
+                require "plugins.configs.cmp"
+            end
+        }
 
-    use {
-        "L3MON4D3/LuaSnip",
-        wants = "friendly-snippets",
-        after = "nvim-cmp",
-        config = function()
-            require("plugins.configs.others").luasnip()
-        end,
-    }
+        use {
+            "L3MON4D3/LuaSnip",
+            wants = "friendly-snippets",
+            after = "nvim-cmp",
+            config = function()
+                require("plugins.configs.others").luasnip()
+            end
+        }
 
-    use {
-        "saadparwaiz1/cmp_luasnip",
-        after = "LuaSnip",
-    }
+        use {
+            "saadparwaiz1/cmp_luasnip",
+            after = "LuaSnip"
+        }
 
-    use {
-        "hrsh7th/cmp-nvim-lua",
-        after = "cmp_luasnip",
-    }
+        use {
+            "hrsh7th/cmp-nvim-lua",
+            after = "cmp_luasnip"
+        }
 
-    use {
-        "hrsh7th/cmp-nvim-lsp",
-        after = "cmp-nvim-lua",
-    }
+        use {
+            "hrsh7th/cmp-nvim-lsp",
+            after = "cmp-nvim-lua"
+        }
 
-    use {
-        "hrsh7th/cmp-buffer",
-        after = "cmp-nvim-lsp",
-    }
+        use {
+            "hrsh7th/cmp-buffer",
+            after = "cmp-nvim-lsp"
+        }
 
-   -- lang specific
-    use {
-        "simrat39/rust-tools.nvim",
-        after = "nvim-lspconfig",
-        config = function()
-            require "plugins.configs.rusttools"
-        end,
-    }
+        -- lang specific
+        use {
+            "simrat39/rust-tools.nvim",
+            after = "nvim-lspconfig",
+            config = function()
+                require "plugins.configs.rusttools"
+            end
+        }
 
-    -- misc plugins
-    use {
-        "windwp/nvim-autopairs",
-        after = "nvim-cmp",
-        config = function()
-            require("plugins.configs.others").autopairs()
-        end,
-    }
+        -- misc plugins
+        use {
+            "windwp/nvim-autopairs",
+            after = "nvim-cmp",
+            config = function()
+                require("plugins.configs.others").autopairs()
+            end
+        }
 
-    use {'mg979/vim-visual-multi'}
+        use {"mg979/vim-visual-multi"}
 
-    use {
-        "terrortylor/nvim-comment",
-        cmd = "CommentToggle",
-        config = function()
-            require("plugins.configs.others").comment()
-        end,
-        setup = function()
-            require("core.mappings").comment()
-        end,
-    }
+        use {
+            "terrortylor/nvim-comment",
+            cmd = "CommentToggle",
+            config = function()
+                require("plugins.configs.others").comment()
+            end,
+            setup = function()
+                require("core.mappings").comment()
+            end
+        }
 
-    use {
-        "nvim-telescope/telescope.nvim",
-        cmd = "Telescope",
-        config = function()
-            require "plugins.configs.telescope"
-        end,
-        setup = function()
-            require("core.mappings").telescope()
-        end,
-    }
+        use {
+            "nvim-telescope/telescope.nvim",
+            cmd = "Telescope",
+            config = function()
+                require "plugins.configs.telescope"
+            end,
+            setup = function()
+                require("core.mappings").telescope()
+            end
+        }
 
-    use {'AckslD/nvim-neoclip.lua',
-        cmd = "Telescope",
-        event='TextYankPost',
-        after = 'telescope.nvim',
-        config = function()
-            require('neoclip').setup()
-        end,
-        setup = function()
-            require("core.mappings").neoclip()
-        end,
-    }
+        use {
+            "AckslD/nvim-neoclip.lua",
+            cmd = "Telescope",
+            event = "TextYankPost",
+            after = "telescope.nvim",
+            config = function()
+                require("neoclip").setup()
+            end,
+            setup = function()
+                require("core.mappings").neoclip()
+            end
+        }
 
-    use {
-        "Pocco81/TrueZen.nvim",
-        cmd = {
-            "TZAtaraxis",
-            "TZMinimalist",
-            "TZFocus",
-        },
-        config = function()
-            require "plugins.configs.zenmode"
-        end,
-        setup = function()
-            require("core.mappings").truezen()
-        end,
-    }
+        use {
+            "Pocco81/TrueZen.nvim",
+            cmd = {
+                "TZAtaraxis",
+                "TZMinimalist",
+                "TZFocus"
+            },
+            config = function()
+                require "plugins.configs.zenmode"
+            end,
+            setup = function()
+                require("core.mappings").truezen()
+            end
+        }
 
-    use 'sainnhe/gruvbox-material'
+        use "sainnhe/gruvbox-material"
 
-    use {
-        'junegunn/vim-easy-align',
-        setup = function()
-            require("core.mappings").easy_align()
-        end,
-    }
+        use {
+            "junegunn/vim-easy-align",
+            setup = function()
+                require("core.mappings").easy_align()
+            end
+        }
 
-    use 'justinmk/vim-sneak'
+        use "justinmk/vim-sneak"
 
-    use {
-        'ms-jpq/chadtree',
-        branch = "chad",
-        cmd={
-            "CHADopen",
-        },
-        setup = function()
-            require("core.mappings").tree()
-        end
-    }
+        use {
+            "ms-jpq/chadtree",
+            branch = "chad",
+            cmd = {
+                "CHADopen"
+            },
+            setup = function()
+                require("core.mappings").tree()
+            end
+        }
 
-    use 'Xuyuanp/nerdtree-git-plugin'
+        use {
+            "mhartington/formatter.nvim",
+            cmd = "Format",
+            config = function()
+                require("plugins.configs.others").formatter()
+            end,
+            setup = function()
+                require("core.mappings").formatter()
+            end
+        }
 
-    -- Utils
-    use {
-        'famiu/bufdelete.nvim',
-        cmd='Bdelete',
-        setup = function()
-            require("core.mappings").bufdelete()
-        end
-    }
+        -- Utils
+        use {
+            "famiu/bufdelete.nvim",
+            cmd = "Bdelete",
+            setup = function()
+                require("core.mappings").bufdelete()
+            end
+        }
 
-end)
+        use {
+            "numtostr/BufOnly.nvim",
+            cmd = "BufOnly",
+            setup = function()
+                require("core.mappings").bufonly()
+            end
+        }
+    end
+)
