@@ -129,11 +129,17 @@ end
 
 -- below are all plugin related mappings
 
+-- telescope
 M.telescope = function()
-    map("n", "<leader>ff", ":Telescope find_files<cr>", {noremap = true, silent = true})
-    map("n", "<leader>fg", ":Telescope live_grep<cr>", {noremap = true, silent = true})
-    map("n", "<leader>fb", ":Telescope buffers<cr>", {noremap = true, silent = true})
-    map("n", "<leader>fh", ":Telescope help_tags<cr>", {noremap = true, silent = true})
+    common_map("n", "<leader>ff", "<cmd>lua require('telescope.builtin').find_files()<cr>")
+    common_map("n", "<leader>fg", "<cmd>lua require('telescope.builtin').live_grep()<cr>")
+    common_map("n", "<leader>fb", "<cmd>lua require('telescope.builtin').buffers()<cr>")
+    common_map("n", "<leader>fh", "<cmd>lua require('telescope.builtin').help_tags()<cr>")
+end
+
+-- neoclip
+M.neoclip = function()
+    common_map("n", "<leader>fy", "<cmd>lua require('telescope').extensions.neoclip.unnamed()")
 end
 
 -- nvim-comment
@@ -158,11 +164,6 @@ end
 -- bufonly
 M.bufonly = function()
     common_map("n", "<leader>bD", ":BufOnly <cr>")
-end
-
--- neoclip
-M.neoclip = function()
-    map("n", "<leader>fy", ":Telescope neoclip unnamed <cr>", {noremap = true, silent = true})
 end
 
 -- Tree plugin

@@ -48,8 +48,8 @@ require "lspconfig".sumneko_lua.setup {
             workspace = {
                 -- Make the server aware of Neovim runtime files
                 library = vim.api.nvim_get_runtime_file("", true),
-                maxPreload = 50000,
-                preloadFileSize = 10000
+                maxPreload = 5000,
+                preloadFileSize = 1000
             },
             -- Do not send telemetry data containing a randomized but unique identifier
             telemetry = {

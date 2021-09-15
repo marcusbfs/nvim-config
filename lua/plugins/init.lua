@@ -213,7 +213,6 @@ return packer.startup(
 
         use {
             "nvim-telescope/telescope.nvim",
-            -- cmd = "Telescope",
             config = function()
                 require "plugins.configs.telescope"
             end,
