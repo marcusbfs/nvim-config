@@ -1,5 +1,5 @@
 -- GUI font
-vim.fn.execute("set guifont=CaskaydiaCove\\ NF:h12")
+vim.fn.execute("set guifont=CaskaydiaCove\\ NF:h13")
 
 -- Terminal colors
 vim.o.termguicolors = true
