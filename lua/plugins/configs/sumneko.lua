@@ -9,11 +9,11 @@ else
     print("Unsupported system for sumneko")
 end
 
--- The path will be in nvim/lsp-language-server
+-- The path will be in nvim-data/lsp-language-server
 -- Build it with "https://github.com/sumneko/lua-language-server/wiki/Build-and-Run-(Standalone)"
 
 -- set the path to the sumneko installation; if you previously installed via the now deprecated :LspInstall, use
-local sumneko_root_path = vim.fn.stdpath("config") .. "/lua-language-server"
+local sumneko_root_path = vim.fn.stdpath("data") .. "/lua-language-server"
 local sumneko_binary = sumneko_root_path .. "/bin/" .. system_name .. "/lua-language-server"
 
 local runtime_path = vim.split(package.path, ";")
@@ -48,7 +48,7 @@ require "lspconfig".sumneko_lua.setup {
             workspace = {
                 -- Make the server aware of Neovim runtime files
                 library = vim.api.nvim_get_runtime_file("", true),
-                maxPreload = 5000,
+                maxPreload = 100,
                 preloadFileSize = 1000
             },
             -- Do not send telemetry data containing a randomized but unique identifier
