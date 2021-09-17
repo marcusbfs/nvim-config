@@ -65,12 +65,6 @@ vim.o.smartcase = true
 -- Plugins settings
 vim.api.nvim_set_var("sneak#label", "1")
 
--- Colorscheme
-vim.o.background = "dark"
-vim.api.nvim_set_var("gruvbox_material_background", "medium")
-vim.api.nvim_set_var("gruvbox_material_palette", "original")
-vim.fn.execute("colorscheme gruvbox-material")
-
 -- disable some builtin vim plugins
 local disabled_built_ins = {
     "2html_plugin",

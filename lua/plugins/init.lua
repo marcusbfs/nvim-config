@@ -249,7 +249,13 @@ return packer.startup(
             end
         }
 
-        use "sainnhe/gruvbox-material"
+        use {
+            "folke/tokyonight.nvim",
+            -- "sainnhe/gruvbox-material",
+            config = function()
+                require "plugins.configs.colorscheme"
+            end
+        }
 
         use {
             "junegunn/vim-easy-align",
