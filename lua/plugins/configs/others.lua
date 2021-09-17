@@ -124,7 +124,8 @@ M.formatter = function()
                         function()
                             return {
                                 exe = "black",
-                                stdin = false
+                                args = {"-"},
+                                stdin = true
                             }
                         end
                     },
