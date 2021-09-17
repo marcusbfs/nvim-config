@@ -196,6 +196,14 @@ return packer.startup(
             end
         }
 
+        use {
+            "tjdevries/nlua.nvim",
+            after = "nvim-lspconfig",
+            config = function()
+                require "plugins.configs.nlua"
+            end
+        }
+
         -- misc plugins
         use {
             "windwp/nvim-autopairs",
