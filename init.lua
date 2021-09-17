@@ -1,6 +1,6 @@
 -- Variables
 vimrc_path = vim.fn.stdpath("config") .. "/init.lua"
-undo_dir = vim.fn.stdpath("config") .. "/.vim-undo-dir"
+undo_dir = vim.fn.stdpath("data") .. "/.vim-undo-dir"
 
 local init_modules = {
     "plugins",
