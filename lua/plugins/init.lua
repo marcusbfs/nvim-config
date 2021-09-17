@@ -105,7 +105,7 @@ return packer.startup(
         -- lsp stuff
         use {
             "neovim/nvim-lspconfig",
-            ft = {"rs", "py", "lua", "h", "cpp"},
+            ft = {"rust", "python", "lua", "cpp"},
             setup = function()
                 require("core.utils").packer_lazy_load "nvim-lspconfig"
                 -- reload the current file so lsp actually starts for it
@@ -280,6 +280,7 @@ return packer.startup(
         use {
             "mhartington/formatter.nvim",
             cmd = {"Format", "FormatWrite"},
+            ft = {"python", "lua", "rust", "cpp"},
             config = function()
                 require("plugins.configs.others").formatter()
             end,
@@ -310,6 +311,12 @@ return packer.startup(
             setup = function()
                 require("core.mappings").bufonly()
             end
+        }
+
+        use {
+            "bronson/vim-trailing-whitespace",
+            event = "BufRead",
+            cmd = "FixWhitespace"
         }
     end
 )
