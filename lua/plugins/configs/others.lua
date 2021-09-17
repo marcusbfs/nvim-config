@@ -34,10 +34,6 @@ M.blankline = function()
     }
 end
 
-M.rusttools = function()
-    require("rust-tools").setup({})
-end
-
 M.colorizer = function()
     local present, colorizer = pcall(require, "colorizer")
     if present then

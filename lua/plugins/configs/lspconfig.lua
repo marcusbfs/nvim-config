@@ -9,7 +9,6 @@ local capabilities = require("plugins.configs.lsp_capabilities").capabilities
 
 local servers = {
     "pyright",
-    "rust_analyzer",
     "clangd"
 }
 

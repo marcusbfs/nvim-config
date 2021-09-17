@@ -82,13 +82,11 @@ opts = {
     -- all the opts to send to nvim-lspconfig
     -- these override the defaults set by rust-tools.nvim
     -- see https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md#rust_analyzer
+    -- rust-analyer options
     server = {
         on_attach = on_attach,
         capabilities = capabilities
-    } -- rust-analyer options
-
-    -- on_attach=on_attach,
-    -- capabilities=capabilities,
+    }
 }
 
 require("rust-tools").setup(opts)
