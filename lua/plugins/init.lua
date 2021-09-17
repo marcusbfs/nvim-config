@@ -128,6 +128,13 @@ return packer.startup(
                 require("plugins.configs.others").signature()
             end
         }
+        use {
+            "glepnir/lspsaga.nvim",
+            after = "nvim-lspconfig",
+            config = function()
+                require("plugins.configs.others").lspsaga()
+            end
+        }
 
         use {
             "andymass/vim-matchup",

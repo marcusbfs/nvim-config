@@ -167,4 +167,9 @@ M.nvim_window = function()
     nvim_window.setup {}
 end
 
+M.lspsaga = function()
+    local saga = require "lspsaga"
+    saga.init_lsp_saga()
+end
+
 return M
