@@ -234,4 +234,9 @@ end
 M.neogit = function()
     common_map("n", "<leader>gg", ":Neogit<cr>")
 end
+
+-- nvim-window
+M.nvim_window = function()
+    common_map("n", "<leader>wp", ":lua require('nvim-window').pick()<CR>")
+end
 return M

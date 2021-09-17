@@ -163,4 +163,12 @@ M.neogit = function()
     neogit.setup {}
 end
 
+M.nvim_window = function()
+    local present, nvim_window = pcall(require, "nvim-window")
+    if not present then
+        return
+    end
+    nvim_window.setup {}
+end
+
 return M

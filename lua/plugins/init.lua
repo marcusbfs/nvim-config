@@ -318,5 +318,17 @@ return packer.startup(
             event = "BufRead",
             cmd = "FixWhitespace"
         }
+
+        use {
+            "https://gitlab.com/yorickpeterse/nvim-window.git",
+            as = "nvim-window",
+            event = "BufRead",
+            config = function()
+                require("plugins.configs.others").nvim_window()
+            end,
+            setup = function()
+                require("core.mappings").nvim_window()
+            end
+        }
     end
 )
