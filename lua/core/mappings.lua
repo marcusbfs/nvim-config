@@ -86,30 +86,6 @@ M.misc = function()
         map("n", "<leader>ps", ":PackerSync<cr>", {noremap = true, silent = true})
     end
 
-    local function optional_mappings()
-        -- don't yank text on cut ( x )
-        if not config.options.copy_cut then
-            map({"n", "v"}, "x", '"_x')
-        end
-
-        -- don't yank text on delete ( dd )
-        if not config.options.copy_del then
-            map({"n", "v"}, "dd", '"_dd')
-        end
-
-        -- navigation within insert mode
-        if config.options.insert_nav then
-            local inav = maps.insert_nav
-
-            map("i", inav.backward, "<Left>")
-            map("i", inav.end_of_line, "<End>")
-            map("i", inav.forward, "<Right>")
-            map("i", inav.next_line, "<Up>")
-            map("i", inav.prev_line, "<Down>")
-            map("i", inav.top_of_line, "<ESC>^i")
-        end
-    end
-
     local function commands()
         -- Add Packer commands because we are not loading it at startup
         cmd "silent! command PackerClean lua require 'plugins' require('packer').clean()"
