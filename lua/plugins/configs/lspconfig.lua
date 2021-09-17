@@ -9,7 +9,8 @@ local capabilities = require("plugins.configs.lsp_capabilities").capabilities
 
 local servers = {
     "pyright",
-    "clangd"
+    "clangd",
+    "cmake"
 }
 
 for _, lsp in ipairs(servers) do
