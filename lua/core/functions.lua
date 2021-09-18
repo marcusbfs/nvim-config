@@ -8,13 +8,23 @@ M.mbfs_nvim_dir = function()
 end
 
 -- Telescope nvim-config files
-M.mbfs_telescope_nvim_config = function()
+M.mbfs_telescope_nvim_config_find_file = function()
     local config_dir = vim.fn.expand(vim.fn.stdpath("config"))
     require("telescope.builtin").find_files(
         {
+            prompt_title = "nvim config - find file",
             cwd = config_dir,
-            search_dirs = {config_dir},
-            hidden = false
+            shorten_path = false
+        }
+    )
+end
+M.mbfs_telescope_nvim_config_live_grep = function()
+    local config_dir = vim.fn.expand(vim.fn.stdpath("config"))
+    require("telescope.builtin").live_grep(
+        {
+            prompt_title = "nvim config - live grep",
+            cwd = config_dir,
+            shorten_path = false
         }
     )
 end
@@ -23,7 +33,8 @@ end
 
 local commands = {
     {"MbfsNvimDir", "mbfs_nvim_dir"},
-    {"MbfsTelescopeNvimConfig", "mbfs_telescope_nvim_config"}
+    {"MbfsTelescopeNvimConfigFindFile", "mbfs_telescope_nvim_config_find_file"},
+    {"MbfsTelescopeNvimConfigLiveGrep", "mbfs_telescope_nvim_config_live_grep"}
 }
 
 M.mbfs_register_functions = function()

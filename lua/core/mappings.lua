@@ -108,6 +108,7 @@ M.telescope = function()
     common_map("n", "<leader>fg", "<cmd>lua require('telescope.builtin').live_grep()<cr>")
     common_map("n", "<leader>fb", "<cmd>lua require('telescope.builtin').buffers()<cr>")
     common_map("n", "<leader>fh", "<cmd>lua require('telescope.builtin').help_tags()<cr>")
+    common_map("n", "<leader>fc", "<cmd>lua require('telescope.builtin').commands()<cr>")
 end
 
 -- neoclip
@@ -178,8 +179,6 @@ M.on_attach = function(_, bufnr)
 
     -- Mappings.
     local opts = {noremap = true, silent = true}
-    -- local buf_set_keymap = map
-
     -- See `:help vim.lsp.*` for documentation on any of the below functions
     buf_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
     buf_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
@@ -204,7 +203,7 @@ end
 
 -- formatter
 M.formatter = function()
-    common_map("n", "<leader>fc", ":Format<cr>")
+    common_map("n", "<leader>fC", ":Format<cr>")
 end
 
 -- neogit
