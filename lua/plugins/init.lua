@@ -14,6 +14,11 @@ return packer.startup(
             event = "VimEnter"
         }
 
+        -- Impatient to speed up startup time - used in init.lua
+        use {
+            "lewis6991/impatient.nvim"
+        }
+
         use {
             "nvim-lua/plenary.nvim"
         }
@@ -128,11 +133,20 @@ return packer.startup(
                 require("plugins.configs.others").signature()
             end
         }
+
         use {
             "glepnir/lspsaga.nvim",
             after = "nvim-lspconfig",
             config = function()
                 require("plugins.configs.others").lspsaga()
+            end
+        }
+
+        use {
+            "folke/trouble.nvim",
+            after = "nvim-lspconfig",
+            config = function()
+                require("plugins.configs.others").lsptrouble()
             end
         }
 

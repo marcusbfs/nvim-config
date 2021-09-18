@@ -2,6 +2,8 @@
 vimrc_path = vim.fn.stdpath("config") .. "/init.lua"
 undo_dir = vim.fn.stdpath("data") .. "/.vim-undo-dir"
 
+pcall(require, "impatient")
+
 local init_modules = {
     "plugins",
     "core"

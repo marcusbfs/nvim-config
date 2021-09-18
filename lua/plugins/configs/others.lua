@@ -64,16 +64,13 @@ M.comment = function()
 end
 
 M.luasnip = function()
-    local present, luasnip = pcall(require, "luasnip")
-    if not present then
-        return
-    end
+    local luasnip = require "luasnip"
 
     luasnip.config.set_config {
         history = true,
         updateevents = "TextChanged,TextChangedI"
     }
-    require("luasnip/loaders/from_vscode").load()
+    require("luasnip.loaders.from_vscode").load {}
 end
 
 M.signature = function()
@@ -181,4 +178,8 @@ M.lspsaga = function()
     saga.init_lsp_saga()
 end
 
+M.lsptrouble = function()
+    local trouble = require "trouble"
+    trouble.setup {}
+end
 return M
