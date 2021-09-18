@@ -136,7 +136,7 @@ M.formatter = function()
                         end
                     },
                     lua = {
-                        -- npm install lua-fmt
+                        -- npm install lua-fmt -g
                         function()
                             return {
                                 exe = "luafmt",

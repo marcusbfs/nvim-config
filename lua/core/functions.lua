@@ -9,10 +9,11 @@ end
 
 -- Telescope nvim-config files
 M.mbfs_telescope_nvim_config = function()
+    local config_dir = vim.fn.expand(vim.fn.stdpath("config"))
     require("telescope.builtin").find_files(
         {
-            cwd = vim.fn.stdpath("config"),
-            search_dirs = {vim.fn.stdpath("config")},
+            cwd = config_dir,
+            search_dirs = {config_dir},
             hidden = false
         }
     )
