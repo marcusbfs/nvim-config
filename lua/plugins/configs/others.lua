@@ -106,7 +106,7 @@ M.formatter = function()
             [[
             augroup FormatAutogroup
               autocmd!
-              autocmd BufWritePost *.py,*.rs,*.lua FormatWrite
+              autocmd BufWritePost *.py,*.rs,*.lua,*.cpp,*.h FormatWrite
             augroup END
             ]],
             true
@@ -141,6 +141,15 @@ M.formatter = function()
                             return {
                                 exe = "luafmt",
                                 args = {"--indent-count", 4, "--stdin"},
+                                stdin = true
+                            }
+                        end
+                    },
+                    cpp = {
+                        -- clang-format
+                        function()
+                            return {
+                                exe = "clang-format",
                                 stdin = true
                             }
                         end
