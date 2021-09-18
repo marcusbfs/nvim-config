@@ -6,6 +6,8 @@ end
 
 local use = packer.use
 
+local colorscheme = require("colors")
+
 return packer.startup(
     function()
         -- Packer can manage itself
@@ -265,10 +267,9 @@ return packer.startup(
         }
 
         use {
-            "folke/tokyonight.nvim",
-            -- "sainnhe/gruvbox-material",
+            colorscheme.origin_name(),
             config = function()
-                require "plugins.configs.colorscheme"
+                colorscheme.config()
             end
         }
 
