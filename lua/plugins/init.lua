@@ -358,5 +358,17 @@ return packer.startup(
                 require("core.mappings").nvim_window()
             end
         }
+
+        use {
+            "dstein64/vim-startuptime",
+            cmd = "StartupTime"
+        }
+
+        use {
+            "monaqa/dial.nvim",
+            setup = function()
+                require("core.mappings").dial()
+            end
+        }
     end
 )
