@@ -6,8 +6,6 @@ end
 
 local use = packer.use
 
-local colorscheme = require("colors")
-
 return packer.startup(
     function()
         -- Packer can manage itself
@@ -267,9 +265,9 @@ return packer.startup(
         }
 
         use {
-            colorscheme.origin_name(),
+            require("colors").origin_name(),
             config = function()
-                colorscheme.config()
+                require("colors").config()
             end
         }
 

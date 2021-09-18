@@ -3,7 +3,7 @@
 -- tokyonight
 -- gruvbox_material
 
-vim.g.my_colorscheme = "gruvbox_material"
+vim.g.my_colorscheme = "tokyonight"
 
 M = {}
 
@@ -38,12 +38,8 @@ M.origin_name = function()
 end
 
 M.config = function()
-    print("Beginning to config")
-    print(vim.g.my_colorscheme)
     if vim.g.my_colorscheme == "tokyonight" then
-        print("Lua selected")
         vim.cmd [[colorscheme tokyonight]]
-        print("Called command")
     elseif vim.g.my_colorscheme == "gruvbox_material" then
         vim.o.background = "dark"
         vim.api.nvim_set_var("gruvbox_material_background", "medium")
