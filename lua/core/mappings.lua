@@ -151,10 +151,10 @@ end
 M.bufferline = function()
     map("n", "<A-.>", ":BufferLineCycleNext<CR>", {noremap = true, silent = true})
     map("n", "<A-,>", ":BufferLineCyclePrev<CR>", {noremap = true, silent = true})
-    map("n", "<A-1>", "<Cmd>BufferLineGoToBuffer 1<CR>", {noremap = true, silent = true})
-    map("n", "<A-2>", "<Cmd>BufferLineGoToBuffer 2<CR>", {noremap = true, silent = true})
-    map("n", "<A-3>", "<Cmd>BufferLineGoToBuffer 3<CR>", {noremap = true, silent = true})
-    map("n", "<A-4>", "<Cmd>BufferLineGoToBuffer 4<CR>", {noremap = true, silent = true})
+
+    for i = 1, 9 do
+        map("n", "<A-" .. i .. ">", "<Cmd>BufferLineGoToBuffer " .. i .. "<CR>", {noremap = true, silent = true})
+    end
 end
 
 -- Zen mode
