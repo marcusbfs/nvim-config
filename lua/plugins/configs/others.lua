@@ -103,7 +103,7 @@ M.formatter = function()
             [[
             augroup FormatAutogroup
               autocmd!
-              autocmd BufWritePost *.py,*.rs,*.lua,*.cpp,*.h FormatWrite
+              autocmd BufWritePost *.py,*.rs,*.lua FormatWrite
             augroup END
             ]],
             true
