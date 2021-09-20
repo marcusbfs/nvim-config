@@ -85,7 +85,7 @@ M.misc = function()
         map("t", "<Esc>", "<C-\\><C-n>", {noremap = true, silent = true})
 
         -- Terminal things
-        map("n", "<leader>To", ":Term<cr>", {noremap = true, silent = true})
+        map("n", "<leader>To", ":Term<cr>a", {noremap = true, silent = true})
         map("n", "<leader>Tc", ":bdelete!<cr>", {noremap = true, silent = true})
     end
 
