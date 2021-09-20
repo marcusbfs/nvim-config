@@ -15,6 +15,10 @@ local M = {}
 -- these mappings will only be called during initialization
 M.misc = function()
     local function non_config_mappings()
+        -- Disable esc in insert mode - force me to use "better escape"
+        -- common_map("i", "<Esc>", "")
+        -- common_map("i", "<Esc>", "")
+
         -- use ESC to turn off search highlighting
         map("n", "<Esc>", ":noh <CR>", {noremap = true, silent = true})
 
@@ -35,9 +39,8 @@ M.misc = function()
         map("n", "<leader>q", ":q<CR>", {noremap = true, silent = true})
 
         -- can i stop using escape
-        map("i", "jk", "<ESC>", {noremap = true, silent = true})
-        map("i", "kj", "<ESC>", {noremap = true, silent = true})
-        map("i", "jj", "<ESC>", {noremap = true, silent = true})
+        -- map("v", "jk", "<ESC>", {noremap = true, silent = true})
+        -- map("v", "kj", "<ESC>", {noremap = true, silent = true})
 
         -- Yank entire line
         map("n", "Y", "y$", {noremap = true, silent = true})

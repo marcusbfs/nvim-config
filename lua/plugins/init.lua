@@ -380,5 +380,16 @@ return packer.startup(
                 require("core.mappings").nvim_maximize_window_toggle()
             end
         }
+
+        use {
+            "jdhao/better-escape.vim",
+            event = "InsertEnter",
+            setup = function()
+                require("plugins.configs.others").better_escape()
+            end,
+            config = function()
+                require("plugins.configs.others").better_escape()
+            end
+        }
     end
 )
