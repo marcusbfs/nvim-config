@@ -63,12 +63,6 @@ M.misc = function()
         map("n", "<c-J>", "<c-w>j", {noremap = true, silent = true})
         map("n", "<c-K>", "<c-w>k", {noremap = true, silent = true})
 
-        -- Resize panes
-        map("n", "<leader>wrl", ":vertical resize +10 <cr>", {noremap = true, silent = true})
-        map("n", "<leader>wrh", ":vertical resize -10 <cr>", {noremap = true, silent = true})
-        map("n", "<leader>wrk", ":resize +10 <cr>", {noremap = true, silent = true})
-        map("n", "<leader>wrj", ":resize -10 <cr>", {noremap = true, silent = true})
-
         -- Tabs
         map("n", "<leader>tc", ":tabclose <cr>", {noremap = true, silent = true})
         map("n", "<leader>te", ":tabedit <cr>", {noremap = true, silent = true})
@@ -228,4 +222,12 @@ M.dial = function()
     map("v", "g<C-a>", "<Plug>(dial-increment-additional)", {silent = true})
     map("v", "g<C-x>", "<Plug>(dial-decrement-additional)", {silent = true})
 end
+
+-- winresizer
+M.winresizer = function()
+    -- this is required to prevent remap of <C-e>
+    vim.fn.execute('let g:winresizer_start_key="<C-T>"')
+    common_map("n", "<C-t>", ":WinResizerStartResize<cr>")
+end
+
 return M

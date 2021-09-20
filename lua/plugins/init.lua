@@ -371,6 +371,12 @@ return packer.startup(
             end
         }
 
-        use {"/simeji/winresizer"}
+        use {
+            "simeji/winresizer",
+            cmd = "WinResizerStartResize",
+            setup = function()
+                require("core.mappings").winresizer()
+            end
+        }
     end
 )

@@ -182,4 +182,5 @@ M.lsptrouble = function()
     local trouble = require "trouble"
     trouble.setup {}
 end
+
 return M
