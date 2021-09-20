@@ -62,6 +62,9 @@ vim.wo.signcolumn = "yes"
 vim.o.ignorecase = true
 vim.o.smartcase = true
 
+-- Set terminal options
+vim.fn.execute(":command Term term cmd.exe /k " .. os.getenv("CMDER_ROOT") .. "\\vendor\\init.bat")
+
 -- Plugins settings
 vim.api.nvim_set_var("sneak#label", "1")
 

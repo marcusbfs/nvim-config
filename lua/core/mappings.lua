@@ -84,6 +84,9 @@ M.misc = function()
 
         -- Packer
         map("n", "<leader>ps", ":PackerSync<cr>", {noremap = true, silent = true})
+
+        -- Use <esc> in terminal mode
+        map("t", "<Esc>", "<C-\\><C-n>", {noremap = true, silent = true})
     end
 
     local function commands()
