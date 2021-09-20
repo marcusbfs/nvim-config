@@ -235,4 +235,11 @@ M.nvim_maximize_window_toggle = function()
     common_map("n", "<leader>wt", ":ToggleOnly<cr>")
 end
 
+-- startify
+M.startify = function()
+    common_map("n", "<leader>ss", ":SSave<cr>")
+    common_map("n", "<leader>sl", ":SLoad<cr>")
+    common_map("n", "<leader>sd", ":SDelete<cr>")
+end
+
 return M

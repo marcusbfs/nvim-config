@@ -71,6 +71,16 @@ return packer.startup(
         }
 
         use {
+            "mhinz/vim-startify",
+            config = function()
+                require "plugins.configs.startify"
+            end,
+            setup = function()
+                require("core.mappings").startify()
+            end
+        }
+
+        use {
             "nvim-treesitter/nvim-treesitter",
             run = ":TSUpdate",
             event = "BufRead",
