@@ -378,5 +378,13 @@ return packer.startup(
                 require("core.mappings").winresizer()
             end
         }
+
+        use {
+            "caenrique/nvim-maximize-window-toggle",
+            cmd = "ToggleOnly",
+            setup = function()
+                require("core.mappings").nvim_maximize_window_toggle()
+            end
+        }
     end
 )

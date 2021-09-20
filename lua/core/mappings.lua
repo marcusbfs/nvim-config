@@ -230,4 +230,9 @@ M.winresizer = function()
     common_map("n", "<C-t>", ":WinResizerStartResize<cr>")
 end
 
+-- nvim-maximize-window-toggle
+M.nvim_maximize_window_toggle = function()
+    common_map("n", "<leader>wt", ":ToggleOnly<cr>")
+end
+
 return M
