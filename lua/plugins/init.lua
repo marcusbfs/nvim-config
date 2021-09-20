@@ -85,9 +85,6 @@ return packer.startup(
             opt = true,
             config = function()
                 require "plugins.configs.gitsigns"
-            end,
-            setup = function()
-                require("core.utils").packer_lazy_load "gitsigns.nvim"
             end
         }
 
@@ -110,17 +107,7 @@ return packer.startup(
         -- lsp stuff
         use {
             "neovim/nvim-lspconfig",
-            ft = {"rust", "python", "lua", "cpp"},
-            setup = function()
-                require("core.utils").packer_lazy_load "nvim-lspconfig"
-                -- reload the current file so lsp actually starts for it
-                vim.defer_fn(
-                    function()
-                        vim.cmd "silent! e %"
-                    end,
-                    0
-                )
-            end,
+            ft = {"rust", "python", "lua", "cpp", "cmake"},
             config = function()
                 require "plugins.configs.lspconfig"
             end
@@ -152,10 +139,7 @@ return packer.startup(
 
         use {
             "andymass/vim-matchup",
-            opt = true,
-            setup = function()
-                require("core.utils").packer_lazy_load "vim-matchup"
-            end
+            opt = true
         }
 
         -- load luasnips + cmp related in insert mode only
