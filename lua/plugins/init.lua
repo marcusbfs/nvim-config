@@ -370,5 +370,7 @@ return packer.startup(
                 require("core.mappings").dial()
             end
         }
+
+        use {"/simeji/winresizer"}
     end
 )
