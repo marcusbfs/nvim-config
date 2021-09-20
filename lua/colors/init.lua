@@ -23,7 +23,11 @@ local CS = {
     ayu_light = 17,
     nord = 18,
     papercolor_dark = 19,
-    papercolor_light = 20
+    papercolor_light = 20,
+    nightfox = 21,
+    nordfox = 22,
+    palefox = 23,
+    randfox = 24
 }
 
 -- Set colorscheme
@@ -80,6 +84,8 @@ M.origin_name = function()
         return "arcticicestudio/nord-vim"
     elseif cs_contains(CS.papercolor_dark, CS.papercolor_light) then
         return "NLKNguyen/papercolor-theme"
+    elseif cs_contains(CS.nightfox, CS.nordfox, CS.palefox, CS.randfox) then
+        return "EdenEast/nightfox.nvim"
     else
         error("origin_name: colorscheme " .. vim.g.my_colorscheme .. " is not valid")
     end
@@ -126,6 +132,14 @@ M.config = function()
         helpers.papercolor("dark")
     elseif cs_contains(CS.papercolor_light) then
         helpers.papercolor("light")
+    elseif cs_contains(CS.nightfox) then
+        helpers.nightfox("nightfox")
+    elseif cs_contains(CS.nordfox) then
+        helpers.nightfox("nordfox")
+    elseif cs_contains(CS.palefox) then
+        helpers.nightfox("palefox")
+    elseif cs_contains(CS.randfox) then
+        helpers.nightfox("randfox")
     else
         error("config: colorscheme " .. vim.g.my_colorscheme .. " is not valid")
     end

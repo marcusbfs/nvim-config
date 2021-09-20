@@ -29,4 +29,14 @@ M.papercolor = function(style)
     vim.cmd [[colorscheme PaperColor]]
 end
 
+M.nightfox = function(style)
+    local nightfox = require("nightfox")
+    nightfox.setup(
+        {
+            fox = style
+        }
+    )
+    nightfox.load()
+end
+
 return M
