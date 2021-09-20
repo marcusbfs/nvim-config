@@ -6,7 +6,8 @@ pcall(require, "impatient")
 
 local init_modules = {
     "plugins",
-    "core"
+    "core",
+    "colors.check"
 }
 
 for _, module in ipairs(init_modules) do
