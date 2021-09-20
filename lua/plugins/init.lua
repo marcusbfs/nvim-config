@@ -15,17 +15,11 @@ return packer.startup(
         }
 
         -- Impatient to speed up startup time - used in init.lua
-        use {
-            "lewis6991/impatient.nvim"
-        }
+        use {"lewis6991/impatient.nvim"}
 
-        use {
-            "nvim-lua/plenary.nvim"
-        }
+        use {"nvim-lua/plenary.nvim"}
 
-        use {
-            "nvim-lua/popup.nvim"
-        }
+        use {"nvim-lua/popup.nvim"}
 
         use {
             "kyazdani42/nvim-web-devicons",
@@ -92,7 +86,6 @@ return packer.startup(
         -- git stuff
         use {
             "lewis6991/gitsigns.nvim",
-            opt = true,
             config = function()
                 require "plugins.configs.gitsigns"
             end
@@ -147,10 +140,7 @@ return packer.startup(
             end
         }
 
-        use {
-            "andymass/vim-matchup",
-            opt = true
-        }
+        use {"andymass/vim-matchup"}
 
         -- load luasnips + cmp related in insert mode only
         use {
@@ -286,7 +276,7 @@ return packer.startup(
             end
         }
 
-        use "justinmk/vim-sneak"
+        use {"justinmk/vim-sneak"}
 
         use {
             "ms-jpq/chadtree",
