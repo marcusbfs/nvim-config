@@ -69,9 +69,9 @@ M.misc = function()
         map("n", "<leader>tn", ":tabnext <cr>", {noremap = true, silent = true})
         map("n", "<leader>tp", ":tabprevious <cr>", {noremap = true, silent = true})
 
-        -- Copy visual to system clipboard
+        -- Copy/paste stuff
         common_map("v", "<c-c>", '"+y')
-        common_map("i", "<c-v>", '<esc>"+p')
+        common_map("i", "<c-v>", '<esc>"+pa')
         common_map("n", "<c-v>", '"+p')
 
         --Remap for dealing with word wrap
