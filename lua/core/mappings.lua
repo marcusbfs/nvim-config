@@ -70,7 +70,9 @@ M.misc = function()
         map("n", "<leader>tp", ":tabprevious <cr>", {noremap = true, silent = true})
 
         -- Copy visual to system clipboard
-        map("v", "<c-c>", '"+y', {noremap = true, silent = true})
+        common_map("v", "<c-c>", '"+y')
+        common_map("i", "<c-v>", '<esc>"+p')
+        common_map("n", "<c-v>", '"+p')
 
         --Remap for dealing with word wrap
         map("n", "k", "v:count == 0 ? 'gk' : 'k'", {noremap = true, expr = true, silent = true})
