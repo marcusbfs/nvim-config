@@ -381,5 +381,10 @@ return packer.startup(
                 require("plugins.configs.others").better_escape()
             end
         }
+
+        use {
+            "rhysd/vim-grammarous",
+            cmd = {"GrammarousCheck"}
+        }
     end
 )
