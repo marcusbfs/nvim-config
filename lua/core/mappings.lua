@@ -75,7 +75,7 @@ M.misc = function()
         -- Copy/paste stuff
         common_map("v", "<c-c>", '"+y')
         common_map("i", "<c-v>", '<esc>"+pa')
-        common_map("n", "<c-v>", '"+p')
+        -- common_map("n", "<c-v>", '"+p')
 
         --Remap for dealing with word wrap
         map("n", "k", "v:count == 0 ? 'gk' : 'k'", {noremap = true, expr = true, silent = true})
@@ -90,6 +90,10 @@ M.misc = function()
         -- Terminal things
         map("n", "<leader>To", ":Term<cr>a", {noremap = true, silent = true})
         map("n", "<leader>Tc", ":bdelete!<cr>", {noremap = true, silent = true})
+
+        -- zt and zb "one line off"
+        common_map("n", "zt", "mgkzt`g")
+        common_map("n", "zb", "mgjzb`g")
     end
 
     local function commands()

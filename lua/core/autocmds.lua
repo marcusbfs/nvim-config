@@ -18,3 +18,9 @@
 -- vim.cmd [[ au BufReadPost * if expand('%:p') !~# '\m/\.git/' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif ]]
 -- File extension specific tabbing
 -- vim.cmd [[ autocmd Filetype python setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4 ]]
+
+--- Execute FixWhitespace after saving a file
+vim.cmd [[ autocmd BufWritePost * FixWhitespace ]]
+
+-- Set textwidth for markdown
+vim.cmd [[ autocmd bufreadpre *.md setlocal textwidth=79 ]]
