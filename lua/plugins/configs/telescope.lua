@@ -5,6 +5,9 @@ end
 
 telescope.setup {
     defaults = {
+        preview = {
+            check_mime_type = false
+        },
         vimgrep_arguments = {
             "rg",
             "--color=never",
