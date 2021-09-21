@@ -386,5 +386,10 @@ return packer.startup(
             "rhysd/vim-grammarous",
             cmd = {"GrammarousCheck"}
         }
+
+        use {
+            "tpope/vim-rsi",
+            event = "InsertEnter"
+        }
     end
 )
