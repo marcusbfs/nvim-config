@@ -239,8 +239,8 @@ end
 -- winresizer
 M.winresizer = function()
     -- this is required to prevent remap of <C-e>
-    vim.fn.execute('let g:winresizer_start_key="<C-T>"')
-    common_map("n", "<C-t>", ":WinResizerStartResize<cr>")
+    vim.fn.execute('let g:winresizer_start_key="<space>wR"')
+    common_map("n", "<leader>wR", ":WinResizerStartResize<cr>")
 end
 
 -- nvim-maximize-window-toggle
