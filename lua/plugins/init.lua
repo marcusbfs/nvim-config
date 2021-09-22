@@ -1,8 +1,4 @@
-local present, packer = pcall(require, "plugins.packerInit")
-
-if not present then
-    return false
-end
+local packer = require "plugins.packerInit"
 
 local use = packer.use
 
@@ -150,6 +146,14 @@ return packer.startup(
             end
         }
 
+        use {
+            "kosayoda/nvim-lightbulb",
+            after = "nvim-lspconfig",
+            config = function()
+                require("plugins.configs.others").lightbulb()
+            end
+        }
+
         -- load luasnips + cmp related in insert mode only
         use {
             "rafamadriz/friendly-snippets",
@@ -284,7 +288,12 @@ return packer.startup(
             end
         }
 
-        use {"justinmk/vim-sneak"}
+        use {
+            "ggandor/lightspeed.nvim",
+            config = function()
+                require "plugins.configs.lightspeed"
+            end
+        }
 
         use {
             "ms-jpq/chadtree",
@@ -398,6 +407,22 @@ return packer.startup(
         use {
             "tpope/vim-rsi",
             event = "InsertEnter"
+        }
+
+        use {
+            "abecodes/tabout.nvim",
+            after = "nvim-cmp",
+            config = function()
+                require "plugins.configs.tabout"
+            end
+        }
+
+        use {
+            "folke/todo-comments.nvim",
+            event = "BufRead",
+            config = function()
+                require("plugins.configs.others").todo_comments()
+            end
         }
     end
 )

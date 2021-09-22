@@ -28,7 +28,16 @@ local CS = {
     nordfox = 22,
     palefox = 23,
     randfox = 24,
-    zephyr = 25
+    zephyr = 25,
+    material_darker = 26,
+    material_lighter = 27,
+    material_oceanic = 28,
+    material_palenight = 29,
+    material_deep_ocean = 30,
+    catppucino_dark = 31,
+    catppucino_neon_latte = 32,
+    catppucino_soft_manilo = 33,
+    catppucino_light_melya = 34
 }
 
 -- Set colorscheme
@@ -41,9 +50,9 @@ local based_on_time = function()
     local current_time = date.hour + date.min / 59.0
 
     if current_time < toggle_hour then
-        vim.g.my_colorscheme = CS.github_light
+        vim.g.my_colorscheme = CS.catppucino_soft_manilo
     else
-        vim.g.my_colorscheme = CS.github_dark
+        vim.g.my_colorscheme = CS.catppucino_dark
     end
 end
 
@@ -89,6 +98,20 @@ M.origin_name = function()
         return "EdenEast/nightfox.nvim"
     elseif cs_contains(CS.zephyr) then
         return "glepnir/zephyr-nvim"
+    elseif
+        cs_contains(
+            CS.material_darker,
+            CS.material_deep_ocean,
+            CS.material_lighter,
+            CS.material_oceanic,
+            CS.material_palenight
+        )
+     then
+        return "marko-cerovac/material.nvim"
+    elseif
+        cs_contains(CS.catppucino_dark, CS.catppucino_neon_latte, CS.catppucino_light_melya, CS.catppucino_soft_manilo)
+     then
+        return "Pocco81/Catppuccino.nvim"
     else
         error("origin_name: colorscheme " .. vim.g.my_colorscheme .. " is not valid")
     end
@@ -145,6 +168,24 @@ M.config = function()
         helpers.nightfox("randfox")
     elseif cs_contains(CS.zephyr) then
         vim.cmd [[colorscheme zephyr]]
+    elseif cs_contains(CS.material_darker) then
+        helpers.material("darker")
+    elseif cs_contains(CS.material_deep_ocean) then
+        helpers.material("deep ocean")
+    elseif cs_contains(CS.material_lighter) then
+        helpers.material("lighter")
+    elseif cs_contains(CS.material_oceanic) then
+        helpers.material("oceanic")
+    elseif cs_contains(CS.material_palenight) then
+        helpers.material("palenight")
+    elseif cs_contains(CS.catppucino_dark) then
+        helpers.catppucino("dark_catppuccino")
+    elseif cs_contains(CS.catppucino_neon_latte) then
+        helpers.catppucino("neon_latte")
+    elseif cs_contains(CS.catppucino_soft_manilo) then
+        helpers.catppucino("soft_manilo")
+    elseif cs_contains(CS.catppucino_light_melya) then
+        helpers.catppucino("light_melya")
     else
         error("config: colorscheme " .. vim.g.my_colorscheme .. " is not valid")
     end

@@ -192,4 +192,12 @@ M.projectnvim = function()
     require("project_nvim").setup {}
 end
 
+M.lightbulb = function()
+    vim.cmd [[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()]]
+end
+
+M.todo_comments = function()
+    require("todo-comments").setup {}
+end
+
 return M

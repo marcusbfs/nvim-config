@@ -39,4 +39,35 @@ M.nightfox = function(style)
     nightfox.load()
 end
 
+M.material = function(style)
+    vim.g.material_style = style
+    require("material").setup()
+end
+
+M.catppucino = function(style)
+    require("catppuccino").setup(
+        {
+            colorscheme = style,
+            integrations = {
+                treesitter = true,
+                native_lsp = {
+                    enabled = true
+                },
+                lsp_trouble = true,
+                lsp_saga = true,
+                gitsigns = true,
+                telescope = true,
+                which_key = true,
+                indent_blankline = {
+                    enabled = true
+                },
+                neogit = true,
+                bufferline = true,
+                lightspeed = true
+            }
+        }
+    )
+
+    vim.cmd [[colorscheme catppuccino]]
+end
 return M
