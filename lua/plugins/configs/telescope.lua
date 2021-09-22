@@ -1,12 +1,16 @@
-local present, telescope = pcall(require, "telescope")
-if not present then
-    return
+local telescope = require "telescope"
+
+local is_check_mime_type = true
+
+-- disable check_mime_type in Windows
+if vim.fn.has("win32") then
+    is_check_mime_type = false
 end
 
 telescope.setup {
     defaults = {
         preview = {
-            check_mime_type = false
+            check_mime_type = is_check_mime_type
         },
         vimgrep_arguments = {
             "rg",
