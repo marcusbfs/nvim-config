@@ -142,6 +142,14 @@ return packer.startup(
 
         use {"andymass/vim-matchup"}
 
+        use {
+            "ahmedkhalf/project.nvim",
+            after = "nvim-lspconfig",
+            config = function()
+                require("plugins.configs.others").projectnvim()
+            end
+        }
+
         -- load luasnips + cmp related in insert mode only
         use {
             "rafamadriz/friendly-snippets",

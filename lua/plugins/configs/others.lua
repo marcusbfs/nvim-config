@@ -188,4 +188,8 @@ M.better_escape = function()
     vim.fn.execute("let g:better_escape_shortcut = ['jk', 'kj']")
 end
 
+M.projectnvim = function()
+    require("project_nvim").setup {}
+end
+
 return M
