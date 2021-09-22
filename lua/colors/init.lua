@@ -27,7 +27,8 @@ local CS = {
     nightfox = 21,
     nordfox = 22,
     palefox = 23,
-    randfox = 24
+    randfox = 24,
+    zephyr = 25
 }
 
 -- Set colorscheme
@@ -86,6 +87,8 @@ M.origin_name = function()
         return "NLKNguyen/papercolor-theme"
     elseif cs_contains(CS.nightfox, CS.nordfox, CS.palefox, CS.randfox) then
         return "EdenEast/nightfox.nvim"
+    elseif cs_contains(CS.zephyr) then
+        return "glepnir/zephyr-nvim"
     else
         error("origin_name: colorscheme " .. vim.g.my_colorscheme .. " is not valid")
     end
@@ -140,6 +143,8 @@ M.config = function()
         helpers.nightfox("palefox")
     elseif cs_contains(CS.randfox) then
         helpers.nightfox("randfox")
+    elseif cs_contains(CS.zephyr) then
+        vim.cmd [[colorscheme zephyr]]
     else
         error("config: colorscheme " .. vim.g.my_colorscheme .. " is not valid")
     end
