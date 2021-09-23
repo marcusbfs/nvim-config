@@ -62,8 +62,8 @@ cmp.setup {
     sources = {
         {name = "nvim_lsp"},
         {name = "luasnip"},
-        {name = "buffer"},
         {name = "treesitter"},
+        {name = "buffer"},
         {name = "path"},
         {name = "nvim_lua"}
     }
