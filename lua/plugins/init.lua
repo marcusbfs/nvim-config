@@ -424,5 +424,7 @@ return packer.startup(
                 require("plugins.configs.others").todo_comments()
             end
         }
+        
+        use {"tpope/vim-surround"}
     end
 )
