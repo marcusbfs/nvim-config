@@ -92,8 +92,8 @@ M.misc = function()
         map("n", "<leader>Tc", ":bdelete!<cr>", {noremap = true, silent = true})
 
         -- zt and zb "one line off"
-        common_map("n", "zt", "mgkzt`g")
-        common_map("n", "zb", "mgjzb`g")
+        common_map("n", "zt", "zt<c-y>")
+        common_map("n", "zb", "zb<c-e>")
     end
 
     local function commands()
