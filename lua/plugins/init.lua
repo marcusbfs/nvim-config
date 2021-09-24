@@ -159,6 +159,7 @@ return packer.startup(
         use {
             "ms-jpq/coq_nvim",
             branch = "coq",
+            after = "nvim-autopairs",
             setup = function()
                 require "plugins.configs.autocompletion"
             end
@@ -166,6 +167,7 @@ return packer.startup(
 
         use {
             "ms-jpq/coq.artifacts",
+            after = "coq_nvim",
             branch = "artifacts"
         }
 
@@ -189,7 +191,6 @@ return packer.startup(
         -- misc plugins
         use {
             "windwp/nvim-autopairs",
-            after = "coq_nvim",
             config = function()
                 require "plugins.configs.autopairs"
             end
@@ -384,6 +385,7 @@ return packer.startup(
         use {
             "abecodes/tabout.nvim",
             after = "coq_nvim",
+            wants = {"nvim-treesitter"},
             config = function()
                 require "plugins.configs.tabout"
             end

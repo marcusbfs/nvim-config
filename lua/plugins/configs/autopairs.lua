@@ -15,14 +15,11 @@ _G.MUtils = {}
 MUtils.CR = function()
     if vim.fn.pumvisible() ~= 0 then
         if vim.fn.complete_info({"selected"}).selected ~= -1 then
-            print("case 1")
             return npairs.esc("<c-y>")
-        else
-            print("case 2")
+        else -- pumvisible but no item is selected
             return npairs.esc("<c-e>") .. npairs.autopairs_cr()
         end
     else
-        print("case 3")
         return npairs.autopairs_cr()
     end
 end
