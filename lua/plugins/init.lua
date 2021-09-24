@@ -176,10 +176,9 @@ return packer.startup(
         -- misc plugins
         use {
             "windwp/nvim-autopairs",
-            -- after = "nvim-cmp",
-            -- TODO: change to new completion
+            after = "coq_nvim",
             config = function()
-                require("plugins.configs.others").autopairs()
+                require "plugins.configs.autopairs"
             end
         }
 

@@ -1,10 +1,5 @@
 local M = {}
 
-M.autopairs = function()
-    require("nvim-autopairs").setup()
-    -- TODO: setup with new completion
-end
-
 M.blankline = function()
     require("indent_blankline").setup {
         indentLine_enabled = 1,

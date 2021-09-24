@@ -17,8 +17,4 @@ M.capabilities.textDocument.completion.completionItem.resolveSupport = {
     }
 }
 
--- TODO: remove cmp stuff
--- give it to auto-completion engine
--- M.capabilities = require("cmp_nvim_lsp").update_capabilities(M.capabilities)
-
 return M
