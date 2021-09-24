@@ -156,6 +156,19 @@ return packer.startup(
 
         -- auto-completion plugin
 
+        use {
+            "ms-jpq/coq_nvim",
+            branch = "coq",
+            setup = function()
+                require "plugins.configs.autocompletion"
+            end
+        }
+
+        use {
+            "ms-jpq/coq.artifacts",
+            branch = "artifacts"
+        }
+
         -- lang specific
         use {
             "simrat39/rust-tools.nvim",
@@ -370,8 +383,7 @@ return packer.startup(
 
         use {
             "abecodes/tabout.nvim",
-            -- after = "nvim-cmp",
-            -- TODO: change to new completion
+            after = "coq_nvim",
             config = function()
                 require "plugins.configs.tabout"
             end

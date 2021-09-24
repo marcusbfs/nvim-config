@@ -12,14 +12,16 @@ local servers = {
 
 for _, lsp in ipairs(servers) do
     nvim_lsp[lsp].setup(
-        {
-            on_attach = on_attach,
-            capabilities = capabilities,
-            -- root_dir = vim.loop.cwd{},
-            flags = {
-                debounce_text_changes = 150
+        coq.lsp_ensure_capabilities(
+            {
+                on_attach = on_attach,
+                capabilities = capabilities,
+                -- root_dir = vim.loop.cwd{},
+                flags = {
+                    debounce_text_changes = 150
+                }
             }
-        }
+        )
     )
 end
 
