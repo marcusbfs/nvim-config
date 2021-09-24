@@ -186,7 +186,7 @@ M.lsptrouble = function()
 end
 
 M.better_escape = function()
-    vim.g.better_escape_interval = 150
+    vim.g.better_escape_interval = 200
     vim.fn.execute("let g:better_escape_shortcut = ['jk', 'kj']")
 end
 
