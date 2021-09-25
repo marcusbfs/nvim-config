@@ -64,7 +64,11 @@ vim.o.ignorecase = true
 vim.o.smartcase = true
 
 -- Set terminal options
-vim.fn.execute(":command Term term cmd.exe /k " .. os.getenv("CMDER_ROOT") .. "\\vendor\\init.bat")
+if vim.fn.has("win32") then
+    vim.fn.execute(":command Term term cmd.exe /k " .. os.getenv("CMDER_ROOT") .. "\\vendor\\init.bat")
+else
+    vim.fn.execute(":command Term term")
+end
 
 -- disable some builtin vim plugins
 local disabled_built_ins = {
