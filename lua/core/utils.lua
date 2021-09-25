@@ -332,4 +332,7 @@ M.packer_lazy_load = function(plugin, timer)
     end
 end
 
+-- true if system is windows
+M.is_win32 = vim.fn.has("win32") == 1
+
 return M

@@ -1,11 +1,7 @@
 local telescope = require "telescope"
 
-local is_check_mime_type = true
-
 -- disable check_mime_type in Windows
-if vim.fn.has("win32") then
-    is_check_mime_type = false
-end
+local is_check_mime_type = not require("core.utils").is_win32
 
 telescope.setup {
     defaults = {
