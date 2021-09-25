@@ -1,5 +1,8 @@
-local nvim_lsp = require "lspconfig"
-local coq = require "coq"
+local present1, nvim_lsp = pcall(require, "lspconfig")
+
+if not present1 then
+    return
+end
 
 local on_attach = require("core.mappings").on_attach
 local capabilities = require("plugins.configs.lsp_capabilities").capabilities
@@ -12,16 +15,14 @@ local servers = {
 
 for _, lsp in ipairs(servers) do
     nvim_lsp[lsp].setup(
-        coq.lsp_ensure_capabilities(
-            {
-                on_attach = on_attach,
-                capabilities = capabilities,
-                -- root_dir = vim.loop.cwd{},
-                flags = {
-                    debounce_text_changes = 150
-                }
+        {
+            on_attach = on_attach,
+            capabilities = capabilities,
+            -- root_dir = vim.loop.cwd{},
+            flags = {
+                debounce_text_changes = 150
             }
-        )
+        }
     )
 end
 
