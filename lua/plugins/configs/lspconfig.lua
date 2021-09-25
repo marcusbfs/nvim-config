@@ -1,9 +1,4 @@
-local present1, nvim_lsp = pcall(require, "lspconfig")
-
-if not present1 then
-    return
-end
-
+local nvim_lsp = require "lspconfig"
 local on_attach = require("core.mappings").on_attach
 local capabilities = require("plugins.configs.lsp_capabilities").capabilities
 
