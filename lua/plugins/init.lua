@@ -311,7 +311,7 @@ return packer.startup(
             cmd = {"Format", "FormatWrite"},
             ft = {"python", "lua", "rust", "cpp"},
             config = function()
-                require("plugins.configs.others").formatter()
+                require "plugins.configs.formatter"
             end,
             setup = function()
                 require("core.mappings").formatter()
@@ -424,7 +424,7 @@ return packer.startup(
                 require("plugins.configs.others").todo_comments()
             end
         }
-        
+
         use {"tpope/vim-surround"}
     end
 )
