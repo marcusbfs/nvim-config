@@ -40,10 +40,6 @@ vim.o.guicursor = "n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20"
 -- ... and reset cursor after exiting
 vim.fn.execute("au VimLeave * set guicursor=a:ver10-blinkon0")
 
--- Text width
--- vim.o.textwidth = 79
--- vim.o.colorcolumn = vim.o.colorcolumn + 1
-
 -- Undo options
 if (not vim.fn.isdirectory(undo_dir)) then
     vim.fn.execute('call mkdir(undo_dir, "", 0700)')
@@ -62,6 +58,9 @@ vim.wo.signcolumn = "yes"
 --Case insensitive searching UNLESS /C or capital in search
 vim.o.ignorecase = true
 vim.o.smartcase = true
+
+-- set visual color column
+vim.cmd [[ set colorcolumn=88 ]]
 
 -- Set terminal options
 if require("core.utils").is_win32 then
