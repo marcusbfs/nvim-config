@@ -45,11 +45,13 @@ vim.g.my_colorscheme = CS.tokyonight_storm
 
 -- Set colorscheme basd on time
 local based_on_time = function()
-    local toggle_hour = 17.5
+    local day_theme_start = 7.0
+    local day_theme_end = 17.5
+    
     local date = os.date("*t")
     local current_time = date.hour + date.min / 59.0
 
-    if current_time < toggle_hour then
+    if (current_time > day_theme_start and current_time < day_theme_end) then
         vim.g.my_colorscheme = CS.catppucino_soft_manilo
     else
         vim.g.my_colorscheme = CS.catppucino_dark
