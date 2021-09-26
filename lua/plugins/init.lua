@@ -426,5 +426,13 @@ return packer.startup(
         }
 
         use {"tpope/vim-surround"}
+
+        use {
+            "kevinhwang91/nvim-bqf",
+            event = "BufRead",
+            config = function()
+                require("plugins.configs.others").bqf()
+            end
+        }
     end
 )

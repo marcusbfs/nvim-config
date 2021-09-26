@@ -141,4 +141,8 @@ M.todo_comments = function()
     require("todo-comments").setup {}
 end
 
+M.bqf = function()
+    require("bqf").setup()
+end
+
 return M
