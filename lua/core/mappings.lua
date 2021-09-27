@@ -94,6 +94,16 @@ M.misc = function()
         -- zt and zb "one line off"
         common_map("n", "zt", "zt<c-y>")
         common_map("n", "zb", "zb<c-e>")
+
+        -- undo breakpoints
+        common_map("i", ",", ",<c-g>u")
+        common_map("i", ".", ".<c-g>u")
+        common_map("i", "!", "!<c-g>u")
+        common_map("i", "?", "?<c-g>u")
+
+        -- jumplist mutations
+        -- vim.cmd [[ nnoremap <expr> k (v:count > 5 ? "m'" . v:count : "") . 'k' ]]
+        -- vim.cmd [[ nnoremap <expr> j (v:count > 5 ? "m'" . v:count : "") . 'j' ]]
     end
 
     local function commands()
