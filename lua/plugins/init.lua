@@ -434,5 +434,7 @@ return packer.startup(
                 require("plugins.configs.others").bqf()
             end
         }
+
+        use {"mbbill/undotree"}
     end
 )
