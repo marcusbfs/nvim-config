@@ -18,6 +18,7 @@ M.mbfs_telescope_nvim_config_find_file = function()
         }
     )
 end
+
 M.mbfs_telescope_nvim_config_live_grep = function()
     local config_dir = vim.fn.expand(vim.fn.stdpath("config"))
     require("telescope.builtin").live_grep(
@@ -37,7 +38,7 @@ local commands = {
     {"MbfsTelescopeNvimConfigLiveGrep", "mbfs_telescope_nvim_config_live_grep"}
 }
 
-M.mbfs_register_functions = function()
+local mbfs_register_functions = function()
     for _, item in ipairs(commands) do
         local command = item[1]
         local fun = item[2]
@@ -45,6 +46,6 @@ M.mbfs_register_functions = function()
     end
 end
 
-M.mbfs_register_functions()
+mbfs_register_functions()
 
 return M

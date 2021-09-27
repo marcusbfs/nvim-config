@@ -343,12 +343,6 @@ return packer.startup(
         }
 
         use {
-            "bronson/vim-trailing-whitespace",
-            event = "BufRead",
-            cmd = "FixWhitespace"
-        }
-
-        use {
             "https://gitlab.com/yorickpeterse/nvim-window.git",
             as = "nvim-window",
             event = "BufRead",

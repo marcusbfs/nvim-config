@@ -19,8 +19,8 @@
 -- File extension specific tabbing
 -- vim.cmd [[ autocmd Filetype python setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4 ]]
 
---- Execute FixWhitespace after saving a file
-vim.cmd [[ autocmd BufWritePost * FixWhitespace ]]
+--- Trim whitespace after saving a file
+vim.cmd [[ autocmd BufWritePre * :%s/\\s\\+$//e ]]
 
 -- Set textwidth for markdown
 vim.cmd [[ autocmd bufreadpre *.md setlocal textwidth=79 ]]
