@@ -327,14 +327,6 @@ return packer.startup(
         }
 
         use {
-            "famiu/bufdelete.nvim",
-            cmd = "Bdelete",
-            setup = function()
-                require("core.mappings").bufdelete()
-            end
-        }
-
-        use {
             "numtostr/BufOnly.nvim",
             cmd = "BufOnly",
             setup = function()

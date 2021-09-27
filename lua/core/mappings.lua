@@ -95,6 +95,9 @@ M.misc = function()
         common_map("n", "zt", "zt<c-y>")
         common_map("n", "zb", "zb<c-e>")
 
+        -- buf delete
+        common_map("n", "<leader>bd", ":lua require('core.utils').close_buffer() <cr>")
+
         -- undo breakpoints
         common_map("i", ",", ",<c-g>u")
         common_map("i", ".", ".<c-g>u")
@@ -148,11 +151,6 @@ M.easy_align = function()
     map("x", "ga", "<Plug>(EasyAlign)", {silent = true})
     -- Start interactive EasyAlign for a motion/text object (e.g. gaip)
     map("n", "ga", '<Plug>(EasyAlign)"', {silent = true})
-end
-
--- bufdelete
-M.bufdelete = function()
-    map("n", "<leader>bd", ":Bdelete <cr>", {noremap = true, silent = true})
 end
 
 -- bufonly
