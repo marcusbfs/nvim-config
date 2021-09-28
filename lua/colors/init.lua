@@ -37,7 +37,11 @@ local CS = {
     catppucino_dark = 31,
     catppucino_neon_latte = 32,
     catppucino_soft_manilo = 33,
-    catppucino_light_melya = 34
+    catppucino_light_melya = 34,
+    gruvbox_original_dark_medium = 35,
+    gruvbox_original_dark_hard = 36,
+    gruvbox_original_light_medium = 37,
+    gruvbox_original_light_hard = 38
 }
 
 -- Set colorscheme
@@ -47,14 +51,14 @@ vim.g.my_colorscheme = CS.tokyonight_storm
 local based_on_time = function()
     local day_theme_start = 7.0
     local day_theme_end = 17.5
-    
+
     local date = os.date("*t")
     local current_time = date.hour + date.min / 59.0
 
     if (current_time > day_theme_start and current_time < day_theme_end) then
-        vim.g.my_colorscheme = CS.catppucino_soft_manilo
+        vim.g.my_colorscheme = CS.gruvbox_original_dark_medium
     else
-        vim.g.my_colorscheme = CS.catppucino_dark
+        vim.g.my_colorscheme = CS.gruvbox_original_dark_hard
     end
 end
 
@@ -82,7 +86,11 @@ M.origin_name = function()
             CS.gruvbox_material_dark_medium,
             CS.gruvbox_material_dark_hard,
             CS.gruvbox_material_light_medium,
-            CS.gruvbox_material_light_hard
+            CS.gruvbox_material_light_hard,
+            CS.gruvbox_original_dark_medium,
+            CS.gruvbox_original_dark_hard,
+            CS.gruvbox_original_light_medium,
+            CS.gruvbox_original_light_hard
         )
      then
         return "sainnhe/gruvbox-material"
@@ -127,13 +135,21 @@ M.config = function()
     elseif cs_contains(CS.tokyonight_day) then
         helpers.tokyonight("day")
     elseif cs_contains(CS.gruvbox_material_dark_medium) then
-        helpers.gruvbox("dark", "medium")
+        helpers.gruvbox("dark", "medium", "material")
     elseif cs_contains(CS.gruvbox_material_dark_hard) then
-        helpers.gruvbox("dark", "hard")
+        helpers.gruvbox("dark", "hard", "material")
     elseif cs_contains(CS.gruvbox_material_light_medium) then
-        helpers.gruvbox("light", "medium")
+        helpers.gruvbox("light", "medium", "material")
     elseif cs_contains(CS.gruvbox_material_light_hard) then
-        helpers.gruvbox("light", "hard")
+        helpers.gruvbox("light", "hard", "material")
+    elseif cs_contains(CS.gruvbox_original_dark_medium) then
+        helpers.gruvbox("dark", "medium", "original")
+    elseif cs_contains(CS.gruvbox_original_dark_hard) then
+        helpers.gruvbox("dark", "hard", "original")
+    elseif cs_contains(CS.gruvbox_original_light_medium) then
+        helpers.gruvbox("light", "medium", "original")
+    elseif cs_contains(CS.gruvbox_original_light_hard) then
+        helpers.gruvbox("light", "hard", "original")
     elseif cs_contains(CS.onedark_default) then
         helpers.onedark("default")
     elseif cs_contains(CS.onedark_darker) then

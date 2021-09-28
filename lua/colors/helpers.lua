@@ -5,10 +5,10 @@ M.tokyonight = function(style)
     vim.cmd [[colorscheme tokyonight]]
 end
 
-M.gruvbox = function(background, intensity)
+M.gruvbox = function(background, intensity, palette)
     vim.o.background = background
     vim.api.nvim_set_var("gruvbox_material_background", intensity)
-    vim.api.nvim_set_var("gruvbox_material_palette", "material")
+    vim.api.nvim_set_var("gruvbox_material_palette", palette)
     vim.cmd [[colorscheme gruvbox-material]]
 end
 
