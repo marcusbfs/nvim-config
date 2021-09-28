@@ -15,12 +15,8 @@ local M = {}
 -- these mappings will only be called during initialization
 M.misc = function()
     local function non_config_mappings()
-        -- Disable esc in insert mode - force me to use "better escape"
-        -- common_map("i", "<Esc>", "")
-        -- common_map("i", "<Esc>", "")
-
         -- use ESC to turn off search highlighting
-        map("n", "<Esc>", ":noh <CR>", {noremap = true, silent = true})
+        common_map("n", "<Esc>", ":noh <CR>")
 
         --Remap for dealing with word wrap
         map("n", "k", "v:count == 0 ? 'gk' : 'k'", {noremap = true, expr = true, silent = true})
@@ -33,63 +29,61 @@ M.misc = function()
         vim.fn.execute("nnoremap <leader>sop :source " .. vimrc_path .. "<cr>")
 
         -- Save current buffer
-        map("n", "<leader>w", ":w<CR>", {noremap = true, silent = true})
+        common_map("n", "<leader>w", ":w<CR>")
 
         -- Quit
-        map("n", "<leader>q", ":q<CR>", {noremap = true, silent = true})
-
-        -- can i stop using escape
-        -- map("v", "jk", "<ESC>", {noremap = true, silent = true})
-        -- map("v", "kj", "<ESC>", {noremap = true, silent = true})
+        common_map("n", "<leader>q", ":q<CR>")
 
         -- Yank entire line
-        map("n", "Y", "y$", {noremap = true, silent = true})
+        common_map("n", "Y", "y$")
 
         -- Reselect when using ">" or "<" in vmode
-        map("v", "<", "<gv", {noremap = true, silent = true})
-        map("v", ">", ">gv", {noremap = true, silent = true})
+        common_map("v", "<", "<gv")
+        common_map("v", ">", ">gv")
 
         -- Navigation between buffers
-        map("n", "<leader>bl", "<c-^>", {noremap = true, silent = true})
+        common_map("n", "<leader>bl", "<c-^>")
 
         -- Split panes
-        map("n", "<leader>wsh", ":vertical split <cr>", {noremap = true, silent = true})
-        map("n", "<leader>wsv", ":split <cr>", {noremap = true, silent = true})
+        common_map("n", "<leader>wsh", ":vertical split <cr>")
+        common_map("n", "<leader>wsv", ":split <cr>")
+
+        -- Close all other windows
+        common_map("n", "<leader>wO", "<c-w>o")
 
         -- Navigation between panes
-        map("n", "H", "<c-w>h", {noremap = true, silent = true})
-        map("n", "L", "<c-w>l", {noremap = true, silent = true})
-        map("n", "J", "<c-w>j", {noremap = true, silent = true})
-        map("n", "K", "<c-w>k", {noremap = true, silent = true})
-        map("n", "<c-H>", "<c-w>h", {noremap = true, silent = true})
-        map("n", "<c-L>", "<c-w>l", {noremap = true, silent = true})
-        map("n", "<c-J>", "<c-w>j", {noremap = true, silent = true})
-        map("n", "<c-K>", "<c-w>k", {noremap = true, silent = true})
+        common_map("n", "H", "<c-w>h")
+        common_map("n", "L", "<c-w>l")
+        common_map("n", "J", "<c-w>j")
+        common_map("n", "K", "<c-w>k")
+        common_map("n", "<c-H>", "<c-w>h")
+        common_map("n", "<c-L>", "<c-w>l")
+        common_map("n", "<c-J>", "<c-w>j")
+        common_map("n", "<c-K>", "<c-w>k")
 
         -- Tabs
-        map("n", "<leader>tc", ":tabclose <cr>", {noremap = true, silent = true})
-        map("n", "<leader>te", ":tabedit <cr>", {noremap = true, silent = true})
-        map("n", "<leader>tn", ":tabnext <cr>", {noremap = true, silent = true})
-        map("n", "<leader>tp", ":tabprevious <cr>", {noremap = true, silent = true})
+        common_map("n", "<leader>tc", ":tabclose <cr>")
+        common_map("n", "<leader>te", ":tabedit <cr>")
+        common_map("n", "<leader>tn", ":tabnext <cr>")
+        common_map("n", "<leader>tp", ":tabprevious <cr>")
 
         -- Copy/paste stuff
         common_map("v", "<c-c>", '"+y')
         common_map("i", "<c-v>", '<esc>"+pa')
-        -- common_map("n", "<c-v>", '"+p')
 
         --Remap for dealing with word wrap
         map("n", "k", "v:count == 0 ? 'gk' : 'k'", {noremap = true, expr = true, silent = true})
         map("n", "j", "v:count == 0 ? 'gj' : 'j'", {noremap = true, expr = true, silent = true})
 
         -- Packer
-        map("n", "<leader>ps", ":PackerSync<cr>", {noremap = true, silent = true})
+        common_map("n", "<leader>ps", ":PackerSync<cr>")
 
         -- Use <esc> in terminal mode
-        map("t", "<Esc>", "<C-\\><C-n>", {noremap = true, silent = true})
+        common_map("t", "<Esc>", "<C-\\><C-n>")
 
         -- Terminal things
-        map("n", "<leader>To", ":Term<cr>a", {noremap = true, silent = true})
-        map("n", "<leader>Tc", ":bdelete!<cr>", {noremap = true, silent = true})
+        common_map("n", "<leader>To", ":Term<cr>a")
+        common_map("n", "<leader>Tc", ":bdelete!<cr>")
 
         -- zt and zb "one line off"
         common_map("n", "zt", "zt<c-y>")
@@ -103,10 +97,6 @@ M.misc = function()
         common_map("i", ".", ".<c-g>u")
         common_map("i", "!", "!<c-g>u")
         common_map("i", "?", "?<c-g>u")
-
-        -- jumplist mutations
-        -- vim.cmd [[ nnoremap <expr> k (v:count > 5 ? "m'" . v:count : "") . 'k' ]]
-        -- vim.cmd [[ nnoremap <expr> j (v:count > 5 ? "m'" . v:count : "") . 'j' ]]
     end
 
     local function commands()
@@ -141,8 +131,8 @@ end
 
 -- nvim-comment
 M.comment = function()
-    map("n", "<leader>;", ":CommentToggle <cr>", {noremap = true, silent = true})
-    map("v", "<leader>;", ":CommentToggle <cr>", {noremap = true, silent = true})
+    common_map("n", "<leader>;", ":CommentToggle <cr>")
+    common_map("v", "<leader>;", ":CommentToggle <cr>")
 end
 
 -- Easy Align
@@ -160,26 +150,26 @@ end
 
 -- Tree plugin
 M.tree = function()
-    map("n", "<leader>nt", ":CHADopen<CR>", {noremap = true, silent = true})
+    common_map("n", "<leader>nt", ":CHADopen<CR>")
     -- quit chadtree if its the last and only buffer
     vim.fn.execute("autocmd BufEnter * if winnr('$') == 1 && &ft=='CHADtree' | quit | endif")
 end
 
 -- Bufferline
 M.bufferline = function()
-    map("n", "<A-.>", ":BufferLineCycleNext<CR>", {noremap = true, silent = true})
-    map("n", "<A-,>", ":BufferLineCyclePrev<CR>", {noremap = true, silent = true})
+    common_map("n", "<A-.>", ":BufferLineCycleNext<CR>")
+    common_map("n", "<A-,>", ":BufferLineCyclePrev<CR>")
 
     for i = 1, 9 do
-        map("n", "<A-" .. i .. ">", "<Cmd>BufferLineGoToBuffer " .. i .. "<CR>", {noremap = true, silent = true})
+        common_map("n", "<A-" .. i .. ">", "<Cmd>BufferLineGoToBuffer " .. i .. "<CR>")
     end
 end
 
 -- Zen mode
 M.truezen = function()
-    map("n", "<leader>za", ":TZAtaraxis <CR>", {noremap = true, silent = true})
-    map("n", "<leader>zf", ":TZFocus <CR>", {noremap = true, silent = true})
-    map("n", "<leader>zm", ":TZMinimalist <CR>", {noremap = true, silent = true})
+    common_map("n", "<leader>za", ":TZAtaraxis <CR>")
+    common_map("n", "<leader>zf", ":TZFocus <CR>")
+    common_map("n", "<leader>zm", ":TZMinimalist <CR>")
 end
 
 -- Lsp on_attach keybindings

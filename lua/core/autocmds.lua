@@ -23,4 +23,4 @@
 vim.cmd [[ autocmd BufWritePre * :%s/\\s\\+$//e ]]
 
 -- Set textwidth for markdown
-vim.cmd [[ autocmd bufreadpre *.md setlocal textwidth=79 ]]
+vim.cmd [[ autocmd bufreadpre *.md setlocal textwidth=88 ]]

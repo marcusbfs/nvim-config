@@ -422,5 +422,7 @@ return packer.startup(
         }
 
         use {"mbbill/undotree"}
+
+        use {"ThePrimeagen/vim-be-good"}
     end
 )
