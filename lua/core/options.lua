@@ -69,6 +69,19 @@ else
     vim.fn.execute(":command Term term")
 end
 
+-- set Python neovim virtual env
+-- go to stdpath("data") and run
+-- python -m venv pynvim_env
+if require("core.utils").is_win32 then
+    local sep = require("core.utils").pathsep
+    local venv_folder_name = "pynvim_env"
+    vim.g.python3_host_prog =
+        vim.fn.stdpath("data") .. sep .. venv_folder_name .. sep .. "Scripts" .. sep .. "python.exe"
+    if not require("core.utils").file_exists(vim.g.python3_host_prog) then
+        print("venv " .. vim.g.python3_host_prog .. " not found")
+    end
+end
+
 -- disable some builtin vim plugins
 local disabled_built_ins = {
     "2html_plugin",

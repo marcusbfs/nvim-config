@@ -118,7 +118,24 @@ M.close_buffer = function(bufexpr, force)
     end
 end
 
+M.file_exists = function(name)
+    local f = io.open(name, "r")
+    if f ~= nil then
+        io.close(f)
+        return true
+    else
+        return false
+    end
+end
+
 -- true if system is windows
 M.is_win32 = vim.fn.has("win32") == 1
+
+-- system path seprator
+if M.is_win32 then
+    M.pathsep = "\\"
+else
+    M.pathsep = "/"
+end
 
 return M

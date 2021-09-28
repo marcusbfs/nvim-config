@@ -1,5 +1,7 @@
 local origin_name = require("colors").origin_name()
-local color_info_file = vim.fn.stdpath("data") .. "/mbfs_colorscheme.dat"
+local utils = require("core.utils")
+
+local color_info_file = vim.fn.stdpath("data") .. utils.pathsep .. "mbfs_colorscheme.dat"
 
 local write_to_file = function(content, filename)
     local file = io.open(filename, "w")
@@ -14,20 +16,10 @@ local read_from_file = function(filename)
     return color
 end
 
-local file_exists = function(filename)
-    local f = io.open(filename, "r")
-    if f ~= nil then
-        io.close(f)
-        return true
-    else
-        return false
-    end
-end
-
-if file_exists(color_info_file) then
+if utils.file_exists(color_info_file) then
     local color_from_file = read_from_file(color_info_file)
     if color_from_file ~= origin_name then
-        print("colorscheme changed reposistory")
+        print("colorscheme changed reposistory from " .. color_from_file .. " to " .. origin_name)
         write_to_file(origin_name, color_info_file)
         vim.fn.execute("PackerSync")
     end
