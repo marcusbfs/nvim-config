@@ -20,7 +20,7 @@
 -- vim.cmd [[ autocmd Filetype python setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4 ]]
 
 --- Trim whitespace after saving a file
-vim.cmd [[ autocmd BufWritePre * :%s/\\s\\+$//e ]]
+vim.cmd [[ autocmd BufWritePre * lua require("core.functions").mbfs_trim_whitespace() ]]
 
 -- Set textwidth for markdown
 vim.cmd [[ autocmd bufreadpre *.md setlocal textwidth=88 ]]

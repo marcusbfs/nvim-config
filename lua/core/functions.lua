@@ -30,12 +30,17 @@ M.mbfs_telescope_nvim_config_live_grep = function()
     )
 end
 
+M.mbfs_trim_whitespace = function()
+    vim.fn.execute(":%s/\\s\\+$//e")
+end
+
 -- Register functions
 
 local commands = {
     {"MbfsNvimDir", "mbfs_nvim_dir"},
     {"MbfsTelescopeNvimConfigFindFile", "mbfs_telescope_nvim_config_find_file"},
-    {"MbfsTelescopeNvimConfigLiveGrep", "mbfs_telescope_nvim_config_live_grep"}
+    {"MbfsTelescopeNvimConfigLiveGrep", "mbfs_telescope_nvim_config_live_grep"},
+    {"TrimWhitespace", "mbfs_trim_whitespace"}
 }
 
 local mbfs_register_functions = function()
