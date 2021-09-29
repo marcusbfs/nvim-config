@@ -73,10 +73,16 @@ return packer.startup(
         use {
             "nvim-treesitter/nvim-treesitter",
             run = ":TSUpdate",
-            event = "BufRead",
+            -- event = "BufRead",
             config = function()
                 require "plugins.configs.treesitter"
             end
+        }
+
+        use {
+            "nvim-treesitter/playground",
+            after = "nvim-treesitter",
+            cmd = "TSPlaygroundToggle"
         }
 
         -- git stuff
