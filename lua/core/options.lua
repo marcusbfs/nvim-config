@@ -34,6 +34,9 @@ vim.o.incsearch = true
 -- Changed files
 vim.o.autoread = true
 
+-- Scroll off
+vim.o.scrolloff = 1
+
 -- Cursors
 vim.o.guicursor = "n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20"
 
