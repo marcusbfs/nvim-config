@@ -94,11 +94,6 @@ return packer.startup(
         }
 
         use {
-            "machakann/vim-highlightedyank",
-            event = "TextYankPost"
-        }
-
-        use {
             "TimUntersberger/neogit",
             cmd = "Neogit",
             setup = function()
@@ -433,7 +428,7 @@ return packer.startup(
 
         use {
             "folke/twilight.nvim",
-            cmd = {"Twilight","Twilight","TwilightDisable"},
+            cmd = {"Twilight", "Twilight", "TwilightDisable"},
             config = function()
                 require("plugins.configs.others").twilight()
             end
