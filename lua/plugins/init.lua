@@ -430,5 +430,13 @@ return packer.startup(
         use {"mbbill/undotree"}
 
         use {"ThePrimeagen/vim-be-good"}
+
+        use {
+            "folke/twilight.nvim",
+            cmd = {"Twilight","Twilight","TwilightDisable"},
+            config = function()
+                require("plugins.configs.others").twilight()
+            end
+        }
     end
 )

@@ -145,4 +145,8 @@ M.bqf = function()
     require("bqf").setup()
 end
 
+M.twilight = function()
+    require("twilight").setup {}
+end
+
 return M
