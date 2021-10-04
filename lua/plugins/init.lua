@@ -26,7 +26,7 @@ return packer.startup(
         }
 
         use {
-            "famiu/feline.nvim",
+            "NTBBloodbath/galaxyline.nvim",
             after = "nvim-web-devicons",
             config = function()
                 require "plugins.configs.statusline"
