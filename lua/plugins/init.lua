@@ -428,6 +428,7 @@ return packer.startup(
 
         use {
             "ThePrimeagen/harpoon",
+            keys = "<leader>hm",
             config = function()
                 require("plugins.configs.others").harpoon()
             end,
