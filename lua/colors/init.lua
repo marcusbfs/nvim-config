@@ -45,7 +45,7 @@ local CS = {
 }
 
 -- Set colorscheme
-vim.g.my_colorscheme = CS.tokyonight_storm
+vim.g.my_colorscheme = CS.gruvbox_original_dark_medium
 
 -- Set colorscheme basd on time
 local based_on_time = function()
