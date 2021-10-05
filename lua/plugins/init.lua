@@ -427,6 +427,16 @@ return packer.startup(
         use {"ThePrimeagen/vim-be-good"}
 
         use {
+            "ThePrimeagen/harpoon",
+            config = function()
+                require("plugins.configs.others").harpoon()
+            end,
+            setup = function()
+                require("core.mappings").harpoon()
+            end
+        }
+
+        use {
             "folke/twilight.nvim",
             cmd = {"Twilight", "Twilight", "TwilightDisable"},
             config = function()

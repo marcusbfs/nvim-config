@@ -149,4 +149,8 @@ M.twilight = function()
     require("twilight").setup {}
 end
 
+M.harpoon = function()
+    require("harpoon").setup()
+end
+
 return M

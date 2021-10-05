@@ -254,4 +254,10 @@ M.startify = function()
     common_map("n", "<leader>sd", ":SDelete<cr>")
 end
 
+-- harpoon
+M.harpoon = function()
+    common_map("n", "<leader>hm", ':lua require("harpoon.mark").add_file()<cr>')
+    common_map("n", "<leader>hl", ':lua require("harpoon.ui").toggle_quick_menu()<cr>')
+end
+
 return M
