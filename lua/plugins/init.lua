@@ -227,8 +227,7 @@ return packer.startup(
         use {"mg979/vim-visual-multi"}
 
         use {
-            "terrortylor/nvim-comment",
-            cmd = "CommentToggle",
+            "b3nj5m1n/kommentary",
             config = function()
                 require("plugins.configs.others").comment()
             end,

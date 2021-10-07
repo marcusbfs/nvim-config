@@ -130,10 +130,11 @@ M.neoclip = function()
     common_map("n", "<leader>fy", "<cmd>lua require('telescope').extensions.neoclip.unnamed()<cr>")
 end
 
--- nvim-comment
+-- comment plugin
 M.comment = function()
-    common_map("n", "<leader>;", ":CommentToggle <cr>")
-    common_map("v", "<leader>;", ":CommentToggle <cr>")
+    vim.g.kommentary_create_default_mappings = false
+    map("n", "<leader>;", "<Plug>kommentary_line_default", {silent = true})
+    map("v", "<leader>;", "<Plug>kommentary_visual_default", {silent = true})
 end
 
 -- Easy Align
