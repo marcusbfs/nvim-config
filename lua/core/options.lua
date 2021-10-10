@@ -1,5 +1,5 @@
 -- GUI font
--- choco install firacodenf
+-- choco install firacodenf -y
 vim.fn.execute("set guifont=FiraCode\\ NF:h13")
 
 -- Terminal colors
