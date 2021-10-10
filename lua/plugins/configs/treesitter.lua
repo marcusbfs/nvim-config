@@ -1,7 +1,18 @@
 require "nvim-treesitter.install".compilers = {"clang", "cl"}
 
 require("nvim-treesitter.configs").setup {
-    ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+    ensure_installed = {
+        "vim",
+        "lua",
+        "json",
+        "c",
+        "cpp",
+        "python",
+        "rust",
+        "regex",
+        "html",
+        "cmake"
+    },
     highlight = {
         enable = true,
         use_languagetree = true,
