@@ -296,13 +296,15 @@ return packer.startup(
         }
 
         use {
-            "ms-jpq/chadtree",
-            branch = "chad",
+            "kyazdani42/nvim-tree.lua",
             cmd = {
-                "CHADopen"
+                "NvimTreeOpen"
             },
             setup = function()
                 require("core.mappings").tree()
+            end,
+            config = function()
+                require "plugins.configs.tree"
             end
         }
 

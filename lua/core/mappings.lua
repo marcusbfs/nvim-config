@@ -152,9 +152,7 @@ end
 
 -- Tree plugin
 M.tree = function()
-    common_map("n", "<leader>nt", ":CHADopen<CR>")
-    -- quit chadtree if its the last and only buffer
-    vim.fn.execute("autocmd BufEnter * if winnr('$') == 1 && &ft=='CHADtree' | quit | endif")
+    common_map("n", "<leader>nt", ":NvimTreeOpen<CR>")
 end
 
 -- Bufferline
