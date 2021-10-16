@@ -107,7 +107,7 @@ return packer.startup(
         -- lsp stuff
         use {
             "neovim/nvim-lspconfig",
-            ft = {"rust", "python", "lua", "cpp", "cmake"},
+            ft = {"rust", "python", "lua", "cpp", "cmake", "javascript", "typescript"},
             config = function()
                 require "plugins.configs.lspconfig"
             end
@@ -311,7 +311,7 @@ return packer.startup(
         use {
             "mhartington/formatter.nvim",
             cmd = {"Format", "FormatWrite"},
-            ft = {"python", "lua", "rust", "cpp"},
+            ft = {"python", "lua", "rust", "cpp", "typescript", "javascript"},
             config = function()
                 require "plugins.configs.formatter"
             end,

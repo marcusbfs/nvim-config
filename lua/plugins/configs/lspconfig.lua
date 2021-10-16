@@ -3,8 +3,13 @@ local on_attach = require("core.mappings").on_attach
 local capabilities = require("plugins.configs.lsp_capabilities").capabilities
 
 local servers = {
+    -- npm install -g pyright
     "pyright",
+    -- https://clangd.llvm.org/installation
     "clangd",
+    -- npm install -g typescript typescript-language-server
+    "tsserver",
+    -- pipx install cmake-language-server
     "cmake"
 }
 
@@ -70,3 +75,6 @@ vim.notify = function(msg, log_level, _opts)
         vim.api.nvim_echo({{msg}}, true, {})
     end
 end
+
+-- force to reload colorschemes
+require("vim.lsp.diagnostic")._define_default_signs_and_highlights()

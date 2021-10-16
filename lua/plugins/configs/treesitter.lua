@@ -11,7 +11,9 @@ require("nvim-treesitter.configs").setup {
         "rust",
         "regex",
         "html",
-        "cmake"
+        "cmake",
+        "javascript",
+        "typescript"
     },
     highlight = {
         enable = true,
