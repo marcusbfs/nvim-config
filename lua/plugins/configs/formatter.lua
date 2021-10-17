@@ -4,7 +4,7 @@ vim.api.nvim_exec(
     [[
             augroup FormatAutogroup
               autocmd!
-              autocmd BufWritePost *.py,*.rs,*.lua,*.ts,*.js FormatWrite
+              autocmd BufWritePost *.py,*.rs,*.lua,*.ts,*.js,*.tsx,*.jsx FormatWrite
             augroup END
             ]],
     true
@@ -63,6 +63,26 @@ formatter.setup(
                 end
             },
             javascript = {
+                -- npm install -g prettier
+                function()
+                    return {
+                        exe = "prettier",
+                        args = {"--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0))},
+                        stdin = true
+                    }
+                end
+            },
+            typescriptreact = {
+                -- npm install -g prettier
+                function()
+                    return {
+                        exe = "prettier",
+                        args = {"--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0))},
+                        stdin = true
+                    }
+                end
+            },
+            javascriptreact = {
                 -- npm install -g prettier
                 function()
                     return {

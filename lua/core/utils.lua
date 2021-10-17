@@ -138,4 +138,17 @@ else
     M.pathsep = "/"
 end
 
+-- LSP common file types
+M.lsp_common_filetypes = {
+    "rust",
+    "python",
+    "lua",
+    "cpp",
+    "cmake",
+    "javascript",
+    "typescript",
+    "javascriptreact",
+    "typescriptreact"
+}
+
 return M
