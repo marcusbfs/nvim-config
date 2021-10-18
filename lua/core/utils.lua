@@ -146,9 +146,11 @@ M.lsp_common_filetypes = {
     "cpp",
     "cmake",
     "javascript",
-    "typescript",
     "javascriptreact",
-    "typescriptreact"
+    "javascript.jsx",
+    "typescript",
+    "typescriptreact",
+    "typescript.tsx"
 }
 
 return M
