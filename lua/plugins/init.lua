@@ -445,5 +445,12 @@ return packer.startup(
                 require("plugins.configs.others").twilight()
             end
         }
+
+        use {
+            "p00f/nvim-ts-rainbow",
+            config = function()
+                require("plugins.configs.others").rainbow()
+            end
+        }
     end
 )
