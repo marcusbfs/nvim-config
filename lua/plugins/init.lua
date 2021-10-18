@@ -122,14 +122,6 @@ return packer.startup(
         }
 
         use {
-            "glepnir/lspsaga.nvim",
-            after = "nvim-lspconfig",
-            config = function()
-                require("plugins.configs.others").lspsaga()
-            end
-        }
-
-        use {
             "folke/trouble.nvim",
             after = "nvim-lspconfig",
             config = function()
