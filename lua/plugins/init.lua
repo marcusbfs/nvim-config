@@ -18,6 +18,13 @@ return packer.startup(
         use {"nvim-lua/popup.nvim"}
 
         use {
+            require("colors").origin_name(),
+            config = function()
+                require("colors").config()
+            end
+        }
+
+        use {
             "kyazdani42/nvim-web-devicons",
             after = "packer.nvim",
             config = function()
@@ -121,6 +128,8 @@ return packer.startup(
             end
         }
 
+        use {"onsails/lspkind-nvim"}
+
         use {
             "folke/trouble.nvim",
             after = "nvim-lspconfig",
@@ -188,6 +197,11 @@ return packer.startup(
         use {
             "hrsh7th/cmp-buffer",
             after = "cmp-nvim-lsp"
+        }
+
+        use {
+            "hrsh7th/cmp-path",
+            after = "cmp-buffer"
         }
 
         -- lang specific
@@ -263,13 +277,6 @@ return packer.startup(
             end,
             setup = function()
                 require("core.mappings").truezen()
-            end
-        }
-
-        use {
-            require("colors").origin_name(),
-            config = function()
-                require("colors").config()
             end
         }
 

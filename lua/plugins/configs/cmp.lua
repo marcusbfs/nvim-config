@@ -10,20 +10,18 @@ cmp.setup {
         end
     },
     formatting = {
-        format = function(entry, vim_item)
-            -- load lspkind icons
-            vim_item.kind =
-                string.format("%s %s", require("plugins.configs.lspkind_icons").icons[vim_item.kind], vim_item.kind)
-
-            vim_item.menu =
-                ({
-                nvim_lsp = "[LSP]",
-                nvim_lua = "[Lua]",
-                buffer = "[BUF]"
-            })[entry.source.name]
-
-            return vim_item
-        end
+        format = require("lspkind").cmp_format(
+            {
+                with_text = true,
+                menu = ({
+                    nvim_lsp = "[LSP]",
+                    nvim_lua = "[Lua]",
+                    buffer = "[BUF]",
+                    path = "[PATH]",
+                    luasnip = "[SNIP]"
+                })
+            }
+        )
     },
     mapping = {
         ["<C-p>"] = cmp.mapping.select_prev_item(),
@@ -52,11 +50,11 @@ cmp.setup {
         end
     },
     sources = {
+        {name = "nvim_lua"},
         {name = "nvim_lsp"},
-        {name = "luasnip"},
-        {name = "treesitter"},
-        {name = "buffer"},
         {name = "path"},
-        {name = "nvim_lua"}
+        {name = "luasnip"},
+        {name = "buffer", keyword_length = 4},
+        {name = "treesitter"}
     }
 }
