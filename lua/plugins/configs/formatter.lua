@@ -14,6 +14,30 @@ formatter.setup(
     {
         filetype = {
             python = {
+                -- python -m pipx install isort
+                function()
+                    return {
+                        exe = "isort",
+                        args = {
+                            "-",
+                            "--atomic",
+                            "--profile",
+                            "black",
+                            "--overwrite-in-place"
+                        },
+                        stdin = true
+                    }
+                end,
+                -- remove carriage return cause by isort
+                function()
+                    return {
+                        exe = "sed",
+                        args = {
+                            "s/\\r//g"
+                        },
+                        stdin = true
+                    }
+                end,
                 -- python -m pipx install black
                 function()
                     return {
