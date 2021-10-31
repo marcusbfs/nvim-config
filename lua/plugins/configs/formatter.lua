@@ -9,35 +9,45 @@ vim.api.nvim_exec(
             ]],
     true
 )
+local remove_carriage_return = function()
+    return {
+        exe = "sed",
+        args = {
+            "s/\\r//g"
+        },
+        stdin = true
+    }
+end
 
 formatter.setup(
     {
         filetype = {
             python = {
-                -- python -m pipx install isort
+                -- python -m pipx install autoflake8
                 function()
                     return {
-                        exe = "isort",
+                        exe = "autoflake8",
                         args = {
                             "-",
-                            "--atomic",
-                            "--profile",
-                            "black",
-                            "--overwrite-in-place"
+                            "--stdout",
+                            "--exit-zero-even-if-changed"
                         },
                         stdin = true
                     }
                 end,
-                -- remove carriage return cause by isort
+                -- python -m pipx install usort
                 function()
                     return {
-                        exe = "sed",
+                        exe = "usort",
                         args = {
-                            "s/\\r//g"
+                            "format",
+                            "-"
                         },
                         stdin = true
                     }
                 end,
+                -- remove carriage return caused by previous steps
+                remove_carriage_return,
                 -- python -m pipx install black
                 function()
                     return {
