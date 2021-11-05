@@ -257,6 +257,9 @@ end
 M.harpoon = function()
     common_map("n", "<leader>hm", ':lua require("harpoon.mark").add_file()<cr>')
     common_map("n", "<leader>hl", ':lua require("harpoon.ui").toggle_quick_menu()<cr>')
+    for i = 1, 9 do
+        common_map("n", "<leader>h" .. i, ':lua require("harpoon.ui").nav_file(' .. i .. ")<cr>")
+    end
 end
 
 return M
