@@ -158,8 +158,8 @@ return packer.startup(
 
         -- load luasnips + cmp related in insert mode only
         use {
-            "rafamadriz/friendly-snippets",
-            event = "InsertEnter"
+            "rafamadriz/friendly-snippets"
+            -- event = "InsertEnter"
         }
 
         use {
@@ -190,8 +190,8 @@ return packer.startup(
         }
 
         use {
-            "hrsh7th/cmp-nvim-lsp",
-            after = "cmp-nvim-lua"
+            "hrsh7th/cmp-nvim-lsp"
+            -- after = "cmp-nvim-lua"
         }
 
         use {
@@ -428,7 +428,6 @@ return packer.startup(
 
         use {
             "ThePrimeagen/harpoon",
-            keys = "<leader>hm",
             config = function()
                 require("plugins.configs.others").harpoon()
             end,
