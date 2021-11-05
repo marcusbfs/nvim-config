@@ -7,6 +7,9 @@ vim.cmd [[ autocmd TermOpen term://* setlocal nonumber norelativenumber | setfil
 --- Trim whitespace after saving a file
 vim.cmd [[ autocmd BufWritePre * lua require("core.functions").mbfs_trim_whitespace() ]]
 
+--- Remove carriage return
+-- vim.cmd [[ autocmd BufWritePre * lua require("core.functions").mbfs_remove_carriage_return() ]]
+
 -- Set textwidth for markdown
 vim.cmd [[ autocmd bufreadpre *.md setlocal textwidth=88 ]]
 

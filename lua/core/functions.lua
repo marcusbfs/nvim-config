@@ -34,6 +34,10 @@ M.mbfs_trim_whitespace = function()
     vim.fn.execute(":%s/\\s\\+$//e")
 end
 
+M.mbfs_remove_carriage_return = function()
+    vim.fn.execute(":%s/\\r//e")
+end
+
 -- Register functions
 
 local commands = {
