@@ -2,18 +2,19 @@ require "nvim-treesitter.install".compilers = {"clang", "cl"}
 
 require("nvim-treesitter.configs").setup {
     ensure_installed = {
-        "vim",
-        "lua",
-        "json",
         "c",
-        "cpp",
-        "python",
-        "rust",
-        "regex",
-        "html",
         "cmake",
+        "cpp",
+        "go",
+        "html",
         "javascript",
-        "typescript"
+        "json",
+        "lua",
+        "python",
+        "regex",
+        "rust",
+        "typescript",
+        "vim"
     },
     highlight = {
         enable = true,
@@ -23,5 +24,8 @@ require("nvim-treesitter.configs").setup {
     indent = {
         enable = false,
         disable = {}
+    },
+    autotag = {
+        enable = true
     }
 }

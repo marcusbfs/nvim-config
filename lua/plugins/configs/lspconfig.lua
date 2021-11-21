@@ -10,7 +10,9 @@ local servers = {
     -- npm install -g typescript typescript-language-server
     "tsserver",
     -- pipx install cmake-language-server
-    "cmake"
+    "cmake",
+    -- go install golang.org/x/tools/gopls@latest
+    "gopls"
 }
 
 for _, lsp in ipairs(servers) do

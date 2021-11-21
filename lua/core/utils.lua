@@ -144,6 +144,7 @@ M.lsp_common_filetypes = {
     "python",
     "lua",
     "cpp",
+    "go",
     "cmake",
     "javascript",
     "javascriptreact",

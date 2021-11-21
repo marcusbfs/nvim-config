@@ -4,7 +4,7 @@ vim.api.nvim_exec(
     [[
             augroup FormatAutogroup
               autocmd!
-              autocmd BufWritePost *.py,*.rs,*.lua,*.ts,*.js,*.tsx,*.jsx FormatWrite
+              autocmd BufWritePost *.py,*.rs,*.lua,*.ts,*.js,*.tsx,*.jsx,*.go FormatWrite
             augroup END
             ]],
     true
@@ -122,6 +122,15 @@ formatter.setup(
                     return {
                         exe = "prettier",
                         args = {"--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0))},
+                        stdin = true
+                    }
+                end
+            },
+            go = {
+                -- gofmt - installed with golang
+                function()
+                    return {
+                        exe = "gofmt",
                         stdin = true
                     }
                 end
