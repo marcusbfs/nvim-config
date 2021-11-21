@@ -174,6 +174,7 @@ end
 
 -- Lsp on_attach keybindings
 M.on_attach = function(_, bufnr)
+    common_map("n", "<leader>lR", ":LspRestart<cr>")
     -- M.on_attach = function ()
     local function buf_set_keymap(...)
         vim.api.nvim_buf_set_keymap(bufnr, ...)

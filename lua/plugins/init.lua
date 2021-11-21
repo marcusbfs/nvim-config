@@ -450,5 +450,12 @@ return packer.startup(
                 require("plugins.configs.others").rainbow()
             end
         }
+        use {
+            "windwp/nvim-ts-autotag",
+            after = "nvim-treesitter",
+            config = function()
+                require("plugins.configs.others").autotag()
+            end
+        }
     end
 )

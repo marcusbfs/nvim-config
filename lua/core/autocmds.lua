@@ -17,4 +17,7 @@ vim.cmd [[ autocmd bufreadpre *.md setlocal textwidth=88 ]]
 -- vim.cmd [[ autocmd TextYankPost * silent! lua vim.highlight.on_yank {on_visual=false} ]]
 vim.cmd [[ autocmd TextYankPost * silent! lua vim.highlight.on_yank {higroup="IncSearch", timeout=300} ]]
 
+-- Set CIDL filetype to IDL
+vim.cmd [[ autocmd bufreadpre *.cidl setlocal filetype=IDL ]]
+
 vim.cmd [[ augroup END ]]

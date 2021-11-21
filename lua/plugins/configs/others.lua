@@ -149,4 +149,8 @@ M.rainbow = function()
     }
 end
 
+M.autotag = function()
+    require("nvim-ts-autotag").setup()
+end
+
 return M
