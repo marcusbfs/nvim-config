@@ -12,7 +12,9 @@ local servers = {
     -- pipx install cmake-language-server
     "cmake",
     -- go install golang.org/x/tools/gopls@latest
-    "gopls"
+    "gopls",
+    -- julia --project=/path/to/my/project -e 'using Pkg; Pkg.instantiate()'
+    "julials"
 }
 
 for _, lsp in ipairs(servers) do

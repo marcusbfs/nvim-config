@@ -140,18 +140,19 @@ end
 
 -- LSP common file types
 M.lsp_common_filetypes = {
-    "rust",
-    "python",
-    "lua",
+    "cmake",
     "cpp",
     "go",
-    "cmake",
     "javascript",
-    "javascriptreact",
     "javascript.jsx",
+    "javascriptreact",
+    "julia",
+    "lua",
+    "python",
+    "rust",
     "typescript",
-    "typescriptreact",
-    "typescript.tsx"
+    "typescript.tsx",
+    "typescriptreact"
 }
 
 return M
