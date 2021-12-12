@@ -52,6 +52,13 @@ M.colorizer = function()
 end
 
 M.comment = function()
+    local comment = require("kommentary.config")
+    comment.configure_language(
+        "default",
+        {
+            prefer_single_line_comments = true
+        }
+    )
 end
 
 M.luasnip = function()
