@@ -14,7 +14,9 @@ local servers = {
     -- go install golang.org/x/tools/gopls@latest
     "gopls",
     -- julia --project=/path/to/my/project -e 'using Pkg; Pkg.instantiate()'
-    "julials"
+    "julials",
+    -- npm i -g vscode-langservers-extracted
+    "html"
 }
 
 for _, lsp in ipairs(servers) do

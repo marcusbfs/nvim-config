@@ -4,7 +4,7 @@ vim.api.nvim_exec(
     [[
             augroup FormatAutogroup
               autocmd!
-              autocmd BufWritePost *.py,*.rs,*.lua,*.ts,*.js,*.tsx,*.jsx,*.go FormatWrite
+              autocmd BufWritePost *.py,*.rs,*.lua,.*.html,*.ts,*.js,*.tsx,*.jsx,*.go FormatWrite
             augroup END
             ]],
     true
@@ -82,6 +82,16 @@ formatter.setup(
                 function()
                     return {
                         exe = "clang-format",
+                        stdin = true
+                    }
+                end
+            },
+            html = {
+                -- npm install -g prettier
+                function()
+                    return {
+                        exe = "prettier",
+                        args = {"--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0))},
                         stdin = true
                     }
                 end

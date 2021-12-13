@@ -143,6 +143,7 @@ M.lsp_common_filetypes = {
     "cmake",
     "cpp",
     "go",
+    "html",
     "javascript",
     "javascript.jsx",
     "javascriptreact",
