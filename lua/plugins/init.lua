@@ -151,13 +151,13 @@ return packer.startup(
             end
         }
 
-        -- use {
-        --     "kosayoda/nvim-lightbulb",
-        --     after = "nvim-lspconfig",
-        --     config = function()
-        --         require("plugins.configs.others").lightbulb()
-        --     end
-        -- }
+        use {
+            "kosayoda/nvim-lightbulb",
+            after = "nvim-lspconfig",
+            config = function()
+                require("plugins.configs.others").lightbulb()
+            end
+        }
 
         -- load luasnips + cmp related in insert mode only
         use {
