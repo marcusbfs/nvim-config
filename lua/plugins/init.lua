@@ -33,11 +33,14 @@ return packer.startup(
         }
 
         use {
-            "NTBBloodbath/galaxyline.nvim",
-            after = "nvim-web-devicons",
+            "nvim-lualine/lualine.nvim",
             config = function()
                 require "plugins.configs.statusline"
-            end
+            end,
+            requires = {
+                "kyazdani42/nvim-web-devicons",
+                opt = true
+            }
         }
 
         use {
@@ -148,13 +151,13 @@ return packer.startup(
             end
         }
 
-        use {
-            "kosayoda/nvim-lightbulb",
-            after = "nvim-lspconfig",
-            config = function()
-                require("plugins.configs.others").lightbulb()
-            end
-        }
+        -- use {
+        --     "kosayoda/nvim-lightbulb",
+        --     after = "nvim-lspconfig",
+        --     config = function()
+        --         require("plugins.configs.others").lightbulb()
+        --     end
+        -- }
 
         -- load luasnips + cmp related in insert mode only
         use {

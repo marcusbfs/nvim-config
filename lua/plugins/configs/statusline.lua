@@ -1,1 +1,5 @@
-require("galaxyline.themes.neonline")
+require("lualine").setup {
+    options = {
+        theme = "gruvbox"
+    }
+}
