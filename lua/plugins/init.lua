@@ -323,12 +323,12 @@ return packer.startup(
         }
 
         -- Utils
-        use {
-            "folke/which-key.nvim",
-            config = function()
-                require("which-key").setup()
-            end
-        }
+        -- use {
+        --     "folke/which-key.nvim",
+        --     config = function()
+        --         require("which-key").setup()
+        --     end
+        -- }
 
         use {
             "numtostr/BufOnly.nvim",

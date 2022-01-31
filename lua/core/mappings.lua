@@ -122,6 +122,7 @@ M.telescope = function()
     common_map("n", "<leader>fb", "<cmd>lua require('telescope.builtin').buffers()<cr>")
     common_map("n", "<leader>fh", "<cmd>lua require('telescope.builtin').help_tags()<cr>")
     common_map("n", "<leader>fc", "<cmd>lua require('telescope.builtin').commands()<cr>")
+    common_map("n", "<leader>fr", "<cmd>lua require('telescope.builtin').resume()<cr>")
     common_map("n", "<leader>fv", "<cmd>lua require('core.functions').mbfs_telescope_nvim_config_find_file()<cr>")
 end
 
