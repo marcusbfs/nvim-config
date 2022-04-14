@@ -4,6 +4,7 @@ local capabilities = require("plugins.configs.lsp_capabilities").capabilities
 
 local servers = {
     -- npm install -g pyright
+    -- python -m pipx install pyright
     "pyright",
     -- https://clangd.llvm.org/installation
     "clangd",
