@@ -160,4 +160,8 @@ M.autotag = function()
     require("nvim-ts-autotag").setup()
 end
 
+M.neogen = function()
+    require('neogen').setup {}
+end
+
 return M

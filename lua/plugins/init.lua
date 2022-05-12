@@ -95,6 +95,17 @@ return packer.startup(
             cmd = "TSPlaygroundToggle"
         }
 
+        use {
+            "danymat/neogen",
+            requires = "nvim-treesitter/nvim-treesitter",
+            ft = require("core.utils").lsp_common_filetypes,
+            -- Uncomment next line if you want to follow only stable versions
+            tag = "*",
+            config = function()
+                require("plugins.configs.others").neogen()
+            end
+        }
+
         -- git stuff
         use {
             "lewis6991/gitsigns.nvim",
