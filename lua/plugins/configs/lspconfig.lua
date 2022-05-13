@@ -28,7 +28,8 @@ for _, lsp in ipairs(servers) do
             -- root_dir = vim.loop.cwd{},
             flags = {
                 debounce_text_changes = 150
-            }
+            },
+            detached = not require("core.utils").is_win32
         }
     )
 end
