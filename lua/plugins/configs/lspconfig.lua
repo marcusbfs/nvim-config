@@ -16,8 +16,11 @@ local servers = {
     "gopls",
     -- julia --project=/path/to/my/project -e 'using Pkg; Pkg.instantiate()'
     "julials",
-    -- npm i -g vscode-langservers-extracted
-    "html"
+    -- npm install -g vscode-langservers-extracted
+    "html",
+    "cssls",
+    -- npm install -g emmet-ls
+    "emmet_ls"
 }
 
 for _, lsp in ipairs(servers) do

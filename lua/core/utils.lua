@@ -148,12 +148,16 @@ M.lsp_common_filetypes = {
     "javascript.jsx",
     "javascriptreact",
     "julia",
+    "julials",
     "lua",
     "python",
     "rust",
     "typescript",
     "typescript.tsx",
-    "typescriptreact"
+    "typescriptreact",
+    "scss",
+    "sass",
+    "css",
 }
 
 return M

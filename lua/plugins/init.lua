@@ -114,17 +114,6 @@ return packer.startup(
             end
         }
 
-        use {
-            "TimUntersberger/neogit",
-            cmd = "Neogit",
-            setup = function()
-                require("core.mappings").neogit()
-            end,
-            config = function()
-                require("plugins.configs.others").neogit()
-            end
-        }
-
         -- lsp stuff
         use {
             "neovim/nvim-lspconfig",
@@ -401,11 +390,6 @@ return packer.startup(
         }
 
         use {
-            "rhysd/vim-grammarous",
-            cmd = {"GrammarousCheck"}
-        }
-
-        use {
             "tpope/vim-rsi",
             event = "InsertEnter"
         }
@@ -447,14 +431,6 @@ return packer.startup(
             end,
             setup = function()
                 require("core.mappings").harpoon()
-            end
-        }
-
-        use {
-            "folke/twilight.nvim",
-            cmd = {"Twilight", "Twilight", "TwilightDisable"},
-            config = function()
-                require("plugins.configs.others").twilight()
             end
         }
 
