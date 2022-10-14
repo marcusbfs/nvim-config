@@ -214,6 +214,8 @@ end
 -- formatter
 M.formatter = function()
     common_map("n", "<leader>fC", ":Format<cr>")
+    -- Save current buffer without formatting
+    common_map("n", "<leader>W", ":SaveNoFormat<CR>")
 end
 
 -- neogit

@@ -4,7 +4,7 @@ vim.api.nvim_exec(
     [[
             augroup FormatAutogroup
               autocmd!
-              autocmd BufWritePost *.py,*.rs,*.lua,.*.html,*.ts,*.js,*.tsx,*.jsx,*.go FormatWrite
+              autocmd BufWritePost * FormatWrite
             augroup END
             ]],
     true
@@ -16,6 +16,15 @@ local remove_carriage_return = function()
             "s/\\r//g"
         },
         stdin = true
+    }
+end
+
+local prettier_std_function = function()
+    return {
+        exe = "prettier",
+        args = {"--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)), "--print-width", "88"},
+        stdin = true,
+        try_node_modules = true
     }
 end
 
@@ -87,54 +96,28 @@ formatter.setup(
                 end
             },
             html = {
-                -- npm install -g prettier
-                function()
-                    return {
-                        exe = "prettier",
-                        args = {"--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0))},
-                        stdin = true
-                    }
-                end
+                prettier_std_function
+            },
+            css = {
+                prettier_std_function
+            },
+            sass = {
+                prettier_std_function
+            },
+            scss = {
+                prettier_std_function
             },
             typescript = {
-                -- npm install -g prettier
-                function()
-                    return {
-                        exe = "prettier",
-                        args = {"--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0))},
-                        stdin = true
-                    }
-                end
+                prettier_std_function
             },
             javascript = {
-                -- npm install -g prettier
-                function()
-                    return {
-                        exe = "prettier",
-                        args = {"--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0))},
-                        stdin = true
-                    }
-                end
+                prettier_std_function
             },
             typescriptreact = {
-                -- npm install -g prettier
-                function()
-                    return {
-                        exe = "prettier",
-                        args = {"--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0))},
-                        stdin = true
-                    }
-                end
+                prettier_std_function
             },
             javascriptreact = {
-                -- npm install -g prettier
-                function()
-                    return {
-                        exe = "prettier",
-                        args = {"--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0))},
-                        stdin = true
-                    }
-                end
+                prettier_std_function
             },
             go = {
                 -- gofmt - installed with golang

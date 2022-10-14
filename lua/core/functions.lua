@@ -38,13 +38,18 @@ M.mbfs_remove_carriage_return = function()
     vim.fn.execute(":%s/\\r//e")
 end
 
+M.mbfs_save_without_formatting = function()
+    vim.fn.execute(":noautocmd write")
+end
+
 -- Register functions
 
 local commands = {
     {"MbfsNvimDir", "mbfs_nvim_dir"},
     {"MbfsTelescopeNvimConfigFindFile", "mbfs_telescope_nvim_config_find_file"},
     {"MbfsTelescopeNvimConfigLiveGrep", "mbfs_telescope_nvim_config_live_grep"},
-    {"TrimWhitespace", "mbfs_trim_whitespace"}
+    {"TrimWhitespace", "mbfs_trim_whitespace"},
+    {"SaveNoFormat", "mbfs_save_without_formatting"}
 }
 
 local mbfs_register_functions = function()
