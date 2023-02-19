@@ -141,7 +141,7 @@ return packer.startup(
             end
         }
 
-        use {"andymass/vim-matchup"}
+        -- use {"andymass/vim-matchup"}
 
         use {
             "ahmedkhalf/project.nvim",
@@ -446,6 +446,9 @@ return packer.startup(
             config = function()
                 require("plugins.configs.others").autotag()
             end
+        }
+        use {
+            "kdheepak/JuliaFormatter.vim"
         }
     end
 )

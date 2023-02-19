@@ -16,7 +16,8 @@ require("nvim-treesitter.configs").setup {
         "regex",
         "rust",
         "typescript",
-        "vim"
+        "vim",
+        "julia"
     },
     highlight = {
         enable = true,

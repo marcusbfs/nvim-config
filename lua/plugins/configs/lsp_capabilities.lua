@@ -18,6 +18,6 @@ M.capabilities.textDocument.completion.completionItem.resolveSupport = {
 }
 
 -- give it to auto-completion engine
-M.capabilities = require("cmp_nvim_lsp").update_capabilities(M.capabilities)
+M.capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 return M

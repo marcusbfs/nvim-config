@@ -160,8 +160,13 @@ M.autotag = function()
     require("nvim-ts-autotag").setup()
 end
 
+M.slime = function()
+    vim.fn.execute('let g:slime_target = "neovim"')
+    vim.fn.execute("let g:slime_python_ipython = 1")
+end
+
 M.neogen = function()
-    require('neogen').setup {}
+    require("neogen").setup {}
 end
 
 return M

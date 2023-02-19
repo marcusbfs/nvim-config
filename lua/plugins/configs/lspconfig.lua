@@ -20,7 +20,9 @@ local servers = {
     "html",
     "cssls",
     -- npm install -g emmet-ls
-    "emmet_ls"
+    "emmet_ls",
+    -- julia --project=~/.julia/environments/nvim-lspconfig -e 'using Pkg; Pkg.add("LanguageServer")'
+    "julia"
 }
 
 for _, lsp in ipairs(servers) do

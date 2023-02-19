@@ -97,6 +97,10 @@ M.misc = function()
         common_map("i", ".", ".<c-g>u")
         common_map("i", "!", "!<c-g>u")
         common_map("i", "?", "?<c-g>u")
+
+        -- Send content to REPL on the right
+        common_map("n", "<c-c><c-c>", "mMyy<c-w>wpA<cr><c-\\><c-n><c-w><c-p>`M")
+        common_map("v", "<c-c><c-c>", "mMy<c-w>wpA<cr><c-\\><c-n><c-w><c-p>`M")
     end
 
     local function commands()
