@@ -144,6 +144,7 @@ M.lsp_common_filetypes = {
     "cpp",
     "go",
     "html",
+    "haskell",
     "javascript",
     "javascript.jsx",
     "javascriptreact",
@@ -158,6 +159,10 @@ M.lsp_common_filetypes = {
     "scss",
     "sass",
     "css",
+    "haskell",
+    "lhaskell",
+    "cabal",
+    "cabalproject"
 }
 
 return M

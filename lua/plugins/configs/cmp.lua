@@ -14,11 +14,11 @@ cmp.setup {
             {
                 with_text = true,
                 menu = ({
+                    luasnip = "[SNIP]",
                     nvim_lsp = "[LSP]",
                     nvim_lua = "[Lua]",
                     buffer = "[BUF]",
-                    path = "[PATH]",
-                    luasnip = "[SNIP]"
+                    path = "[PATH]"
                 })
             }
         )
@@ -50,10 +50,10 @@ cmp.setup {
         end
     },
     sources = {
+        {name = "luasnip"},
         {name = "nvim_lua"},
         {name = "nvim_lsp"},
         {name = "path"},
-        {name = "luasnip"},
         {name = "buffer", keyword_length = 2},
         {name = "treesitter"}
     }

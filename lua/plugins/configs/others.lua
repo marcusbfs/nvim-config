@@ -11,22 +11,31 @@ M.autopairs = function()
 end
 
 M.blankline = function()
-    require("indent_blankline").setup {
-        indentLine_enabled = 1,
-        char = "▏",
-        filetype_exclude = {
-            "help",
-            "terminal",
-            "dashboard",
-            "packer",
-            "lspinfo",
-            "TelescopePrompt",
-            "TelescopeResults"
-        },
-        buftype_exclude = {"terminal"},
-        show_trailing_blankline_indent = false,
-        show_first_indent_level = false
-    }
+    require("ibl").setup()
+    -- {
+    --     debounce = 100,
+    --     indent = {char = "|"},
+    --     whitespace = {highlight = {"Whitespace", "NonText"}},
+    --     scope = {char = "⋅"}
+    -- }
+    -- vim.opt.list = true
+    -- vim.opt.listchars:append "space:⋅"
+    -- require("ibl").setup {
+    --     indentLine_enabled = 1,
+    --     char = "▏",
+    --     space_char_blankline = " ",
+    --     filetype_exclude = {
+    --         "help",
+    --         "terminal",
+    --         "dashboard",
+    --         "packer",
+    --         "lspinfo",
+    --         "TelescopePrompt",
+    --         "TelescopeResults"
+    --     },
+    --     buftype_exclude = {"terminal"},
+    --     show_trailing_blankline_indent = false
+    -- }
 end
 
 M.colorizer = function()
@@ -37,12 +46,12 @@ M.colorizer = function()
             {
                 RGB = true, -- #RGB hex codes
                 RRGGBB = true, -- #RRGGBB hex codes
-                names = false, -- "Name" codes like Blue
-                RRGGBBAA = false, -- #RRGGBBAA hex codes
-                rgb_fn = false, -- CSS rgb() and rgba() functions
-                hsl_fn = false, -- CSS hsl() and hsla() functions
-                css = false, -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
-                css_fn = false, -- Enable all CSS *functions*: rgb_fn, hsl_fn
+                names = true, -- "Name" codes like Blue
+                RRGGBBAA = true, -- #RRGGBBAA hex codes
+                rgb_fn = true, -- CSS rgb() and rgba() functions
+                hsl_fn = true, -- CSS hsl() and hsla() functions
+                css = true, -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
+                css_fn = true, -- Enable all CSS *functions*: rgb_fn, hsl_fn
                 -- Available modes: foreground, background
                 mode = "background" -- Set the display mode.
             }
@@ -59,16 +68,6 @@ M.comment = function()
             prefer_single_line_comments = true
         }
     )
-end
-
-M.luasnip = function()
-    local luasnip = require "luasnip"
-
-    luasnip.config.set_config {
-        history = true,
-        updateevents = "TextChanged,TextChangedI"
-    }
-    require("luasnip.loaders.from_vscode").load {}
 end
 
 M.signature = function()
@@ -167,6 +166,68 @@ end
 
 M.neogen = function()
     require("neogen").setup {}
+end
+
+M.nvim_dap = function()
+    local dap = require("dap")
+    dap.adapters.cppdbg = {
+        id = "cppdbg",
+        type = "executable",
+        command = "D:\\Applications\\cpptools\\extension\\debugAdapters\\bin\\OpenDebugAD7.exe",
+        options = {
+            detached = false
+        }
+    }
+
+    dap.configurations.cpp = {
+        {
+            name = "Launch file",
+            type = "cppdbg",
+            request = "launch",
+            program = function()
+                return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+            end,
+            cwd = "${workspaceFolder}",
+            stopAtEntry = true
+        },
+        {
+            name = "Attach to gdbserver :1234",
+            type = "cppdbg",
+            request = "launch",
+            MIMode = "gdb",
+            miDebuggerServerAddress = "localhost:1234",
+            miDebuggerPath = "/usr/bin/gdb",
+            cwd = "${workspaceFolder}",
+            program = function()
+                return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+            end
+        }
+    }
+end
+
+M.haskell_tools = function()
+    local ht = require("haskell-tools")
+    local bufnr = vim.api.nvim_get_current_buf()
+    local def_opts = {noremap = true, silent = true, buffer = bufnr}
+    -- haskell-language-server relies heavily on codeLenses,
+    -- so auto-refresh (see advanced configuration) is enabled by default
+    -- vim.keymap.set("n", "<space>ca", vim.lsp.codelens.run, opts)
+    -- Hoogle search for the type signature of the definition under the cursor
+    vim.keymap.set("n", "<space>hs", ht.hoogle.hoogle_signature, opts)
+    -- Evaluate all code snippets
+    vim.keymap.set("n", "<space>ea", ht.lsp.buf_eval_all, opts)
+    -- Toggle a GHCi repl for the current package
+    vim.keymap.set("n", "<leader>rr", ht.repl.toggle, opts)
+    -- Toggle a GHCi repl for the current buffer
+    vim.keymap.set(
+        "n",
+        "<leader>rf",
+        function()
+            ht.repl.toggle(vim.api.nvim_buf_get_name(0))
+        end,
+        def_opts
+    )
+    vim.keymap.set("n", "<leader>rq", ht.repl.quit, opts)
 end
 
 return M

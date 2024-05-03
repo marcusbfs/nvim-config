@@ -28,6 +28,15 @@ local prettier_std_function = function()
     }
 end
 
+local ormolu_std_function = function()
+    return {
+        exe = "ormolu",
+        args = {vim.fn.fnameescape(vim.api.nvim_buf_get_name(0))},
+        stdin = true,
+        try_node_modules = true
+    }
+end
+
 formatter.setup(
     {
         filetype = {
@@ -94,6 +103,10 @@ formatter.setup(
                         stdin = true
                     }
                 end
+            },
+            haskell = {
+                ormolu_std_function,
+                remove_carriage_return
             },
             html = {
                 prettier_std_function

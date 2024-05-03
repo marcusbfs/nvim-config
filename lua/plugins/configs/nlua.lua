@@ -16,8 +16,10 @@ local cache_location = vim.fn.stdpath("data")
 local bin_folder = jit.os
 
 local nlua_nvim_lsp = {
-    base_directory = string.format("%s/lua-language-server/", cache_location),
-    bin_location = string.format("%s/lua-language-server/bin/%s/lua-language-server", cache_location, bin_folder)
+    -- base_directory = string.format("%s/lua-language-server/", cache_location),
+    -- bin_location = string.format("%s/lua-language-server/bin/%s/lua-language-server", cache_location, bin_folder)
+    base_directory = "C:/Users/Marcus/scoop/apps/lua-language-server/current",
+    bin_location = "C:/Users/Marcus/scoop/apps/lua-language-server/current/bin/lua-language-server"
 }
 
 local sumneko_command = function()

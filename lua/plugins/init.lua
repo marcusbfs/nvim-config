@@ -18,6 +18,24 @@ return packer.startup(
         use {"nvim-lua/popup.nvim"}
 
         use {
+            "mfussenegger/nvim-dap",
+            config = function()
+                require("plugins.configs.others").nvim_dap()
+            end
+        }
+
+        use {
+            "mrcjkb/haskell-tools.nvim",
+            requires = {"nvim-lua/plenary.nvim"},
+            -- ft = require("core.utils").lsp_common_filetypes,
+            config = function()
+                require("plugins.configs.others").haskell_tools()
+            end
+        }
+
+        use {"rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"}}
+
+        use {
             require("colors").origin_name(),
             config = function()
                 require("colors").config()
@@ -56,6 +74,7 @@ return packer.startup(
 
         use {
             "lukas-reineke/indent-blankline.nvim",
+            main = "ibl",
             event = "BufRead",
             config = function()
                 require("plugins.configs.others").blankline()
@@ -178,7 +197,7 @@ return packer.startup(
             wants = "friendly-snippets",
             after = "nvim-cmp",
             config = function()
-                require("plugins.configs.others").luasnip()
+                require "plugins.configs.luasnip"
             end
         }
 
@@ -449,6 +468,29 @@ return packer.startup(
         }
         use {
             "kdheepak/JuliaFormatter.vim"
+        }
+
+        use {
+            "j-hui/fidget.nvim",
+            branch = "legacy",
+            config = function()
+                require("fidget").setup()
+            end
+        }
+        use {
+            "williamboman/mason.nvim",
+            config = function()
+                require("mason").setup()
+            end
+        }
+        use {
+            "williamboman/mason-lspconfig.nvim",
+            config = function()
+                require("mason-lspconfig").setup()
+            end
+        }
+        use {
+            "tpope/vim-sleuth"
         }
     end
 )

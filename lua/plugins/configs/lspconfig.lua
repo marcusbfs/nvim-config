@@ -21,8 +21,10 @@ local servers = {
     "cssls",
     -- npm install -g emmet-ls
     "emmet_ls",
-    -- julia --project=~/.julia/environments/nvim-lspconfig -e 'using Pkg; Pkg.add("LanguageServer")'
-    "julia"
+    -- scoop install lua-language-server
+    "lua_ls",
+    -- ghcup install hls
+    "hls"
 }
 
 for _, lsp in ipairs(servers) do
@@ -38,6 +40,29 @@ for _, lsp in ipairs(servers) do
         }
     )
 end
+
+require "lspconfig".lua_ls.setup {
+    settings = {
+        Lua = {
+            runtime = {
+                -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+                version = "LuaJIT"
+            },
+            diagnostics = {
+                -- Get the language server to recognize the `vim` global
+                globals = {"vim"}
+            },
+            workspace = {
+                -- Make the server aware of Neovim runtime files
+                library = vim.api.nvim_get_runtime_file("", true)
+            },
+            -- Do not send telemetry data containing a randomized but unique identifier
+            telemetry = {
+                enable = false
+            }
+        }
+    }
+}
 
 -- replace the default lsp diagnostic symbols
 local function lspSymbol(name, icon)
