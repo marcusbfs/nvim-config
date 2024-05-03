@@ -1,3 +1,19 @@
+## Quick start
+
+### Windows
+
+```bash
+git clone https://github.com/nvim-lua/kickstart.nvim.git %userprofile%\AppData\Local\nvim\
+
+```
+
+### Linux
+
+```bash
+git clone https://github.com/nvim-lua/kickstart.nvim.git "${XDG_CONFIG_HOME:-$HOME/.config}"/nvim
+
+```
+
 ## Requirements
 
 ### Windows
