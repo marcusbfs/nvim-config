@@ -1,3 +1,11 @@
 plugged/
 .vim-undo-dir/
 plugin/
+
+tags
+test.sh
+.luarc.json
+nvim
+
+spell/
+lazy-lock.json
