@@ -24,6 +24,12 @@ vim.opt.mouse = "a"
 -- Don't show the mode, since it's already in the status line
 vim.opt.showmode = false
 
+-- Tab configuration
+vim.opt.expandtab = true
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.smarttab = true
+
 -- Sync clipboard between OS and Neovim.
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
@@ -266,8 +272,6 @@ require("lazy").setup({
 	{
 		"nvim-zh/better-escape.vim",
 		event = "InsertEnter",
-		-- use opts = {} for passing setup options
-		-- this is equalent to setup({}) function
 		config = function()
 			vim.g.better_escape_interval = 200
 			vim.fn.execute("let g:better_escape_shortcut = ['jk', 'kj']")
@@ -286,33 +290,6 @@ require("lazy").setup({
 	{
 		"folke/trouble.nvim",
 		branch = "dev", -- For the Trouble v3 Beta.
-		keys = {
-			{
-				"<leader>xx",
-				"<cmd>Trouble diagnostics toggle<cr>",
-				desc = "Diagnostics (Trouble)",
-			},
-			{
-				"<leader>xX",
-				"<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
-				desc = "Buffer Diagnostics (Trouble)",
-			},
-			{
-				"<leader>cs",
-				"<cmd>Trouble symbols toggle focus=false<cr>",
-				desc = "Symbols (Trouble)",
-			},
-			{
-				"<leader>xL",
-				"<cmd>Trouble loclist toggle<cr>",
-				desc = "Location List (Trouble)",
-			},
-			{
-				"<leader>xQ",
-				"<cmd>Trouble qflist toggle<cr>",
-				desc = "Quickfix List (Trouble)",
-			},
-		},
 		opts = {}, -- for default options, refer to the configuration section for custom setup.
 	},
 
@@ -324,6 +301,33 @@ require("lazy").setup({
 			require("telescope").load_extension("projects")
 			vim.keymap.set("n", "<leader>pl", ":Telescope projects<CR>", { desc = "List projects and pick." })
 		end,
+	},
+
+	-- A vim-vinegar like file explorer that lets you edit your filesystem like a normal Neovim buffer
+	{
+		"stevearc/oil.nvim",
+		opts = {},
+		-- Optional dependencies
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+	},
+
+	-- Native Codeium plugin for Neovim.
+	{
+		"Exafunction/codeium.nvim",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"hrsh7th/nvim-cmp",
+		},
+		config = function()
+			require("codeium").setup({})
+		end,
+	},
+
+	-- Supercharge your Haskell experience in Neovim
+	{
+		"mrcjkb/haskell-tools.nvim",
+		lazy = false,
+		-- Keymaps defined in ~/.config/nvim/after/ftplugin/haskell.lua
 	},
 
 	-- Here is a more advanced example where we pass configuration
@@ -746,7 +750,7 @@ require("lazy").setup({
 			formatters_by_ft = {
 				lua = { "stylua" },
 				-- Conform can also run multiple formatters sequentially
-				-- python = { "isort", "black" },
+				python = { "isort", "black" },
 				--
 				-- You can use a sub-list to tell conform to run *until* a formatter
 				-- is found.
@@ -858,6 +862,7 @@ require("lazy").setup({
 					--    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
 				}),
 				sources = {
+					{ name = "codeium" },
 					{ name = "nvim_lsp" },
 					{ name = "luasnip" },
 					{ name = "path" },
@@ -881,31 +886,6 @@ require("lazy").setup({
 
 			-- You can configure highlights by doing something like:
 			vim.cmd.hi("Comment gui=none")
-		end,
-	},
-
-	-- Supercharge your Haskell experience in Neovim
-	{
-		"mrcjkb/haskell-tools.nvim",
-		lazy = false,
-		config = function()
-			local ht = require("haskell-tools")
-			local bufnr = vim.api.nvim_get_current_buf()
-			local opts = { noremap = true, silent = true, buffer = bufnr }
-			-- haskell-language-server relies heavily on codeLenses,
-			-- so auto-refresh (see advanced configuration) is enabled by default
-			vim.keymap.set("n", "<space>cl", vim.lsp.codelens.run, opts)
-			-- Hoogle search for the type signature of the definition under the cursor
-			vim.keymap.set("n", "<space>hs", ht.hoogle.hoogle_signature, opts)
-			-- Evaluate all code snippets
-			vim.keymap.set("n", "<space>ea", ht.lsp.buf_eval_all, opts)
-			-- Toggle a GHCi repl for the current package
-			vim.keymap.set("n", "<leader>rr", ht.repl.toggle, opts)
-			-- Toggle a GHCi repl for the current buffer
-			vim.keymap.set("n", "<leader>rf", function()
-				ht.repl.toggle(vim.api.nvim_buf_get_name(0))
-			end, opts)
-			vim.keymap.set("n", "<leader>rq", ht.repl.quit, opts)
 		end,
 	},
 
