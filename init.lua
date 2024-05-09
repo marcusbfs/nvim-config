@@ -268,13 +268,32 @@ require("lazy").setup({
 		end,
 	},
 
-	-- Use jk, kj or kk to escpae insert mode quickly.
+	-- Use jk, kj or kk to escape insert mode quickly.
 	{
-		"nvim-zh/better-escape.vim",
+		"max397574/better-escape.nvim",
 		event = "InsertEnter",
 		config = function()
-			vim.g.better_escape_interval = 200
-			vim.fn.execute("let g:better_escape_shortcut = ['jk', 'kj']")
+			-- lua, default settings
+			require("better_escape").setup({
+				mapping = { "jk", "kj" }, -- a table with mappings to use
+				timeout = vim.o.timeoutlen, -- the time in which the keys must be hit in ms. Use option timeoutlen by default
+				clear_empty_lines = false, -- clear line after escaping if there is only whitespace
+				keys = "<Esc>", -- keys used for escaping, if it is a function will use the result every time
+				-- example(recommended)
+				-- keys = function()
+				--   return vim.api.nvim_win_get_cursor(0)[2] > 1 and '<esc>l' or '<esc>'
+				-- end,
+			})
+		end,
+	},
+
+	-- A small Neovim plugin to improve the deletion of buffers.
+
+	{
+		"ojroques/nvim-bufdel",
+		config = function()
+			vim.keymap.set("n", "<leader>bd", ":BufDel<CR>", { desc = "Close current buffer" })
+			vim.keymap.set("n", "<leader>bO", ":BufDelOthers<CR>", { desc = "Close all other buffers" })
 		end,
 	},
 
@@ -283,6 +302,40 @@ require("lazy").setup({
 		"m4xshen/smartcolumn.nvim",
 		opts = {
 			colorcolumn = "88",
+		},
+	},
+
+	-- Getting you where you want with the fewest keystrokes.
+	{
+		"ThePrimeagen/harpoon",
+		branch = "harpoon2",
+		dependencies = { "nvim-lua/plenary.nvim" },
+		config = function()
+			require("harpoon"):setup()
+		end,
+		keys = {
+			{
+				"<leader>ha",
+				function()
+					require("harpoon"):list():append()
+				end,
+				desc = "harpoon file",
+			},
+			{
+				"<leader>hm",
+				function()
+					local harpoon = require("harpoon")
+					harpoon.ui:toggle_quick_menu(harpoon:list())
+				end,
+				desc = "harpoon quick menu",
+			},
+			{
+				"<leader>h1",
+				function()
+					require("harpoon"):list():select(1)
+				end,
+				desc = "harpoon to file 1",
+			},
 		},
 	},
 
@@ -319,7 +372,9 @@ require("lazy").setup({
 			"hrsh7th/nvim-cmp",
 		},
 		config = function()
-			require("codeium").setup({})
+			require("codeium").setup({
+				enable_chat = true,
+			})
 		end,
 	},
 
@@ -463,6 +518,7 @@ require("lazy").setup({
 			-- See `:help telescope.builtin`
 			local builtin = require("telescope.builtin")
 			vim.keymap.set("n", "<leader>sh", builtin.help_tags, { desc = "[S]earch [H]elp" })
+			vim.keymap.set("n", "<leader>sb", builtin.buffers, { desc = "[S]earch [b]buffers" })
 			vim.keymap.set("n", "<leader>sk", builtin.keymaps, { desc = "[S]earch [K]eymaps" })
 			vim.keymap.set("n", "<leader>sf", builtin.find_files, { desc = "[S]earch [F]iles" })
 			vim.keymap.set("n", "<leader>ss", builtin.builtin, { desc = "[S]earch [S]elect Telescope" })
@@ -575,14 +631,14 @@ require("lazy").setup({
 
 					-- Fuzzy find all the symbols in your current document.
 					--  Symbols are things like variables, functions, types, etc.
-					map("<leader>ds", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
+					map("<leader>ds", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]symbols")
 
 					-- Fuzzy find all the symbols in your current workspace.
 					--  Similar to document symbols, except searches over your entire project.
 					map(
 						"<leader>ws",
 						require("telescope.builtin").lsp_dynamic_workspace_symbols,
-						"[W]orkspace [S]ymbols"
+						"[W]orkspace [S]symbols"
 					)
 
 					-- Rename the variable under your cursor.
@@ -664,7 +720,16 @@ require("lazy").setup({
 				clangd = {},
 				-- gopls = {},
 				pyright = {},
+				jsonls = {},
+				typos_lsp = {},
 				rust_analyzer = {},
+				purescriptls = {
+					settings = {
+						purescript = {
+							addSpagoSources = true, -- e.g. any purescript language-server config here
+						},
+					},
+				},
 				-- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
 				--
 				-- Some languages (like typescript) have entire language plugins that can be useful:
@@ -751,10 +816,24 @@ require("lazy").setup({
 				lua = { "stylua" },
 				-- Conform can also run multiple formatters sequentially
 				python = { "isort", "black" },
+				haskell = { "ormolu" },
+				-- Use the "*" filetype to run formatters on all filetypes.
+				["*"] = { "codespell" },
 				--
 				-- You can use a sub-list to tell conform to run *until* a formatter
 				-- is found.
 				-- javascript = { { "prettierd", "prettier" } },
+			},
+			formatters = {
+				ormolu = {
+					command = "ormolu",
+					args = { "--stdin-input-file", "$FILENAME" },
+					stdin = true,
+					meta = {
+						url = "https://hackage.haskell.org/package/ormolu",
+						description = "A formatter for Haskell source code.",
+					},
+				},
 			},
 		},
 	},
@@ -862,9 +941,9 @@ require("lazy").setup({
 					--    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
 				}),
 				sources = {
-					{ name = "codeium" },
 					{ name = "nvim_lsp" },
 					{ name = "luasnip" },
+					{ name = "codeium" },
 					{ name = "path" },
 				},
 			})
