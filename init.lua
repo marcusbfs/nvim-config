@@ -821,24 +821,13 @@ require("lazy").setup({
 				lua = { "stylua" },
 				-- Conform can also run multiple formatters sequentially
 				python = { "isort", "black" },
-				haskell = { "ormolu" },
+				haskell = { "fourmolu" },
 				-- Use the "*" filetype to run formatters on all filetypes.
 				["*"] = { "codespell" },
 				--
 				-- You can use a sub-list to tell conform to run *until* a formatter
 				-- is found.
 				-- javascript = { { "prettierd", "prettier" } },
-			},
-			formatters = {
-				ormolu = {
-					command = "ormolu",
-					args = { "--stdin-input-file", "$FILENAME" },
-					stdin = true,
-					meta = {
-						url = "https://hackage.haskell.org/package/ormolu",
-						description = "A formatter for Haskell source code.",
-					},
-				},
 			},
 		},
 	},
