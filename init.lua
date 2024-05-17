@@ -140,6 +140,14 @@ vim.keymap.set("i", ".", ".<c-g>u", {})
 vim.keymap.set("i", "!", "!<c-g>u", {})
 vim.keymap.set("i", "?", "?<c-g>u", {})
 
+-- === Custom filetypes ===
+
+vim.filetype.add({
+	extension = {
+		purs = "purescript",
+	},
+})
+
 -- === Custom autocmds ===
 
 -- Trim whitespace before saving
@@ -215,10 +223,7 @@ require("lazy").setup({
 	{
 		"numToStr/Comment.nvim",
 		opts = {
-			mappings = {
-				basic = false,
-				extra = false,
-			},
+			mappings = false,
 		},
 		config = function()
 			vim.keymap.set("n", "<leader>;", function()
@@ -239,8 +244,8 @@ require("lazy").setup({
 	-- very simple vim plugin for easy resizing of your vim windows
 	{
 		"simeji/winresizer",
-		config = function()
-			vim.keymap.set("n", "<leader>wR", ":WinResizerStartResize<CR>", { silent = true })
+		init = function()
+			vim.g.winresizer_start_key = "<leader>wR"
 		end,
 	},
 
@@ -652,7 +657,7 @@ require("lazy").setup({
 
 					-- Execute a code action, usually your cursor needs to be on top of an error
 					-- or a suggestion from your LSP for this to activate.
-					map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
+					-- map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
 
 					-- Opens a popup that displays documentation about the word under your cursor
 					--  See `:help K` for why this keymap.
@@ -728,10 +733,12 @@ require("lazy").setup({
 				jsonls = {},
 				typos_lsp = {},
 				rust_analyzer = {},
+				dhall_lsp_server = {},
 				purescriptls = {
 					settings = {
 						purescript = {
 							addSpagoSources = true, -- e.g. any purescript language-server config here
+							formatter = "purs-tidy",
 						},
 					},
 				},
@@ -788,6 +795,14 @@ require("lazy").setup({
 					end,
 				},
 			})
+		end,
+	},
+
+	-- A neovim plugin that preview code with LSP code actions applied.
+	{
+		"aznhe21/actions-preview.nvim",
+		config = function()
+			vim.keymap.set("n", "<leader>ca", require("actions-preview").code_actions, { desc = "[C]ode [A]ction" })
 		end,
 	},
 
@@ -962,6 +977,8 @@ require("lazy").setup({
 		end,
 	},
 
+	{ "ellisonleao/gruvbox.nvim", priority = 1000, config = true },
+
 	-- Highlight todo, notes, etc in comments
 	{
 		"folke/todo-comments.nvim",
@@ -1011,7 +1028,7 @@ require("lazy").setup({
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
 		opts = {
-			ensure_installed = { "bash", "c", "html", "lua", "luadoc", "markdown", "vim", "vimdoc" },
+			ensure_installed = { "bash", "c", "diff", "html", "lua", "luadoc", "markdown", "vim", "vimdoc" },
 			-- Autoinstall languages that are not installed
 			auto_install = true,
 			highlight = {
