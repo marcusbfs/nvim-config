@@ -72,7 +72,7 @@ vim.opt.inccommand = "split"
 vim.opt.cursorline = true
 
 -- Minimal number of screen lines to keep above and below the cursor.
-vim.opt.scrolloff = 1
+vim.opt.scrolloff = 2
 
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
@@ -215,31 +215,6 @@ require("lazy").setup({
 	-- keys can be used to configure plugin behavior/loading/etc.
 	--
 	-- Use `opts = {}` to force a plugin to be loaded.
-	--
-	--  This is equivalent to:
-	--    require('Comment').setup({})
-
-	-- "gc" to comment visual regions/lines
-	{
-		"numToStr/Comment.nvim",
-		opts = {
-			mappings = false,
-		},
-		config = function()
-			vim.keymap.set("n", "<leader>;", function()
-				local vvar = vim.api.nvim_get_vvar
-				return vvar("count") == 0 and "<Plug>(comment_toggle_linewise_current)"
-					or "<Plug>(comment_toggle_linewise_count)"
-			end, { expr = true, desc = "Comment toggle current line" })
-
-			vim.keymap.set(
-				"x",
-				"<leader>;",
-				"<Plug>(comment_toggle_linewise_visual)gv",
-				{ desc = "Comment toggle linewise (visual)" }
-			)
-		end,
-	},
 
 	-- very simple vim plugin for easy resizing of your vim windows
 	{
@@ -356,9 +331,20 @@ require("lazy").setup({
 		opts = {}, -- for default options, refer to the configuration section for custom setup.
 	},
 
+	-- Plugin to improve viewing Markdown files in Neovim
+	{
+		"MeanderingProgrammer/markdown.nvim",
+		name = "render-markdown", -- Only needed if you have another plugin named markdown.nvim
+		dependencies = { "nvim-treesitter/nvim-treesitter" },
+		config = function()
+			require("render-markdown").setup({})
+		end,
+	},
+
 	-- project.nvim is an all in one neovim plugin written in lua that provides superior project management.
 	{
-		"ahmedkhalf/project.nvim",
+		-- "ahmedkhalf/project.nvim",
+		"marcusbfs/project.nvim", -- Quick fix for deprecated LSP function
 		config = function()
 			require("project_nvim").setup({})
 			require("telescope").load_extension("projects")
@@ -461,7 +447,7 @@ require("lazy").setup({
 	{ -- Fuzzy Finder (files, lsp, etc)
 		"nvim-telescope/telescope.nvim",
 		event = "VimEnter",
-		branch = "0.1.x",
+		-- branch = "0.1.x",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			{ -- If encountering errors, see telescope-fzf-native README for installation instructions
@@ -858,21 +844,21 @@ require("lazy").setup({
 					-- Build Step is needed for regex support in snippets.
 					-- This step is not supported in many windows environments.
 					-- Remove the below condition to re-enable on windows.
-					if vim.fn.has("win32") == 1 or vim.fn.executable("make") == 0 then
-						return
-					end
+					-- if vim.fn.has("win32") == 1 or vim.fn.executable("make") == 0 then
+					-- 	return
+					-- end
 					return "make install_jsregexp"
 				end)(),
 				dependencies = {
 					-- `friendly-snippets` contains a variety of premade snippets.
 					--    See the README about individual language/framework/plugin snippets:
 					--    https://github.com/rafamadriz/friendly-snippets
-					-- {
-					--   'rafamadriz/friendly-snippets',
-					--   config = function()
-					--     require('luasnip.loaders.from_vscode').lazy_load()
-					--   end,
-					-- },
+					{
+						"rafamadriz/friendly-snippets",
+						config = function()
+							require("luasnip.loaders.from_vscode").lazy_load()
+						end,
+					},
 				},
 			},
 			"saadparwaiz1/cmp_luasnip",
@@ -1020,6 +1006,20 @@ require("lazy").setup({
 				return "%2l:%-2v"
 			end
 
+			-- Comment lines
+			require("mini.comment").setup({
+				mappings = {
+					comment = "",
+					textobject = "",
+					comment_line = "<leader>;",
+					comment_visual = "<leader>;",
+				},
+			})
+
+			-- Jump to next/previous single character
+			require("mini.jump").setup({
+				repeat_jump = "",
+			})
 			-- ... and there is more!
 			--  Check out: https://github.com/echasnovski/mini.nvim
 		end,
