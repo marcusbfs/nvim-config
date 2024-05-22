@@ -166,13 +166,13 @@ vim.fn.execute(":command WriteWithoutFormatting noautocmd write")
 -- Highlight when yanking (copying) text
 --  Try it with `yap` in normal mode
 --  See `:help vim.highlight.on_yank()`
-vim.api.nvim_create_autocmd("TextYankPost", {
-	desc = "Highlight when yanking (copying) text",
-	group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
-	callback = function()
-		vim.highlight.on_yank()
-	end,
-})
+-- vim.api.nvim_create_autocmd("TextYankPost", {
+-- 	desc = "Highlight when yanking (copying) text",
+-- 	group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
+-- 	callback = function()
+-- 		vim.highlight.on_yank()
+-- 	end,
+-- })
 
 -- === Custom functions ===
 vim.g.neovide_scale_factor = 1.25
@@ -251,6 +251,13 @@ require("lazy").setup({
 		config = function()
 			require("leap").create_default_mappings()
 		end,
+	},
+
+	-- Extends vim's % key to language-specific words instead of just single characters.
+	{
+		"andymass/vim-matchup",
+		dependencies = { "nvim-treesitter/nvim-treesitter" },
+		config = function() end,
 	},
 
 	-- Use jk, kj or kk to escape insert mode quickly.
@@ -349,6 +356,70 @@ require("lazy").setup({
 			require("project_nvim").setup({})
 			require("telescope").load_extension("projects")
 			vim.keymap.set("n", "<leader>pl", ":Telescope projects<CR>", { desc = "List projects and pick." })
+		end,
+	},
+
+	-- The aim of yanky.nvim is to improve yank and put functionalities for Neovim.
+	{
+		"gbprod/yanky.nvim",
+		opts = {},
+		config = function()
+			require("yanky").setup({
+				highlight = {
+					on_put = true,
+					on_yank = true,
+					timer = 300,
+				},
+			})
+			vim.keymap.set({ "n", "x" }, "p", "<Plug>(YankyPutAfter)")
+			vim.keymap.set({ "n", "x" }, "P", "<Plug>(YankyPutBefore)")
+			vim.keymap.set({ "n", "x" }, "gp", "<Plug>(YankyGPutAfter)")
+			vim.keymap.set({ "n", "x" }, "gP", "<Plug>(YankyGPutBefore)")
+
+			vim.keymap.set("n", "<c-p>", "<Plug>(YankyPreviousEntry)")
+			vim.keymap.set("n", "<c-n>", "<Plug>(YankyNextEntry)")
+		end,
+	},
+
+	-- Comment visual regions/lines
+	{
+		"numToStr/Comment.nvim",
+		opts = {
+			mappings = false,
+		},
+		config = function()
+			vim.keymap.set("n", "<leader>;", function()
+				local vvar = vim.api.nvim_get_vvar
+				return vvar("count") == 0 and "<Plug>(comment_toggle_linewise_current)"
+					or "<Plug>(comment_toggle_linewise_count)"
+			end, { expr = true, desc = "Comment toggle current line" })
+
+			vim.keymap.set(
+				"x",
+				"<leader>;",
+				"<Plug>(comment_toggle_linewise_visual)gv",
+				{ desc = "Comment toggle linewise (visual)" }
+			)
+		end,
+	},
+
+	-- A Neovim plugin helping you establish good command workflow and habit
+	{
+		"m4xshen/hardtime.nvim",
+		dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
+		config = function()
+			require("hardtime").setup({
+				disabled_keys = {
+					["<Up>"] = {},
+					["<Down>"] = {},
+					["<Left>"] = {},
+					["<Right>"] = {},
+				},
+				restricted_keys = {
+					["<C-N>"] = {},
+					["<C-P>"] = {},
+				},
+			})
 		end,
 	},
 
@@ -1006,16 +1077,6 @@ require("lazy").setup({
 				return "%2l:%-2v"
 			end
 
-			-- Comment lines
-			require("mini.comment").setup({
-				mappings = {
-					comment = "",
-					textobject = "",
-					comment_line = "<leader>;",
-					comment_visual = "<leader>;",
-				},
-			})
-
 			-- Jump to next/previous single character
 			require("mini.jump").setup({
 				repeat_jump = "",
@@ -1028,6 +1089,9 @@ require("lazy").setup({
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
 		opts = {
+			matchup = {
+				enable = true, -- mandatory, false will disable the whole extension
+			},
 			ensure_installed = { "bash", "c", "diff", "html", "lua", "luadoc", "markdown", "vim", "vimdoc" },
 			-- Autoinstall languages that are not installed
 			auto_install = true,
