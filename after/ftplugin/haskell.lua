@@ -1,19 +1,21 @@
 local Path = require("plenary.path")
 local config_path = vim.fn.stdpath("config")
-local fourmolu_orig = Path:new(config_path .. "\\.formatter_config\\fourmolu.yaml\\")
-local fourmolu_dest = Path:new(config_path .. "\\..\\..\\Roaming\\fourmolu.yaml")
 
-vim.api.nvim_create_user_command("FourmoluUpdateConfigCopy", function(opts)
-	if vim.fn.has("win32") then
-		fourmolu_orig.copy(fourmolu_orig, { destination = fourmolu_dest })
+local fourmolu_orig = Path:new(config_path) / ".formatter_config" / "fourmolu.yaml"
+local fourmolu_dest = (function()
+	if string.lower(jit.os) ~= "windows" then
+		return Path:new(Path:new("~/.config/fourmolu.yaml"):expand())
+	else
+		return Path:new(config_path) / ".." / ".." / "Roaming" / "fourmolu.yaml"
 	end
+end)()
+
+vim.api.nvim_create_user_command("MBFSFourmoluUpdateConfigCopy", function(opts)
+	fourmolu_orig.copy(fourmolu_orig, { destination = fourmolu_dest })
 end, {})
 
-if vim.fn.has("win32") then
-	if fourmolu_dest.exists(fourmolu_dest) then
-	else
-		vim.cmd.Upper("FourmoluUpdateConfigCopy")
-	end
+if not (fourmolu_dest.exists(fourmolu_dest)) then
+	vim.cmd("MBFSFourmoluUpdateConfigCopy")
 end
 
 local ht = require("haskell-tools")

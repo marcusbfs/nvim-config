@@ -254,8 +254,10 @@ require("lazy").setup({
 	},
 
 	-- Extends vim's % key to language-specific words instead of just single characters.
+	-- TODO: change back to main repo after https://github.com/andymass/vim-matchup/issues/348 is fixed
 	{
-		"andymass/vim-matchup",
+		"mrcjkb/vim-matchup",
+		branch = "haskell",
 		dependencies = { "nvim-treesitter/nvim-treesitter" },
 		config = function() end,
 	},
@@ -584,6 +586,7 @@ require("lazy").setup({
 
 			-- See `:help telescope.builtin`
 			local builtin = require("telescope.builtin")
+			vim.keymap.set("n", "<leader>sH", builtin.command_history, { desc = "[S]earch Command [H]istory" })
 			vim.keymap.set("n", "<leader>sh", builtin.help_tags, { desc = "[S]earch [H]elp" })
 			vim.keymap.set("n", "<leader>sb", builtin.buffers, { desc = "[S]earch [b]buffers" })
 			vim.keymap.set("n", "<leader>sk", builtin.keymaps, { desc = "[S]earch [K]eymaps" })
@@ -594,7 +597,6 @@ require("lazy").setup({
 			vim.keymap.set("n", "<leader>sd", builtin.diagnostics, { desc = "[S]earch [D]iagnostics" })
 			vim.keymap.set("n", "<leader>sr", builtin.resume, { desc = "[S]earch [R]esume" })
 			vim.keymap.set("n", "<leader>s.", builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
-			vim.keymap.set("n", "<leader><leader>", builtin.buffers, { desc = "[ ] Find existing buffers" })
 
 			-- Slightly advanced example of overriding default behavior and theme
 			vim.keymap.set("n", "<leader>/", function()
