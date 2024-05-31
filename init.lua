@@ -251,6 +251,36 @@ require("lazy").setup({
 		config = function()
 			require("leap").create_default_mappings()
 		end,
+
+		-- An all in one plugin for converting text case in Neovim
+		{
+			"johmsalas/text-case.nvim",
+			dependencies = { "nvim-telescope/telescope.nvim" },
+			config = function()
+				require("textcase").setup({})
+				require("telescope").load_extension("textcase")
+			end,
+			keys = {
+				{
+					"<leader>st",
+					"<cmd>TextCaseOpenTelescope<CR>",
+					mode = { "n", "x" },
+					desc = "[S]earch [T]ext-case function",
+				},
+			},
+			cmd = {
+				-- NOTE: The Subs command name can be customized via the option "substitude_command_name"
+				"Subs",
+				"TextCaseOpenTelescope",
+				"TextCaseOpenTelescopeQuickChange",
+				"TextCaseOpenTelescopeLSPChange",
+				"TextCaseStartReplacingCommand",
+			},
+			-- If you want to use the interactive feature of the `Subs` command right away, text-case.nvim
+			-- has to be loaded on startup. Otherwise, the interactive feature of the `Subs` will only be
+			-- available after the first executing of it or after a keymap of text-case.nvim has been used.
+			lazy = false,
+		},
 	},
 
 	-- Extends vim's % key to language-specific words instead of just single characters.
