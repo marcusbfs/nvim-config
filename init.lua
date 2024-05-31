@@ -254,10 +254,8 @@ require("lazy").setup({
 	},
 
 	-- Extends vim's % key to language-specific words instead of just single characters.
-	-- TODO: change back to main repo after https://github.com/andymass/vim-matchup/issues/348 is fixed
 	{
-		"mrcjkb/vim-matchup",
-		branch = "haskell",
+		"andymass/vim-matchup",
 		dependencies = { "nvim-treesitter/nvim-treesitter" },
 		config = function() end,
 	},
@@ -336,7 +334,6 @@ require("lazy").setup({
 	-- A pretty list for showing diagnostics, references, telescope results, quickfix and location lists to help you solve all the trouble your code is causing.
 	{
 		"folke/trouble.nvim",
-		branch = "dev", -- For the Trouble v3 Beta.
 		opts = {}, -- for default options, refer to the configuration section for custom setup.
 	},
 
@@ -798,6 +795,7 @@ require("lazy").setup({
 						purescript = {
 							addSpagoSources = true, -- e.g. any purescript language-server config here
 							formatter = "purs-tidy",
+							diagnosticsOnType = true,
 						},
 					},
 				},
