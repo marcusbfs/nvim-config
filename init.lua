@@ -235,6 +235,48 @@ require("lazy").setup({
 	-- A super powerful autopair plugin for Neovim that supports multiple characters.
 	{
 
+		-- A Neovim plugin designed to streamline the installation of luarocks packages directly within Neovim
+		{
+			"vhyrro/luarocks.nvim",
+			priority = 1000, -- Very high priority is required, luarocks.nvim should run as the first plugin in your config.
+			config = true,
+		},
+
+		-- A Neovim plugin designed to reimagine organization as you know it
+		{
+			"nvim-neorg/neorg",
+			dependencies = { "luarocks.nvim" },
+			version = "*",
+			config = function()
+				require("neorg").setup({
+					load = {
+						["core.defaults"] = {},
+						["core.concealer"] = {},
+						["core.completion"] = { config = { engine = "nvim-cmp", name = "[Norg]" } },
+						["core.integrations.nvim-cmp"] = {},
+						["core.keybinds"] = {
+							-- https://github.com/nvim-neorg/neorg/blob/main/lua/neorg/modules/core/keybinds/keybinds.lua
+							config = {
+								default_keybinds = true,
+								neorg_leader = "<Leader><Leader>",
+							},
+						},
+						["core.dirman"] = {
+							config = {
+								workspaces = {
+									notes = "d/workspace/notes",
+								},
+								default_workspace = "notes",
+							},
+						},
+					},
+				})
+
+				vim.wo.foldlevel = 99
+				vim.wo.conceallevel = 2
+			end,
+		},
+
 		"windwp/nvim-autopairs",
 		event = "InsertEnter",
 		config = true,
@@ -437,7 +479,12 @@ require("lazy").setup({
 		"m4xshen/hardtime.nvim",
 		dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
 		config = function()
+			local originalConfig = require("hardtime.config").config
+			local disabledFiletypes = originalConfig.disabled_filetypes
+			table.insert(disabledFiletypes, "norg")
+
 			require("hardtime").setup({
+				disabled_filetypes = disabledFiletypes,
 				disabled_keys = {
 					["<Up>"] = {},
 					["<Down>"] = {},
@@ -459,6 +506,9 @@ require("lazy").setup({
 		-- Optional dependencies
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 	},
+
+	-- Lua fork of vim-devicons.
+	{ "nvim-tree/nvim-web-devicons" },
 
 	-- Native Codeium plugin for Neovim.
 	{
@@ -816,6 +866,7 @@ require("lazy").setup({
 				clangd = {},
 				-- gopls = {},
 				pyright = {},
+				nil_ls = {},
 				jsonls = {},
 				typos_lsp = {},
 				rust_analyzer = {},
@@ -829,6 +880,7 @@ require("lazy").setup({
 						},
 					},
 				},
+
 				-- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
 				--
 				-- Some languages (like typescript) have entire language plugins that can be useful:
@@ -853,6 +905,11 @@ require("lazy").setup({
 					},
 				},
 			}
+
+			-- Add Nix LSP for Unix systems
+			if string.lower(jit.os) ~= "windows" then
+				servers["nil_ls"] = {}
+			end
 
 			-- Ensure the servers and tools above are installed
 			--  To check the current status of installed tools and/or manually install
@@ -1040,6 +1097,7 @@ require("lazy").setup({
 					{ name = "nvim_lsp" },
 					{ name = "luasnip" },
 					{ name = "codeium" },
+					{ name = "neorg" },
 					{ name = "path" },
 				},
 			})
