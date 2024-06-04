@@ -866,7 +866,6 @@ require("lazy").setup({
 				clangd = {},
 				-- gopls = {},
 				pyright = {},
-				nil_ls = {},
 				jsonls = {},
 				typos_lsp = {},
 				rust_analyzer = {},
