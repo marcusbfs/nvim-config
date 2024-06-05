@@ -253,35 +253,52 @@ require("lazy").setup({
 		"nvim-neorg/neorg",
 		dependencies = { "luarocks.nvim" },
 		version = "*",
+		keys = {
+			{
+				"<leader>ng",
+				"<cmd>Neorg workspace gtd<cr>",
+				mode = "n",
+				desc = "[N]eorg [G]TD",
+			},
+		},
 		config = function()
-			require("neorg").setup({
-				load = {
-					["core.defaults"] = {},
-					["core.concealer"] = {},
-					["core.completion"] = { config = { engine = "nvim-cmp", name = "[Norg]" } },
-					["core.integrations.nvim-cmp"] = {},
-					["core.keybinds"] = {
-						-- https://github.com/nvim-neorg/neorg/blob/main/lua/neorg/modules/core/keybinds/keybinds.lua
-						config = {
-							default_keybinds = true,
-							neorg_leader = "<LocalLeader>",
-							hook = function(keybinds)
-								keybinds.remap_key("norg", "n", "<C-Space>", "<LocalLeader>tt")
-							end,
-						},
+			local load = {
+				["core.defaults"] = {},
+				["core.concealer"] = {},
+				["core.completion"] = { config = { engine = "nvim-cmp", name = "[Norg]" } },
+				["core.integrations.nvim-cmp"] = {},
+				["core.keybinds"] = {
+					-- https://github.com/nvim-neorg/neorg/blob/main/lua/neorg/modules/core/keybinds/keybinds.lua
+					config = {
+						default_keybinds = true,
+						neorg_leader = "<LocalLeader>",
+						hook = function(keybinds)
+							keybinds.remap_key("norg", "n", "<C-Space>", "<LocalLeader>tt")
+						end,
 					},
+				},
+				["core.qol.todo_items"] = {},
+				["core.clipboard.code-blocks"] = {},
+			}
+
+			if string.lower(jit.os) == "windows" then
+				local additional_table = {
 					["core.dirman"] = {
 						config = {
 							workspaces = {
-								notes = "d/workspace/notes",
+								gtd = "d:\\Dropbox\\Pessoal\\NorgNotes\\gtd",
+								notes = "d:\\Dropbox\\Pessoal\\NorgNotes\\notes",
 							},
-							default_workspace = "notes",
+							default_workspace = "gtd",
 						},
 					},
-					["core.qol.todo_items"] = {},
-					["core.clipboard.code-blocks"] = {},
-				},
-			})
+				}
+				for k, v in pairs(additional_table) do
+					load[k] = v
+				end
+			end
+
+			require("neorg").setup({ load = load })
 
 			vim.wo.foldlevel = 99
 			vim.wo.conceallevel = 2
