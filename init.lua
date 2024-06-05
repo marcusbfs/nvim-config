@@ -234,54 +234,58 @@ require("lazy").setup({
 
 	-- A super powerful autopair plugin for Neovim that supports multiple characters.
 	{
-
-		-- A Neovim plugin designed to streamline the installation of luarocks packages directly within Neovim
-		{
-			"vhyrro/luarocks.nvim",
-			priority = 1000, -- Very high priority is required, luarocks.nvim should run as the first plugin in your config.
-			config = true,
-		},
-
-		-- A Neovim plugin designed to reimagine organization as you know it
-		{
-			"nvim-neorg/neorg",
-			dependencies = { "luarocks.nvim" },
-			version = "*",
-			config = function()
-				require("neorg").setup({
-					load = {
-						["core.defaults"] = {},
-						["core.concealer"] = {},
-						["core.completion"] = { config = { engine = "nvim-cmp", name = "[Norg]" } },
-						["core.integrations.nvim-cmp"] = {},
-						["core.keybinds"] = {
-							-- https://github.com/nvim-neorg/neorg/blob/main/lua/neorg/modules/core/keybinds/keybinds.lua
-							config = {
-								default_keybinds = true,
-								neorg_leader = "<Leader><Leader>",
-							},
-						},
-						["core.dirman"] = {
-							config = {
-								workspaces = {
-									notes = "d/workspace/notes",
-								},
-								default_workspace = "notes",
-							},
-						},
-					},
-				})
-
-				vim.wo.foldlevel = 99
-				vim.wo.conceallevel = 2
-			end,
-		},
-
 		"windwp/nvim-autopairs",
 		event = "InsertEnter",
 		config = true,
 		-- use opts = {} for passing setup options
 		-- this is equalent to setup({}) function
+	},
+
+	-- A Neovim plugin designed to streamline the installation of luarocks packages directly within Neovim
+	{
+		"vhyrro/luarocks.nvim",
+		priority = 1000, -- Very high priority is required, luarocks.nvim should run as the first plugin in your config.
+		config = true,
+	},
+
+	-- A Neovim plugin designed to reimagine organization as you know it
+	{
+		"nvim-neorg/neorg",
+		dependencies = { "luarocks.nvim" },
+		version = "*",
+		config = function()
+			require("neorg").setup({
+				load = {
+					["core.defaults"] = {},
+					["core.concealer"] = {},
+					["core.completion"] = { config = { engine = "nvim-cmp", name = "[Norg]" } },
+					["core.integrations.nvim-cmp"] = {},
+					["core.keybinds"] = {
+						-- https://github.com/nvim-neorg/neorg/blob/main/lua/neorg/modules/core/keybinds/keybinds.lua
+						config = {
+							default_keybinds = true,
+							neorg_leader = "<LocalLeader>",
+							hook = function(keybinds)
+								keybinds.remap_key("norg", "n", "<C-Space>", "<LocalLeader>tt")
+							end,
+						},
+					},
+					["core.dirman"] = {
+						config = {
+							workspaces = {
+								notes = "d/workspace/notes",
+							},
+							default_workspace = "notes",
+						},
+					},
+					["core.qol.todo_items"] = {},
+					["core.clipboard.code-blocks"] = {},
+				},
+			})
+
+			vim.wo.foldlevel = 99
+			vim.wo.conceallevel = 2
+		end,
 	},
 
 	-- Leap is a general-purpose motion plugin for Neovim
