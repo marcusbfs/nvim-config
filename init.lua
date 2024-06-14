@@ -125,6 +125,7 @@ vim.keymap.set("n", "<leader>wsv", ":split <cr>", { desc = "Create a split" })
 -- Change buffers
 vim.keymap.set("n", "<leader>bp", ":bprevious<CR>", { desc = "Go to the previous buffer" })
 vim.keymap.set("n", "<leader>bn", ":bnext<CR>", { desc = "Go to the next buffer" })
+vim.keymap.set("n", "<leader>bt", ":b#<CR>", { desc = "Toggle between the last two buffers" })
 
 -- Remap for dealing with word wrap
 vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { noremap = true, expr = true, silent = true })
@@ -402,7 +403,7 @@ require("lazy").setup({
 			{
 				"<leader>ha",
 				function()
-					require("harpoon"):list():append()
+					require("harpoon"):list():add()
 				end,
 				desc = "harpoon file",
 			},
