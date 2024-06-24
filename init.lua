@@ -196,6 +196,26 @@ if not vim.loop.fs_stat(lazypath) then
 end ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
 
+-- Function to remove elements from table `t1` that exist in table `t2`
+local function removeElements(t1, t2)
+	local removalSet = {}
+	local filteredTable = {}
+
+	-- Create a set of elements to be removed
+	for _, value in ipairs(t2) do
+		removalSet[value] = true
+	end
+
+	-- Iterate over the original table and filter out elements that are in the removal set
+	for _, value in ipairs(t1) do
+		if not removalSet[value] then
+			table.insert(filteredTable, value)
+		end
+	end
+
+	return filteredTable
+end
+
 -- [[ Configure and install plugins ]]
 --
 --  To check the current status of your plugins, run
@@ -496,6 +516,49 @@ require("lazy").setup({
 		end,
 	},
 
+	-- This plugin adds indentation guides to Neovim. It uses Neovim's virtual text feature and no conceal
+	-- {
+	-- 	"lukas-reineke/indent-blankline.nvim",
+	-- 	main = "ibl",
+	-- 	config = function()
+	-- 		local highlight = {
+	-- 			"RainbowRed",
+	-- 			"RainbowYellow",
+	-- 			"RainbowBlue",
+	-- 			"RainbowOrange",
+	-- 			"RainbowGreen",
+	-- 			"RainbowViolet",
+	-- 			"RainbowCyan",
+	-- 		}
+	--
+	-- 		local hooks = require("ibl.hooks")
+	-- 		-- create the highlight groups in the highlight setup hook, so they are reset
+	-- 		-- every time the colorscheme changes
+	-- 		hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
+	-- 			vim.api.nvim_set_hl(0, "RainbowRed", { fg = "#E06C75" })
+	-- 			vim.api.nvim_set_hl(0, "RainbowYellow", { fg = "#E5C07B" })
+	-- 			vim.api.nvim_set_hl(0, "RainbowBlue", { fg = "#61AFEF" })
+	-- 			vim.api.nvim_set_hl(0, "RainbowOrange", { fg = "#D19A66" })
+	-- 			vim.api.nvim_set_hl(0, "RainbowGreen", { fg = "#98C379" })
+	-- 			vim.api.nvim_set_hl(0, "RainbowViolet", { fg = "#C678DD" })
+	-- 			vim.api.nvim_set_hl(0, "RainbowCyan", { fg = "#56B6C2" })
+	-- 		end)
+	--
+	-- 		local ibl = require("ibl").setup({ indent = { highlight = highlight } })
+	--
+	-- 		vim.keymap.set({ "n", "x" }, "<leader>ti", function()
+	-- 			ibl.setup_buffer(0, {
+	-- 				enabled = true,
+	-- 				scope = {
+	-- 					enabled = Installed("nvim-treesitter")
+	-- 						and config.get_config(0).enabled
+	-- 						and not config.get_config(0).scope.enabled,
+	-- 				},
+	-- 			})
+	-- 		end, { noremap = true, silent = true, desc = "[T]oggle [I]ndentation" })
+	-- 	end,
+	-- 	opts = {},
+	-- },
 	-- A Neovim plugin helping you establish good command workflow and habit
 	{
 		"m4xshen/hardtime.nvim",
@@ -726,7 +789,18 @@ require("lazy").setup({
 		"neovim/nvim-lspconfig",
 		dependencies = {
 			-- Automatically install LSPs and related tools to stdpath for Neovim
-			{ "williamboman/mason.nvim", config = true }, -- NOTE: Must be loaded before dependants
+			{
+				"williamboman/mason.nvim",
+				config = true,
+				opts = {
+					-- Where Mason should put its bin location in your PATH. Can be one of:
+					-- - "prepend" (default, Mason's bin location is put first in PATH)
+					-- - "append" (Mason's bin location is put at the end of PATH)
+					-- - "skip" (doesn't modify PATH)
+					---@type '"prepend"' | '"append"' | '"skip"'
+					PATH = "append",
+				},
+			}, -- NOTE: Must be loaded before dependants
 			"williamboman/mason-lspconfig.nvim",
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
 
@@ -794,7 +868,7 @@ require("lazy").setup({
 					-- Jump to the definition of the word under your cursor.
 					--  This is where a variable was first declared, or where a function is defined, etc.
 					--  To jump back, press <C-t>.
-					map("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
+					map("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]definition")
 
 					-- Find references for the word under your cursor.
 					map("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
@@ -806,7 +880,7 @@ require("lazy").setup({
 					-- Jump to the type of the word under your cursor.
 					--  Useful when you're not sure what type a variable is and you want to see
 					--  the definition of its *type*, not where it was *defined*.
-					map("<leader>D", require("telescope.builtin").lsp_type_definitions, "Type [D]efinition")
+					map("<leader>D", require("telescope.builtin").lsp_type_definitions, "Type [D]definition")
 
 					-- Fuzzy find all the symbols in your current document.
 					--  Symbols are things like variables, functions, types, etc.
@@ -894,11 +968,13 @@ require("lazy").setup({
 			--  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
 			--  - settings (table): Override the default settings passed when initializing the server.
 			--        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
+
 			local servers = {
 				-- hls = {},
 				clangd = {},
 				-- gopls = {},
 				pyright = {},
+				tsserver = {},
 				jsonls = {},
 				typos_lsp = {},
 				rust_analyzer = {},
@@ -949,7 +1025,14 @@ require("lazy").setup({
 			--    :Mason
 			--
 			--  You can press `g?` for help in this menu.
-			require("mason").setup()
+			require("mason").setup({
+				-- Where Mason should put its bin location in your PATH. Can be one of:
+				-- - "prepend" (default, Mason's bin location is put first in PATH)
+				-- - "append" (Mason's bin location is put at the end of PATH)
+				-- - "skip" (doesn't modify PATH)
+				---@type '"prepend"' | '"append"' | '"skip"'
+				PATH = "append",
+			})
 
 			-- You can add other tools here that you want Mason to install
 			-- for you, so that they are available from within Neovim.
