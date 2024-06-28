@@ -1097,7 +1097,7 @@ require("lazy").setup({
 				python = { "isort", "black" },
 				haskell = { "fourmolu" },
 				-- Use the "*" filetype to run formatters on all filetypes.
-				["*"] = { "codespell" },
+				-- ["*"] = { "codespell" },
 				--
 				-- You can use a sub-list to tell conform to run *until* a formatter
 				-- is found.
