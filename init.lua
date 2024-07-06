@@ -561,28 +561,28 @@ require("lazy").setup({
 	-- },
 	-- A Neovim plugin helping you establish good command workflow and habit
 	{
-		"m4xshen/hardtime.nvim",
-		dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
-		config = function()
-			local originalConfig = require("hardtime.config").config
-			local disabledFiletypes = originalConfig.disabled_filetypes
-			table.insert(disabledFiletypes, "norg")
-
-			require("hardtime").setup({
-				disabled_filetypes = disabledFiletypes,
-				disabled_keys = {
-					["<Up>"] = {},
-					["<Down>"] = {},
-					["<Left>"] = {},
-					["<Right>"] = {},
-				},
-				restricted_keys = {
-					["<C-N>"] = {},
-					["<C-P>"] = {},
-				},
-			})
-		end,
-	},
+	-- 	"m4xshen/hardtime.nvim",
+	-- 	dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
+	-- 	config = function()
+	-- 		local originalConfig = require("hardtime.config").config
+	-- 		local disabledFiletypes = originalConfig.disabled_filetypes
+	-- 		table.insert(disabledFiletypes, "norg")
+	--
+	-- 		require("hardtime").setup({
+	-- 			disabled_filetypes = disabledFiletypes,
+	-- 			disabled_keys = {
+	-- 				["<Up>"] = {},
+	-- 				["<Down>"] = {},
+	-- 				["<Left>"] = {},
+	-- 				["<Right>"] = {},
+	-- 			},
+	-- 			restricted_keys = {
+	-- 				["<C-N>"] = {},
+	-- 				["<C-P>"] = {},
+	-- 			},
+	-- 		})
+	-- 	end,
+	-- },
 
 	-- A vim-vinegar like file explorer that lets you edit your filesystem like a normal Neovim buffer
 	{
@@ -1056,6 +1056,13 @@ require("lazy").setup({
 			})
 		end,
 	},
+
+	-- Enhance the usage of macros in Neovim.
+	-- {
+	-- 	"chrisgrieser/nvim-recorder",
+	-- 	dependencies = "rcarriga/nvim-notify", -- optional
+	-- 	opts = {}, -- required even with default settings, since it calls `setup()`
+	-- },
 
 	-- A neovim plugin that preview code with LSP code actions applied.
 	{
