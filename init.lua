@@ -560,7 +560,7 @@ require("lazy").setup({
 	-- 	opts = {},
 	-- },
 	-- A Neovim plugin helping you establish good command workflow and habit
-	{
+	-- {
 	-- 	"m4xshen/hardtime.nvim",
 	-- 	dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
 	-- 	config = function()
