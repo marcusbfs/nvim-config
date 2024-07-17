@@ -466,8 +466,7 @@ require("lazy").setup({
 
 	-- project.nvim is an all in one neovim plugin written in lua that provides superior project management.
 	{
-		-- "ahmedkhalf/project.nvim",
-		"marcusbfs/project.nvim", -- Quick fix for deprecated LSP function
+		"ahmedkhalf/project.nvim",
 		config = function()
 			require("project_nvim").setup({})
 			require("telescope").load_extension("projects")
