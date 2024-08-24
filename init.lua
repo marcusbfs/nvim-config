@@ -329,14 +329,31 @@ require("lazy").setup({
 		end,
 	},
 
+	-- Neovim plugin for automatically highlighting other uses of the word under
+	-- the cursor using either LSP, Tree-sitter, or regex matching.
+	{
+		"RRethy/vim-illuminate",
+		config = function() end,
+	},
+
 	-- Leap is a general-purpose motion plugin for Neovim
 	{
 		"ggandor/leap.nvim",
-		opts = {
-			highlight_unlabeled_phase_one_targets = true,
-		},
+		-- opts = {
+		-- 	highlight_unlabeled_phase_one_targets = true,
+		-- },
 		config = function()
+			-- The below settings make Leap's highlighting closer to what you've been
+			-- used to in Lightspeed.
+			vim.api.nvim_set_hl(0, "LeapBackdrop", { link = "Comment" }) -- or some grey
+			vim.api.nvim_set_hl(0, "LeapMatch", {
+				-- For light themes, set to 'black' or similar.
+				fg = "white",
+				bold = true,
+				nocombine = true,
+			})
 			require("leap").create_default_mappings()
+			-- require("leap").opts.highlight_unlabeled_phase_one_targets = true
 		end,
 	},
 
@@ -974,7 +991,7 @@ require("lazy").setup({
 				pyright = {},
 				tsserver = {},
 				jsonls = {},
-				typos_lsp = {},
+				-- typos_lsp = {},
 				rust_analyzer = {},
 				dhall_lsp_server = {},
 				purescriptls = {
@@ -1101,6 +1118,7 @@ require("lazy").setup({
 				-- Conform can also run multiple formatters sequentially
 				python = { "isort", "black" },
 				haskell = { "fourmolu" },
+				nix = { "alejandra" },
 				-- Use the "*" filetype to run formatters on all filetypes.
 				-- ["*"] = { "codespell" },
 				--
