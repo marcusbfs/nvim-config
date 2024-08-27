@@ -105,10 +105,10 @@ vim.keymap.set("n", "<down>", '<cmd>echo "Use j to move!!"<CR>')
 --  Use CTRL+<hjkl> to switch between windows
 --
 --  See `:help wincmd` for a list of all window commands
-vim.keymap.set("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })
-vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
-vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
-vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
+-- vim.keymap.set("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })
+-- vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
+-- vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
+-- vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
 
 -- Save and quit shortcuts
 vim.keymap.set("n", "<leader>w", "<cmd>:w<CR>", { desc = "Save current buffer" })
@@ -243,8 +243,20 @@ require("lazy").setup({
 	-- very simple vim plugin for easy resizing of your vim windows
 	{
 		"simeji/winresizer",
+		lazy = false,
 		init = function()
 			vim.g.winresizer_start_key = "<leader>wR"
+		end,
+	},
+
+	--  Smarter and more intuitive split pane management that uses a mental model of left/right/up/down instead of wider/narrower/taller/shorter for resizing
+	{
+		"mrjones2014/smart-splits.nvim",
+		config = function()
+			vim.keymap.set("n", "<C-h>", require("smart-splits").move_cursor_left)
+			vim.keymap.set("n", "<C-j>", require("smart-splits").move_cursor_down)
+			vim.keymap.set("n", "<C-k>", require("smart-splits").move_cursor_up)
+			vim.keymap.set("n", "<C-l>", require("smart-splits").move_cursor_right)
 		end,
 	},
 
@@ -1030,9 +1042,9 @@ require("lazy").setup({
 			}
 
 			-- Add Nix LSP for Unix systems
-			if string.lower(jit.os) ~= "windows" then
-				servers["nil_ls"] = {}
-			end
+			-- if string.lower(jit.os) ~= "windows" then
+			-- 	servers["nil_ls"] = {}
+			-- end
 
 			-- Ensure the servers and tools above are installed
 			--  To check the current status of installed tools and/or manually install
