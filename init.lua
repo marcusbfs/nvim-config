@@ -400,11 +400,11 @@ require("lazy").setup({
 	},
 
 	-- Extends vim's % key to language-specific words instead of just single characters.
-	{
-		"andymass/vim-matchup",
-		dependencies = { "nvim-treesitter/nvim-treesitter" },
-		config = function() end,
-	},
+	-- {
+	-- 	"andymass/vim-matchup",
+	-- 	dependencies = { "nvim-treesitter/nvim-treesitter" },
+	-- 	config = function() end,
+	-- },
 
 	-- Use jk, kj or kk to escape insert mode quickly.
 	{
@@ -1001,7 +1001,7 @@ require("lazy").setup({
 				clangd = {},
 				-- gopls = {},
 				pyright = {},
-				tsserver = {},
+				ts_ls = {},
 				jsonls = {},
 				-- typos_lsp = {},
 				rust_analyzer = {},
@@ -1021,8 +1021,8 @@ require("lazy").setup({
 				-- Some languages (like typescript) have entire language plugins that can be useful:
 				--    https://github.com/pmizio/typescript-tools.nvim
 				--
-				-- But for many setups, the LSP (`tsserver`) will work just fine
-				-- tsserver = {},
+				-- But for many setups, the LSP (`ts_ls`) will work just fine
+				-- ts_ls = {},
 				--
 
 				lua_ls = {
@@ -1326,6 +1326,9 @@ require("lazy").setup({
 			require("mini.jump").setup({
 				repeat_jump = "",
 			})
+
+			-- Align text interactively
+			require("mini.align").setup()
 			-- ... and there is more!
 			--  Check out: https://github.com/echasnovski/mini.nvim
 		end,
