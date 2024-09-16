@@ -243,7 +243,6 @@ require("lazy").setup({
 	-- very simple vim plugin for easy resizing of your vim windows
 	{
 		"simeji/winresizer",
-		lazy = false,
 		init = function()
 			vim.g.winresizer_start_key = "<leader>wR"
 		end,
@@ -252,6 +251,7 @@ require("lazy").setup({
 	--  Smarter and more intuitive split pane management that uses a mental model of left/right/up/down instead of wider/narrower/taller/shorter for resizing
 	{
 		"mrjones2014/smart-splits.nvim",
+		lazy = false,
 		config = function()
 			vim.keymap.set("n", "<C-h>", require("smart-splits").move_cursor_left)
 			vim.keymap.set("n", "<C-j>", require("smart-splits").move_cursor_down)
@@ -400,11 +400,11 @@ require("lazy").setup({
 	},
 
 	-- Extends vim's % key to language-specific words instead of just single characters.
-	-- {
-	-- 	"andymass/vim-matchup",
-	-- 	dependencies = { "nvim-treesitter/nvim-treesitter" },
-	-- 	config = function() end,
-	-- },
+	{
+		"andymass/vim-matchup",
+		dependencies = { "nvim-treesitter/nvim-treesitter" },
+		config = function() end,
+	},
 
 	-- Use jk, kj or kk to escape insert mode quickly.
 	{
