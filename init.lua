@@ -485,12 +485,9 @@ require("lazy").setup({
 
 	-- Plugin to improve viewing Markdown files in Neovim
 	{
-		"MeanderingProgrammer/markdown.nvim",
-		name = "render-markdown", -- Only needed if you have another plugin named markdown.nvim
-		dependencies = { "nvim-treesitter/nvim-treesitter" },
-		config = function()
-			require("render-markdown").setup({})
-		end,
+		"MeanderingProgrammer/render-markdown.nvim",
+		opts = { latex = { enable = false } },
+		dependencies = { "nvim-treesitter/nvim-treesitter", "echasnovski/mini.nvim" }, -- if you use the mini.nvim suite
 	},
 
 	-- project.nvim is an all in one neovim plugin written in lua that provides superior project management.
@@ -1340,7 +1337,18 @@ require("lazy").setup({
 			matchup = {
 				enable = true, -- mandatory, false will disable the whole extension
 			},
-			ensure_installed = { "bash", "c", "diff", "html", "lua", "luadoc", "markdown", "vim", "vimdoc" },
+			ensure_installed = {
+				"bash",
+				"c",
+				"diff",
+				"html",
+				"lua",
+				"luadoc",
+				"markdown",
+				"markdown_inline",
+				"vim",
+				"vimdoc",
+			},
 			-- Autoinstall languages that are not installed
 			auto_install = true,
 			highlight = {
