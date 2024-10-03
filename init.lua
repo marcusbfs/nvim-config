@@ -623,6 +623,15 @@ require("lazy").setup({
 	-- Lua fork of vim-devicons.
 	{ "nvim-tree/nvim-web-devicons" },
 
+	-- Improved UI and workflow for the Neovim quickfix
+	{
+		"stevearc/quicker.nvim",
+		event = "FileType qf",
+		---@module "quicker"
+		---@type quicker.SetupOptions
+		opts = {},
+	},
+
 	-- Native Codeium plugin for Neovim.
 	{
 		"Exafunction/codeium.nvim",
