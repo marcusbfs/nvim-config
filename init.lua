@@ -530,6 +530,16 @@ require("lazy").setup({
 			vim.keymap.set("n", "<c-p>", "<Plug>(YankyPreviousEntry)")
 			vim.keymap.set("n", "<c-n>", "<Plug>(YankyNextEntry)")
 		end,
+		keys = {
+
+			{
+				"<leader>sy",
+				function()
+					require("telescope").extensions.yank_history.yank_history({})
+				end,
+				desc = "[S]earch [Y]ank History",
+			},
+		},
 	},
 
 	-- Comment visual regions/lines
