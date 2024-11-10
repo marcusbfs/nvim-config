@@ -410,6 +410,12 @@ require("lazy").setup({
 		config = function() end,
 	},
 
+	-- A plugin that shows the context of the currently visible buffer contents
+	{
+		"nvim-treesitter/nvim-treesitter-context",
+		dependencies = { "nvim-treesitter/nvim-treesitter" },
+	},
+
 	-- Use jk, kj or kk to escape insert mode quickly.
 	{
 		"max397574/better-escape.nvim",
@@ -657,6 +663,8 @@ require("lazy").setup({
 		lazy = false,
 		-- Keymaps defined in ~/.config/nvim/after/ftplugin/haskell.lua
 	},
+
+	{ "wakatime/vim-wakatime", lazy = false },
 
 	-- Here is a more advanced example where we pass configuration
 	-- options to `gitsigns.nvim`. This is equivalent to the following Lua:
@@ -1057,12 +1065,14 @@ require("lazy").setup({
 				-- typos_lsp = {},
 				rust_analyzer = {},
 				dhall_lsp_server = {},
+				-- hls = { filetypes = { "haskell", "lhaskell", "cabal" } },
 				purescriptls = {
 					settings = {
 						purescript = {
 							addSpagoSources = true, -- e.g. any purescript language-server config here
 							formatter = "purs-tidy",
 							diagnosticsOnType = true,
+							declarationTypeCodeLens = true,
 						},
 					},
 				},
@@ -1325,7 +1335,8 @@ require("lazy").setup({
 			-- Load the colorscheme here.
 			-- Like many other themes, this one has different styles, and you could load
 			-- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-			vim.cmd.colorscheme("modus_vivendi")
+			-- "modus_operandi" and "modus_vivendi"
+			vim.cmd.colorscheme("modus_operandi")
 			-- vim.cmd.colorscheme("tokyonight-night")
 
 			-- You can configure highlights by doing something like:
