@@ -554,6 +554,8 @@ require("lazy").setup({
 				end,
 				desc = "[S]earch [Y]ank History",
 			},
+			{ "<c-p>", "<Plug>(YankyPreviousEntry)", desc = "Select previous entry through yank history" },
+			{ "<c-n>", "<Plug>(YankyNextEntry)", desc = "Select next entry through yank history" },
 		},
 	},
 
