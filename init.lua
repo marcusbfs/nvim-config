@@ -528,32 +528,25 @@ require("lazy").setup({
 	-- The aim of yanky.nvim is to improve yank and put functionalities for Neovim.
 	{
 		"gbprod/yanky.nvim",
-		opts = {},
-		config = function()
-			require("yanky").setup({
-				highlight = {
-					on_put = true,
-					on_yank = true,
-					timer = 300,
-				},
-			})
-			vim.keymap.set({ "n", "x" }, "p", "<Plug>(YankyPutAfter)")
-			vim.keymap.set({ "n", "x" }, "P", "<Plug>(YankyPutBefore)")
-			vim.keymap.set({ "n", "x" }, "gp", "<Plug>(YankyGPutAfter)")
-			vim.keymap.set({ "n", "x" }, "gP", "<Plug>(YankyGPutBefore)")
-
-			vim.keymap.set("n", "<c-p>", "<Plug>(YankyPreviousEntry)")
-			vim.keymap.set("n", "<c-n>", "<Plug>(YankyNextEntry)")
-		end,
+		dependencies = {
+			{ "kkharji/sqlite.lua" },
+		},
+		opts = {
+			ring = { storage = "sqlite" },
+		},
 		keys = {
-
 			{
 				"<leader>sy",
 				function()
 					require("telescope").extensions.yank_history.yank_history({})
 				end,
-				desc = "[S]earch [Y]ank History",
+				desc = "Open Yank History",
 			},
+			{ "y", "<Plug>(YankyYank)", mode = { "n", "x" }, desc = "Yank text" },
+			{ "p", "<Plug>(YankyPutAfter)", mode = { "n", "x" }, desc = "Put yanked text after cursor" },
+			{ "P", "<Plug>(YankyPutBefore)", mode = { "n", "x" }, desc = "Put yanked text before cursor" },
+			{ "gp", "<Plug>(YankyGPutAfter)", mode = { "n", "x" }, desc = "Put yanked text after selection" },
+			{ "gP", "<Plug>(YankyGPutBefore)", mode = { "n", "x" }, desc = "Put yanked text before selection" },
 			{ "<c-p>", "<Plug>(YankyPreviousEntry)", desc = "Select previous entry through yank history" },
 			{ "<c-n>", "<Plug>(YankyNextEntry)", desc = "Select next entry through yank history" },
 		},
