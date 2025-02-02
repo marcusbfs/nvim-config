@@ -56,7 +56,6 @@ vim.opt.signcolumn = "yes"
 vim.opt.updatetime = 250
 
 -- Decrease mapped sequence wait time
--- Displays which-key popup sooner
 vim.opt.timeoutlen = 300
 
 -- Configure how new splits should be opened
@@ -715,14 +714,16 @@ require("lazy").setup({
 	-- which loads which-key before all the UI elements are loaded. Events can be
 	-- normal autocommands events (`:help autocmd-events`).
 	--
-	-- Then, because we use the `config` key, the configuration only runs
-	-- after the plugin has been loaded:
-	--  config = function() ... end
+	-- Then, because we use the `opts` key (recommended), the configuration runs
+	-- after the plugin has been loaded as `require(MODULE).setup(opts)`.
 
 	{ -- Useful plugin to show you pending keybinds.
 		"folke/which-key.nvim",
 		event = "VimEnter", -- Sets the loading event to 'VimEnter'
 		opts = {
+			-- delay between pressing a key and opening which-key (milliseconds)
+			-- this setting is independent of vim.opt.timeoutlen
+			delay = 0,
 			icons = {
 				-- set icon mappings to true if you have a Nerd Font
 				mappings = vim.g.have_nerd_font,
@@ -895,20 +896,20 @@ require("lazy").setup({
 		opts = {
 			library = {
 				-- Load luvit types when the `vim.uv` word is found
-				{ path = "luvit-meta/library", words = { "vim%.uv" } },
+				{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
 			},
 		},
 	},
-	{ "Bilal2453/luvit-meta", lazy = true },
 
 	{
 		-- Main LSP Configuration
 		"neovim/nvim-lspconfig",
 		dependencies = {
 			-- Automatically install LSPs and related tools to stdpath for Neovim
+			-- Mason must be loaded before its dependents so we need to set it up here.
+			-- NOTE: `opts = {}` is the same as calling `require('mason').setup({})`
 			{
 				"williamboman/mason.nvim",
-				config = true,
 				opts = {
 					-- Where Mason should put its bin location in your PATH. Can be one of:
 					-- - "prepend" (default, Mason's bin location is put first in PATH)
@@ -923,7 +924,6 @@ require("lazy").setup({
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
 
 			-- Useful status updates for LSP.
-			-- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
 			{ "j-hui/fidget.nvim", opts = {} },
 			-- Allows extra capabilities provided by nvim-cmp
 			"hrsh7th/cmp-nvim-lsp",
@@ -1117,8 +1117,8 @@ require("lazy").setup({
 				--
 
 				lua_ls = {
-					-- cmd = {...},
-					-- filetypes = { ...},
+					-- cmd = { ... },
+					-- filetypes = { ... },
 					-- capabilities = {},
 					settings = {
 						Lua = {
@@ -1138,20 +1138,16 @@ require("lazy").setup({
 			-- end
 
 			-- Ensure the servers and tools above are installed
+			--
 			--  To check the current status of installed tools and/or manually install
 			--  other tools, you can run
 			--    :Mason
 			--
-			--  You can press `g?` for help in this menu.
-			require("mason").setup({
-				-- Where Mason should put its bin location in your PATH. Can be one of:
-				-- - "prepend" (default, Mason's bin location is put first in PATH)
-				-- - "append" (Mason's bin location is put at the end of PATH)
-				-- - "skip" (doesn't modify PATH)
-				---@type '"prepend"' | '"append"' | '"skip"'
-				PATH = "append",
-			})
-
+			-- You can press `g?` for help in this menu.
+			--
+			-- `mason` had to be setup earlier: to configure its options see the
+			-- `dependencies` table for `nvim-lspconfig` above.
+			--
 			-- You can add other tools here that you want Mason to install
 			-- for you, so that they are available from within Neovim.
 			local ensure_installed = vim.tbl_keys(servers or {})
