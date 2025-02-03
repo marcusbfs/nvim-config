@@ -507,11 +507,10 @@ require("lazy").setup({
 		opts = {}, -- for default options, refer to the configuration section for custom setup.
 	},
 
-	-- Plugin to improve viewing Markdown files in Neovim
+	-- A hackable Markdown, HTML, LaTeX, Typst & YAML previewer for Neovim.
 	{
-		"MeanderingProgrammer/render-markdown.nvim",
-		opts = { latex = { enable = false } },
-		dependencies = { "nvim-treesitter/nvim-treesitter", "echasnovski/mini.nvim" }, -- if you use the mini.nvim suite
+		"OXY2DEV/markview.nvim",
+		lazy = false,
 	},
 
 	-- project.nvim is an all in one neovim plugin written in lua that provides superior project management.
