@@ -1430,6 +1430,7 @@ require("lazy").setup({
 		opts = {
 			matchup = {
 				enable = true, -- mandatory, false will disable the whole extension
+				disable = { "haskell" },
 			},
 			ensure_installed = {
 				"bash",
