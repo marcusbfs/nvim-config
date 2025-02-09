@@ -676,6 +676,13 @@ require("lazy").setup({
 		end,
 	},
 
+	{
+		"supermaven-inc/supermaven-nvim",
+		config = function()
+			require("supermaven-nvim").setup({})
+		end,
+	},
+
 	-- Supercharge your Haskell experience in Neovim
 	{
 		"mrcjkb/haskell-tools.nvim",
@@ -1336,6 +1343,7 @@ require("lazy").setup({
 				sources = {
 					{ name = "nvim_lsp" },
 					{ name = "luasnip" },
+					{ name = "supermaven" },
 					{ name = "codeium" },
 					{ name = "neorg" },
 					{ name = "path" },
