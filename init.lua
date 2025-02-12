@@ -1380,6 +1380,14 @@ require("lazy").setup({
 
 	{ "ellisonleao/gruvbox.nvim", priority = 1000, config = true },
 
+	-- A plugin for working with Aiken on Vim / NeoVim.
+	{
+		"aiken-lang/editor-integration-nvim",
+		dependencies = {
+			"neovim/nvim-lspconfig",
+		},
+	},
+
 	-- Highlight todo, notes, etc in comments
 	{
 		"folke/todo-comments.nvim",
@@ -1529,3 +1537,5 @@ require("lazy").setup({
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
+
+require("lspconfig").aiken.setup({})
