@@ -603,7 +603,7 @@ require("lazy").setup({
 		commit = "937667b2cadc7905e6b9ba18ecf84694cf227567",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
-			"hrsh7th/nvim-cmp",
+			"saghen/blink.cmp",
 		},
 		config = function()
 			require("codeium").setup({
@@ -868,8 +868,8 @@ require("lazy").setup({
 
 			-- Useful status updates for LSP.
 			{ "j-hui/fidget.nvim", opts = {} },
-			-- Allows extra capabilities provided by nvim-cmp
-			"hrsh7th/cmp-nvim-lsp",
+			-- Autocompletion
+			"saghen/blink.cmp",
 		},
 		config = function()
 			-- Brief aside: **What is LSP?**
@@ -1016,7 +1016,7 @@ require("lazy").setup({
 			--  When you add nvim-cmp, luasnip, etc. Neovim now has *more* capabilities.
 			--  So, we create new capabilities with nvim cmp, and then broadcast that to the servers.
 			local capabilities = vim.lsp.protocol.make_client_capabilities()
-			capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
+			capabilities = vim.tbl_deep_extend("force", capabilities, require("blink.cmp").get_lsp_capabilities())
 
 			-- Enable the following language servers
 			--  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
@@ -1033,6 +1033,7 @@ require("lazy").setup({
 				clangd = {},
 				-- gopls = {},
 				pyright = {},
+				aiken = {},
 				ts_ls = {},
 				jsonls = {},
 				-- typos_lsp = {},
@@ -1042,7 +1043,8 @@ require("lazy").setup({
 				purescriptls = {
 					settings = {
 						purescript = {
-							addSpagoSources = true, -- e.g. any purescript language-server config here
+							-- e.g. any purescript language-server config here
+							addSpagoSources = true,
 							formatter = "purs-tidy",
 							diagnosticsOnType = true,
 							declarationTypeCodeLens = true,
@@ -1195,101 +1197,111 @@ require("lazy").setup({
 		},
 	},
 
-	{ -- Autocompletion
-		"hrsh7th/nvim-cmp",
-		event = "InsertEnter",
+	-- Autocompletion
+	{
+		"saghen/blink.compat",
+		-- use the latest release, via version = '*', if you also use the latest release for blink.cmp
+		version = "*",
+		-- lazy.nvim will automatically load the plugin when it's required by blink.cmp
+		lazy = true,
+		-- make sure to set opts so that lazy.nvim calls blink.compat's setup
+		opts = {},
+	},
+	{
+		"saghen/blink.cmp",
+		-- optional: provides snippets for the snippet source
 		dependencies = {
-			-- Snippet Engine & its associated nvim-cmp source
 			"L3MON4D3/LuaSnip",
 			"saadparwaiz1/cmp_luasnip",
-			-- Adds other completion capabilities.
-			--  nvim-cmp does not ship with all sources by default. They are split
-			-- Adds other completion capabilities.
-			--  nvim-cmp does not ship with all sources by default. They are split
-			--  into multiple repos for maintenance purposes.
-			"hrsh7th/cmp-nvim-lsp",
-			"hrsh7th/cmp-path",
 		},
-		config = function()
-			-- See `:help cmp`
-			local cmp = require("cmp")
-			local luasnip = require("luasnip")
-			luasnip.config.setup({})
 
-			cmp.setup({
-				snippet = {
-					expand = function(args)
-						luasnip.lsp_expand(args.body)
-					end,
+		version = "*",
+
+		completion = {
+			draw = {
+				columns = {
+					{ "label", "label_description", gap = 1 },
+					{ "kind_icon", "kind" },
 				},
-				completion = { completeopt = "menu,menuone,noinsert" },
+			},
+		},
 
-				-- For an understanding of why these mappings were
-				-- chosen, you will need to read `:help ins-completion`
-				--
-				-- No, but seriously. Please read `:help ins-completion`, it is really good!
-				mapping = cmp.mapping.preset.insert({
-					-- Select the [n]ext item
-					["<C-n>"] = cmp.mapping.select_next_item(),
-					-- Select the [p]revious item
-					["<C-p>"] = cmp.mapping.select_prev_item(),
+		---@module 'blink.cmp'
+		---@type blink.cmp.Config
+		opts = {
+			-- 'default' for mappings similar to built-in completion
+			-- 'super-tab' for mappings similar to vscode (tab to accept, arrow keys to navigate)
+			-- 'enter' for mappings similar to 'super-tab' but with 'enter' to accept
+			-- See the full "keymap" documentation for information on defining your own keymap.
+			keymap = {
+				preset = "default",
+				-- Select the [n]ext item
+				["<C-n>"] = { "select_next", "fallback" },
+				-- Select the [p]revious item
+				["<C-p>"] = { "select_prev", "fallback" },
 
-					-- Scroll the documentation window [b]ack / [f]orward
-					["<C-b>"] = cmp.mapping.scroll_docs(-4),
-					["<C-f>"] = cmp.mapping.scroll_docs(4),
+				-- Accept ([y]es) the completion.
+				["<C-y>"] = { "select_and_accept", "fallback" },
 
-					-- Accept ([y]es) the completion.
-					--  This will auto-import if your LSP supports it.
-					--  This will expand snippets if the LSP sent a snippet.
-					["<C-y>"] = cmp.mapping.confirm({ select = true }),
+				-- Scroll the documentation window [b]ack / [f]orward
+				["<C-b>"] = {
+					function(cmp)
+						cmp.scroll_documentation_up(-4)
+					end,
+					"fallback",
+				},
+				["<C-f>"] = {
+					function(cmp)
+						cmp.scroll_documentation_up(4)
+					end,
+					"fallback",
+				},
 
-					-- If you prefer more traditional completion keymaps,
-					-- you can uncomment the following lines
-					--['<CR>'] = cmp.mapping.confirm { select = true },
-					--['<Tab>'] = cmp.mapping.select_next_item(),
-					--['<S-Tab>'] = cmp.mapping.select_prev_item(),
+				-- show with a list of providers
+				["<C-space>"] = {
+					function(cmp)
+						cmp.show({ providers = { "snippets" } })
+					end,
+					"fallback",
+				},
+			},
 
-					-- Manually trigger a completion from nvim-cmp.
-					--  Generally you don't need this, because nvim-cmp will display
-					--  completions whenever it has completion options available.
-					["<C-Space>"] = cmp.mapping.complete({}),
+			appearance = {
+				-- Sets the fallback highlight groups to nvim-cmp's highlight groups
+				-- Useful for when your theme doesn't support blink.cmp
+				-- Will be removed in a future release
+				use_nvim_cmp_as_default = true,
+				-- Set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
+				-- Adjusts spacing to ensure icons are aligned
+				nerd_font_variant = "mono",
+			},
 
-					-- Think of <c-l> as moving to the right of your snippet expansion.
-					--  So if you have a snippet that's like:
-					--  function $name($args)
-					--    $body
-					--  end
-					--
-					-- <c-l> will move you to the right of each of the expansion locations.
-					-- <c-h> is similar, except moving you backwards.
-					["<C-l>"] = cmp.mapping(function()
-						if luasnip.expand_or_locally_jumpable() then
-							luasnip.expand_or_jump()
-						end
-					end, { "i", "s" }),
-					["<C-h>"] = cmp.mapping(function()
-						if luasnip.locally_jumpable(-1) then
-							luasnip.jump(-1)
-						end
-					end, { "i", "s" }),
+			-- Default list of enabled providers defined so that you can extend it
+			-- elsewhere in your config, without redefining it, due to `opts_extend`
+			sources = {
+				default = { "lsp", "lazydev", "snippets", "supermaven", "codeium", "path", "buffer" },
+				providers = {
+					-- create provider
+					-- IMPORTANT: use the same name as you would for nvim-cmp
+					supermaven = {
+						name = "supermaven",
+						module = "blink.compat.source",
+					},
 
-					-- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
-					--    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
-				}),
-				sources = {
-					{ name = "nvim_lsp" },
-					{ name = "luasnip" },
-					{ name = "supermaven" },
-					{ name = "codeium" },
-					{ name = "neorg" },
-					{ name = "path" },
-					{
+					lazydev = {
 						name = "lazydev",
-						group_index = 0, -- set group index to 0 to skip loading LuaLS completions
+						module = "blink.compat.source",
+					},
+					codeium = {
+						name = "codeium",
+						module = "blink.compat.source",
 					},
 				},
-			})
-		end,
+				cmdline = {},
+			},
+		},
+		snippets = { preset = "luasnip" },
+		opts_extend = { "sources.default" },
 	},
 
 	{ "miikanissi/modus-themes.nvim", priority = 1000 },
