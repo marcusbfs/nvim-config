@@ -351,11 +351,11 @@ require("lazy").setup({
 	},
 
 	-- Extends vim's % key to language-specific words instead of just single characters.
-	{
-		"andymass/vim-matchup",
-		dependencies = { "nvim-treesitter/nvim-treesitter" },
-		config = function() end,
-	},
+	-- {
+	-- 	"andymass/vim-matchup",
+	-- 	dependencies = { "nvim-treesitter/nvim-treesitter" },
+	-- 	config = function() end,
+	-- },
 
 	-- A plugin that shows the context of the currently visible buffer contents
 	{
@@ -397,55 +397,11 @@ require("lazy").setup({
 		end,
 	},
 
-	-- A small Neovim plugin to improve the deletion of buffers.
-
-	{
-		"ojroques/nvim-bufdel",
-		config = function()
-			vim.keymap.set("n", "<leader>bd", ":BufDel<CR>", { desc = "Close current buffer" })
-			vim.keymap.set("n", "<leader>bO", ":BufDelOthers<CR>", { desc = "Close all other buffers" })
-		end,
-	},
-
 	-- A Neovim plugin hiding your colorcolumn when unneeded.
 	{
 		"m4xshen/smartcolumn.nvim",
 		opts = {
 			colorcolumn = "88",
-		},
-	},
-
-	-- Getting you where you want with the fewest keystrokes.
-	{
-		"ThePrimeagen/harpoon",
-		branch = "harpoon2",
-		dependencies = { "nvim-lua/plenary.nvim" },
-		config = function()
-			require("harpoon"):setup()
-		end,
-		keys = {
-			{
-				"<leader>ha",
-				function()
-					require("harpoon"):list():add()
-				end,
-				desc = "harpoon file",
-			},
-			{
-				"<leader>hm",
-				function()
-					local harpoon = require("harpoon")
-					harpoon.ui:toggle_quick_menu(harpoon:list())
-				end,
-				desc = "harpoon quick menu",
-			},
-			{
-				"<leader>h1",
-				function()
-					require("harpoon"):list():select(1)
-				end,
-				desc = "harpoon to file 1",
-			},
 		},
 	},
 
@@ -498,6 +454,36 @@ require("lazy").setup({
 				{ "<c-n>", "<Plug>(YankyNextEntry)", desc = "Select next entry through yank history" },
 			},
 		},
+
+	-- lazy.nvim
+	-- A collection of small QoL plugins for Neovim.
+	{
+		"folke/snacks.nvim",
+		priority = 1000,
+		lazy = false,
+		---@type snacks.Config
+		opts = {
+			-- picker = { enabled = true },
+			bigfile = { enable = true },
+			bufdelete = { enable = true },
+		},
+		keys = {
+			{
+				"<leader>bd",
+				function()
+					Snacks.bufdelete()
+				end,
+				desc = "Close current buffer",
+			},
+			{
+				"<leader>bO",
+				function()
+					Snacks.bufdelete.other(opts)
+				end,
+				desc = "Close all other buffers",
+			},
+		},
+	},
 
 	-- Comment visual regions/lines
 	{
@@ -627,7 +613,13 @@ require("lazy").setup({
 	{
 		"supermaven-inc/supermaven-nvim",
 		config = function()
-			require("supermaven-nvim").setup({})
+			require("supermaven-nvim").setup({
+				keymaps = {
+					accept_suggestion = "<C-y>",
+				},
+				disable_inline_completion = false, -- disables inline completion for use with cmp
+				disable_keymaps = false, -- disables built in keymaps for more manual control
+			})
 		end,
 	},
 
@@ -1127,13 +1119,6 @@ require("lazy").setup({
 		end,
 	},
 
-	-- Enhance the usage of macros in Neovim.
-	-- {
-	-- 	"chrisgrieser/nvim-recorder",
-	-- 	dependencies = "rcarriga/nvim-notify", -- optional
-	-- 	opts = {}, -- required even with default settings, since it calls `setup()`
-	-- },
-
 	-- A neovim plugin that preview code with LSP code actions applied.
 	{
 		"aznhe21/actions-preview.nvim",
@@ -1229,6 +1214,12 @@ require("lazy").setup({
 		version = "*",
 
 		completion = {
+			accept = {
+				auto_brackets = {
+					-- Whether to auto-insert brackets for functions
+					enabled = false,
+				},
+			},
 			draw = {
 				columns = {
 					{ "label", "label_description", gap = 1 },
@@ -1298,7 +1289,6 @@ require("lazy").setup({
 						name = "supermaven",
 						module = "blink.compat.source",
 					},
-
 					lazydev = {
 						name = "lazydev",
 						module = "blink.compat.source",
@@ -1308,8 +1298,8 @@ require("lazy").setup({
 						module = "blink.compat.source",
 					},
 				},
-				cmdline = {},
 			},
+			cmdline = {},
 		},
 		snippets = { preset = "luasnip" },
 		opts_extend = { "sources.default" },
