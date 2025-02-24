@@ -455,12 +455,18 @@ require("lazy").setup({
 			},
 		},
 
+	-- suda is a plugin to read or write files with sudo command.
+	(string.lower(jit.os) == "windows") and {} or {
+			"lambdalisue/vim-suda",
+		},
+
 	-- lazy.nvim
 	-- A collection of small QoL plugins for Neovim.
 	{
 		"folke/snacks.nvim",
 		priority = 1000,
 		lazy = false,
+		---@module "snacks"
 		---@type snacks.Config
 		opts = {
 			-- picker = { enabled = true },
@@ -1281,7 +1287,7 @@ require("lazy").setup({
 			-- Default list of enabled providers defined so that you can extend it
 			-- elsewhere in your config, without redefining it, due to `opts_extend`
 			sources = {
-				default = { "lsp", "lazydev", "snippets", "supermaven", "codeium", "path", "buffer" },
+				default = { "lazydev", "lsp", "snippets", "supermaven", "codeium", "path", "buffer" },
 				providers = {
 					-- create provider
 					-- IMPORTANT: use the same name as you would for nvim-cmp
@@ -1290,8 +1296,9 @@ require("lazy").setup({
 						module = "blink.compat.source",
 					},
 					lazydev = {
-						name = "lazydev",
-						module = "blink.compat.source",
+						name = "LazyDev",
+						module = "lazydev.integrations.blink",
+						score_offset = 100,
 					},
 					codeium = {
 						name = "codeium",
@@ -1299,7 +1306,10 @@ require("lazy").setup({
 					},
 				},
 			},
-			cmdline = {},
+			cmdline = {
+				-- Disable cmdline
+				enabled = false,
+			},
 		},
 		snippets = { preset = "luasnip" },
 		opts_extend = { "sources.default" },
