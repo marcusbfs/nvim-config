@@ -1287,21 +1287,6 @@ require("lazy").setup({
 
 		version = "*",
 
-		completion = {
-			accept = {
-				auto_brackets = {
-					-- Whether to auto-insert brackets for functions
-					enabled = false,
-				},
-			},
-			draw = {
-				columns = {
-					{ "label", "label_description", gap = 1 },
-					{ "kind_icon", "kind" },
-				},
-			},
-		},
-
 		---@module 'blink.cmp'
 		---@type blink.cmp.Config
 		opts = {
@@ -1309,38 +1294,7 @@ require("lazy").setup({
 			-- 'super-tab' for mappings similar to vscode (tab to accept, arrow keys to navigate)
 			-- 'enter' for mappings similar to 'super-tab' but with 'enter' to accept
 			-- See the full "keymap" documentation for information on defining your own keymap.
-			keymap = {
-				preset = "default",
-				-- Select the [n]ext item
-				["<C-n>"] = { "select_next", "fallback" },
-				-- Select the [p]revious item
-				["<C-p>"] = { "select_prev", "fallback" },
-
-				-- Accept ([y]es) the completion.
-				["<C-y>"] = { "select_and_accept", "fallback" },
-
-				-- Scroll the documentation window [b]ack / [f]orward
-				["<C-b>"] = {
-					function(cmp)
-						cmp.scroll_documentation_up(-4)
-					end,
-					"fallback",
-				},
-				["<C-f>"] = {
-					function(cmp)
-						cmp.scroll_documentation_up(4)
-					end,
-					"fallback",
-				},
-
-				-- show with a list of providers
-				["<C-space>"] = {
-					function(cmp)
-						cmp.show({ providers = { "snippets" } })
-					end,
-					"fallback",
-				},
-			},
+			keymap = { preset = "default" },
 
 			appearance = {
 				-- Sets the fallback highlight groups to nvim-cmp's highlight groups
@@ -1352,10 +1306,28 @@ require("lazy").setup({
 				nerd_font_variant = "mono",
 			},
 
+			completion = {
+				accept = {
+					auto_brackets = {
+						-- Whether to auto-insert brackets for functions
+						enabled = false,
+					},
+				},
+				menu = {
+					draw = {
+						columns = {
+							{ "kind_icon", "kind", gap = 1 },
+							{ "source_name", gap = 1 },
+							{ "label", "label_description", gap = 1 },
+						},
+					},
+				},
+			},
+
 			-- Default list of enabled providers defined so that you can extend it
 			-- elsewhere in your config, without redefining it, due to `opts_extend`
 			sources = {
-				default = { "lazydev", "lsp", "snippets", "supermaven", "codeium", "path", "buffer" },
+				default = { "lazydev", "snippets", "lsp", "supermaven", "codeium", "path", "buffer" },
 				providers = {
 					-- create provider
 					-- IMPORTANT: use the same name as you would for nvim-cmp
@@ -1366,6 +1338,7 @@ require("lazy").setup({
 					lazydev = {
 						name = "LazyDev",
 						module = "lazydev.integrations.blink",
+						-- make lazydev completions top priority (see `:h blink.cmp`)
 						score_offset = 100,
 					},
 					codeium = {
