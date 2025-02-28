@@ -1277,6 +1277,7 @@ require("lazy").setup({
 		-- make sure to set opts so that lazy.nvim calls blink.compat's setup
 		opts = {},
 	},
+
 	{
 		"saghen/blink.cmp",
 		-- optional: provides snippets for the snippet source
@@ -1287,71 +1288,96 @@ require("lazy").setup({
 
 		version = "*",
 
-		---@module 'blink.cmp'
-		---@type blink.cmp.Config
-		opts = {
-			-- 'default' for mappings similar to built-in completion
-			-- 'super-tab' for mappings similar to vscode (tab to accept, arrow keys to navigate)
-			-- 'enter' for mappings similar to 'super-tab' but with 'enter' to accept
-			-- See the full "keymap" documentation for information on defining your own keymap.
-			keymap = { preset = "default" },
+		config = function()
+			local sources_default = { "lazydev", "snippets", "lsp", "supermaven", "codeium", "path", "buffer" }
+			require("blink.cmp").setup(
+				---@module 'blink.cmp'
+				---@type blink.cmp.Config
+				{
+					-- 'default' for mappings similar to built-in completion
+					-- 'super-tab' for mappings similar to vscode (tab to accept, arrow keys to navigate)
+					-- 'enter' for mappings similar to 'super-tab' but with 'enter' to accept
+					-- See the full "keymap" documentation for information on defining your own keymap.
+					keymap = { preset = "default" },
 
-			appearance = {
-				-- Sets the fallback highlight groups to nvim-cmp's highlight groups
-				-- Useful for when your theme doesn't support blink.cmp
-				-- Will be removed in a future release
-				use_nvim_cmp_as_default = true,
-				-- Set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
-				-- Adjusts spacing to ensure icons are aligned
-				nerd_font_variant = "mono",
-			},
-
-			completion = {
-				accept = {
-					auto_brackets = {
-						-- Whether to auto-insert brackets for functions
-						enabled = false,
+					appearance = {
+						-- Sets the fallback highlight groups to nvim-cmp's highlight groups
+						-- Useful for when your theme doesn't support blink.cmp
+						-- Will be removed in a future release
+						use_nvim_cmp_as_default = true,
+						-- Set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
+						-- Adjusts spacing to ensure icons are aligned
+						nerd_font_variant = "mono",
 					},
-				},
-				menu = {
-					draw = {
-						columns = {
-							{ "kind_icon", "kind", gap = 1 },
-							{ "source_name", gap = 1 },
-							{ "label", "label_description", gap = 1 },
+
+					completion = {
+						accept = {
+							auto_brackets = {
+								-- Whether to auto-insert brackets for functions
+								enabled = false,
+							},
+						},
+						menu = {
+							draw = {
+								columns = {
+									{ "kind_icon", "kind", gap = 1 },
+									{ "source_name", gap = 1 },
+									{ "label", "label_description", gap = 1 },
+								},
+							},
 						},
 					},
-				},
-			},
 
-			-- Default list of enabled providers defined so that you can extend it
-			-- elsewhere in your config, without redefining it, due to `opts_extend`
-			sources = {
-				default = { "lazydev", "snippets", "lsp", "supermaven", "codeium", "path", "buffer" },
-				providers = {
-					-- create provider
-					-- IMPORTANT: use the same name as you would for nvim-cmp
-					supermaven = {
-						name = "supermaven",
-						module = "blink.compat.source",
+					fuzzy = {
+						sorts = {
+							function(a, b)
+								local transform_table = function(input)
+									local output = {}
+									local count = #input
+									for i, v in ipairs(input) do
+										output[v] = count - (i - 1)
+									end
+									return output
+								end
+								local source_priority = transform_table(sources_default)
+								return source_priority[a.source_id] > source_priority[b.source_id]
+							end,
+							-- defaults
+							"score",
+							"sort_text",
+						},
 					},
-					lazydev = {
-						name = "LazyDev",
-						module = "lazydev.integrations.blink",
-						-- make lazydev completions top priority (see `:h blink.cmp`)
-						score_offset = 100,
+
+					-- Default list of enabled providers defined so that you can extend it
+					-- elsewhere in your config, without redefining it, due to `opts_extend`
+					sources = {
+						default = sources_default,
+						providers = {
+							-- create provider
+							-- IMPORTANT: use the same name as you would for nvim-cmp
+							supermaven = {
+								name = "supermaven",
+								module = "blink.compat.source",
+							},
+							lazydev = {
+								name = "LazyDev",
+								module = "lazydev.integrations.blink",
+								-- make lazydev completions top priority (see `:h blink.cmp`)
+								score_offset = 100,
+							},
+							codeium = {
+								name = "codeium",
+								module = "blink.compat.source",
+							},
+						},
 					},
-					codeium = {
-						name = "codeium",
-						module = "blink.compat.source",
+					cmdline = {
+						-- Disable cmdline
+						enabled = false,
 					},
-				},
-			},
-			cmdline = {
-				-- Disable cmdline
-				enabled = false,
-			},
-		},
+				}
+			)
+		end,
 		snippets = { preset = "luasnip" },
 		opts_extend = { "sources.default" },
 	},
