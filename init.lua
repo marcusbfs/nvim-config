@@ -494,7 +494,7 @@ require("lazy").setup({
 		---@type snacks.Config
 		opts = {
 			-- picker = { enabled = true },
-			bigfile = { enable = true },
+			bigfile = { enable = true, line_length = 250 },
 			bufdelete = { enable = true },
 		},
 		keys = {
@@ -644,11 +644,11 @@ require("lazy").setup({
 		"supermaven-inc/supermaven-nvim",
 		config = function()
 			require("supermaven-nvim").setup({
-				keymaps = {
-					accept_suggestion = "<C-y>",
-				},
-				disable_inline_completion = false, -- disables inline completion for use with cmp
-				disable_keymaps = false, -- disables built in keymaps for more manual control
+				-- keymaps = {
+				-- 	accept_suggestion = "<C-y>",
+				-- },
+				-- disable_inline_completion = false, -- disables inline completion for use with cmp
+				-- disable_keymaps = true, -- disables built in keymaps for more manual control
 			})
 		end,
 	},
@@ -1289,7 +1289,7 @@ require("lazy").setup({
 		version = "*",
 
 		config = function()
-			local sources_default = { "lazydev", "snippets", "lsp", "supermaven", "codeium", "path", "buffer" }
+			local sources_default = { "lazydev", "snippets", "supermaven", "codeium", "lsp", "path", "buffer" }
 			require("blink.cmp").setup(
 				---@module 'blink.cmp'
 				---@type blink.cmp.Config
@@ -1358,6 +1358,7 @@ require("lazy").setup({
 							supermaven = {
 								name = "supermaven",
 								module = "blink.compat.source",
+								async = true,
 							},
 							lazydev = {
 								name = "LazyDev",
