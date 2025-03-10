@@ -1,3 +1,4 @@
+local is_windows = string.lower(jit.os) == "windows"
 -- Set <space> as the leader key
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
@@ -452,7 +453,7 @@ require("lazy").setup({
 	},
 
 	-- The aim of yanky.nvim is to improve yank and put functionalities for Neovim.
-	(string.lower(jit.os) == "windows") and {}
+	is_windows and {}
 		or {
 			"gbprod/yanky.nvim",
 			dependencies = {
@@ -478,9 +479,7 @@ require("lazy").setup({
 				{ "<c-n>", "<Plug>(YankyNextEntry)", desc = "Select next entry through yank history" },
 			},
 		},
-
-	-- suda is a plugin to read or write files with sudo command.
-	(string.lower(jit.os) == "windows") and {} or {
+	is_windows and {} or {
 			"lambdalisue/vim-suda",
 		},
 
@@ -1111,7 +1110,6 @@ require("lazy").setup({
 				aiken = {},
 				ts_ls = {},
 				jsonls = {},
-				ocamllsp = {},
 				-- typos_lsp = {},
 				rust_analyzer = {},
 				dhall_lsp_server = {},
@@ -1153,10 +1151,11 @@ require("lazy").setup({
 				},
 			}
 
-			-- Add Nix LSP for Unix systems
-			-- if string.lower(jit.os) ~= "windows" then
-			-- 	servers["nil_ls"] = {}
-			-- end
+			-- Add LSP servers for Unix systems
+			if not is_windows then
+				servers["ocamllsp"] = {}
+				-- 	servers["nil_ls"] = {}
+			end
 
 			-- Ensure the servers and tools above are installed
 			--
