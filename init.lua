@@ -900,6 +900,7 @@ require("lazy").setup({
 				},
 			}, -- NOTE: Must be loaded before dependants
 			{ "williamboman/mason.nvim", config = true },
+			{ "Zeioth/mason-extra-cmds", opts = {} },
 			"williamboman/mason-lspconfig.nvim",
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
 
