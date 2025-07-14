@@ -444,12 +444,6 @@ require("lazy").setup({
 		opts = {}, -- for default options, refer to the configuration section for custom setup.
 	},
 
-	-- A hackable Markdown, HTML, LaTeX, Typst & YAML previewer for Neovim.
-	{
-		"OXY2DEV/markview.nvim",
-		lazy = false,
-	},
-
 	-- project.nvim is an all in one neovim plugin written in lua that provides superior project management.
 	{
 		"ahmedkhalf/project.nvim",
@@ -1061,6 +1055,7 @@ require("lazy").setup({
 						map("<leader>th", function()
 							vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 						end, "[T]oggle Inlay [H]ints")
+						vim.lsp.inlay_hint.enable(true, { bufnr = event.buf })
 					end
 				end,
 			})
@@ -1113,8 +1108,21 @@ require("lazy").setup({
 
 			local servers = {
 				-- hls = {},
-				clangd = {},
-				-- gopls = {},
+				clangd = {
+					cmd = {
+						"clangd",
+						"--background-index",
+						"--clang-tidy",
+						"--completion-style=detailed",
+						-- "--header-insertion=iwyu",
+						-- "--suggest-missing-includes",
+						"--inlay-hints=true",
+						"--all-scopes-completion",
+						"--log=error",
+						"--enable-config",
+					},
+				},
+				gopls = {},
 				basedpyright = {},
 				ruff = {},
 				aiken = {},
@@ -1259,7 +1267,11 @@ require("lazy").setup({
 	-- Snippet
 	{
 		"L3MON4D3/LuaSnip",
+		-- follow latest release.
+		version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+		-- install jsregexp (optional!).
 		build = "make install_jsregexp",
+
 		dependencies = {
 			-- `friendly-snippets` contains a variety of premade snippets.
 			--    See the README about individual language/framework/plugin snippets:
@@ -1289,14 +1301,15 @@ require("lazy").setup({
 		"saghen/blink.cmp",
 		-- optional: provides snippets for the snippet source
 		dependencies = {
-			"L3MON4D3/LuaSnip",
+			{ "L3MON4D3/LuaSnip", version = "v2.*" },
 			"saadparwaiz1/cmp_luasnip",
 		},
 
-		version = "*",
+		version = "1.*",
 
 		config = function()
-			local sources_default = { "lazydev", "snippets", "supermaven", "codeium", "lsp", "path", "buffer" }
+			-- local sources_default = { "lazydev", "snippets", "supermaven", "codeium", "lsp", "path", "buffer" }
+			local sources_default = { "lazydev", "lsp", "path", "snippets", "buffer" }
 			require("blink.cmp").setup(
 				---@module 'blink.cmp'
 				---@type blink.cmp.Config
@@ -1318,12 +1331,12 @@ require("lazy").setup({
 					},
 
 					completion = {
-						accept = {
-							auto_brackets = {
-								-- Whether to auto-insert brackets for functions
-								enabled = false,
-							},
-						},
+						-- accept = {
+						-- auto_brackets = {
+						-- 	-- Whether to auto-insert brackets for functions
+						-- 	enabled = false,
+						-- },
+						-- },
 						menu = {
 							draw = {
 								columns = {
@@ -1337,23 +1350,29 @@ require("lazy").setup({
 
 					fuzzy = {
 						sorts = {
-							function(a, b)
-								local transform_table = function(input)
-									local output = {}
-									local count = #input
-									for i, v in ipairs(input) do
-										output[v] = count - (i - 1)
-									end
-									return output
-								end
-								local source_priority = transform_table(sources_default)
-								return source_priority[a.source_id] > source_priority[b.source_id]
-							end,
+							-- function(a, b)
+							-- 	local transform_table = function(input)
+							-- 		local output = {}
+							-- 		local count = #input
+							-- 		for i, v in ipairs(input) do
+							-- 			output[v] = count - (i - 1)
+							-- 		end
+							-- 		return output
+							-- 	end
+							-- 	local source_priority = transform_table(sources_default)
+							-- 	return source_priority[a.source_id] > source_priority[b.source_id]
+							-- end,
 							-- defaults
+							"exact",
 							"score",
 							"sort_text",
+							"label",
+							"kind",
 						},
+						implementation = "rust",
 					},
+
+					snippets = { preset = "luasnip" },
 
 					-- Default list of enabled providers defined so that you can extend it
 					-- elsewhere in your config, without redefining it, due to `opts_extend`
@@ -1386,11 +1405,11 @@ require("lazy").setup({
 				}
 			)
 		end,
-		snippets = { preset = "luasnip" },
 		opts_extend = { "sources.default" },
 	},
 
 	{ "miikanissi/modus-themes.nvim", priority = 1000 },
+	{ "Shatur/neovim-ayu", name = "ayu", priority = 1000 },
 
 	{ -- You can easily change to a different colorscheme.
 		-- Change the name of the colorscheme plugin below, and then
@@ -1410,10 +1429,14 @@ require("lazy").setup({
 			-- Like many other themes, this one has different styles, and you could load
 			-- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
 			-- "modus_operandi" and "modus_vivendi"
+			-- vim.cmd.colorscheme("catppuccin-frappe")
+			-- vim.cmd.colorscheme("ayu-dark")
 			vim.cmd.colorscheme("modus_operandi")
 			-- vim.cmd.colorscheme("tokyonight-night")
 		end,
 	},
+
+	{ "catppuccin/nvim", name = "catppuccin", priority = 1000 },
 
 	{ "ellisonleao/gruvbox.nvim", priority = 1000, config = true },
 
@@ -1479,6 +1502,8 @@ require("lazy").setup({
 	},
 	{ -- Highlight, edit, and navigate code
 		"nvim-treesitter/nvim-treesitter",
+		dependencies = { "OXY2DEV/markview.nvim", lazy = false },
+		lazy = false,
 		build = ":TSUpdate",
 		opts = {
 			matchup = {
@@ -1574,5 +1599,3 @@ require("lazy").setup({
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
-
-require("lspconfig").aiken.setup({})
