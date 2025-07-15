@@ -1512,7 +1512,7 @@ require("lazy").setup({
 	},
 	{ -- Highlight, edit, and navigate code
 		"nvim-treesitter/nvim-treesitter",
-		dependencies = { "OXY2DEV/markview.nvim", lazy = false },
+		dependencies = { "OXY2DEV/markview.nvim" },
 		lazy = false,
 		build = ":TSUpdate",
 		opts = {
