@@ -281,6 +281,12 @@ require("lazy").setup({
 			vim.keymap.set("n", "<C-j>", require("smart-splits").move_cursor_down)
 			vim.keymap.set("n", "<C-k>", require("smart-splits").move_cursor_up)
 			vim.keymap.set("n", "<C-l>", require("smart-splits").move_cursor_right)
+			local opts = {}
+			local utils = require("smart-splits.mux.utils")
+			if utils.are_we_wezterm() and utils.is_WSL() then
+				opts["wezterm_cli_path"] = "wezterm.exe"
+			end
+			require("smart-splits").setup(opts)
 		end,
 	},
 
@@ -627,32 +633,32 @@ require("lazy").setup({
 	},
 
 	-- Native Codeium plugin for Neovim.
-	{
-		"Exafunction/codeium.nvim",
-		commit = "937667b2cadc7905e6b9ba18ecf84694cf227567",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			"saghen/blink.cmp",
-		},
-		config = function()
-			require("codeium").setup({
-				enable_chat = true,
-			})
-		end,
-	},
+	-- {
+	-- 	"Exafunction/codeium.nvim",
+	-- 	commit = "937667b2cadc7905e6b9ba18ecf84694cf227567",
+	-- 	dependencies = {
+	-- 		"nvim-lua/plenary.nvim",
+	-- 		"saghen/blink.cmp",
+	-- 	},
+	-- 	config = function()
+	-- 		require("codeium").setup({
+	-- 			enable_chat = true,
+	-- 		})
+	-- 	end,
+	-- },
 
-	{
-		"supermaven-inc/supermaven-nvim",
-		config = function()
-			require("supermaven-nvim").setup({
-				-- keymaps = {
-				-- 	accept_suggestion = "<C-y>",
-				-- },
-				-- disable_inline_completion = false, -- disables inline completion for use with cmp
-				-- disable_keymaps = true, -- disables built in keymaps for more manual control
-			})
-		end,
-	},
+	-- {
+	-- 	"supermaven-inc/supermaven-nvim",
+	-- 	config = function()
+	-- 		require("supermaven-nvim").setup({
+	-- 			-- keymaps = {
+	-- 			-- 	accept_suggestion = "<C-y>",
+	-- 			-- },
+	-- 			-- disable_inline_completion = false, -- disables inline completion for use with cmp
+	-- 			-- disable_keymaps = true, -- disables built in keymaps for more manual control
+	-- 		})
+	-- 	end,
+	-- },
 
 	-- Supercharge your Haskell experience in Neovim
 	{
