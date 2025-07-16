@@ -1283,17 +1283,16 @@ require("lazy").setup({
 		build = "make install_jsregexp",
 
 		dependencies = {
+			"stevearc/vim-vscode-snippets",
 			-- `friendly-snippets` contains a variety of premade snippets.
+			"rafamadriz/friendly-snippets",
 			--    See the README about individual language/framework/plugin snippets:
 			--    https://github.com/rafamadriz/friendly-snippets
-			{
-				"rafamadriz/friendly-snippets",
-				config = function()
-					require("luasnip.loaders.from_vscode").lazy_load()
-					require("luasnip.loaders.from_snipmate").lazy_load()
-				end,
-			},
 		},
+		config = function()
+			require("luasnip.loaders.from_vscode").lazy_load()
+			require("luasnip.loaders.from_snipmate").lazy_load()
+		end,
 	},
 
 	-- Autocompletion
@@ -1309,14 +1308,12 @@ require("lazy").setup({
 
 	{
 		"saghen/blink.cmp",
+		version = "1.*",
 		-- optional: provides snippets for the snippet source
 		dependencies = {
 			{ "L3MON4D3/LuaSnip", version = "v2.*" },
-			"saadparwaiz1/cmp_luasnip",
 			"archie-judd/blink-cmp-words",
 		},
-
-		version = "1.*",
 
 		config = function()
 			-- local sources_default = { "lazydev", "snippets", "supermaven", "codeium", "lsp", "path", "buffer" }
