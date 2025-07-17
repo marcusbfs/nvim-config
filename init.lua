@@ -1138,7 +1138,8 @@ require("lazy").setup({
 				aiken = {},
 				ts_ls = {},
 				jsonls = {},
-				-- typos_lsp = {},
+				typos_lsp = {},
+				harper_ls = {},
 				rust_analyzer = {},
 				dhall_lsp_server = {},
 				-- hls = { filetypes = { "haskell", "lhaskell", "cabal" } },
@@ -1304,6 +1305,32 @@ require("lazy").setup({
 		lazy = true,
 		-- make sure to set opts so that lazy.nvim calls blink.compat's setup
 		opts = {},
+	},
+
+	{
+		"nvimtools/none-ls.nvim",
+		event = { "BufReadPre", "BufNewFile" },
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+		},
+		config = function()
+			local null_ls = require("null-ls")
+
+			null_ls.setup({
+				sources = {
+					null_ls.builtins.code_actions.refactoring,
+					null_ls.builtins.code_actions.textlint,
+					null_ls.builtins.diagnostics.checkmake,
+					null_ls.builtins.diagnostics.cppcheck,
+					null_ls.builtins.diagnostics.golangci_lint,
+					null_ls.builtins.diagnostics.staticcheck,
+					null_ls.builtins.code_actions.gomodifytags,
+					null_ls.builtins.hover.dictionary,
+					null_ls.builtins.diagnostics.codespell,
+					null_ls.builtins.code_actions.impl,
+				},
+			})
+		end,
 	},
 
 	{
