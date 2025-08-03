@@ -889,6 +889,73 @@ require("lazy").setup({
 	},
 
 	{
+		"ray-x/lsp_signature.nvim",
+		event = "LspAttach",
+		opts = {},
+		config = function()
+			require("lsp_signature").on_attach()
+		end,
+	},
+
+	{
+		"chrisgrieser/nvim-dr-lsp",
+		event = "LspAttach",
+		config = function()
+			require("dr-lsp").setup({
+				highlightCursorWordReferences = {
+					enable = true,
+				},
+			})
+		end,
+	},
+
+	{
+		"lewis6991/hover.nvim",
+		config = function()
+			require("hover").setup({
+				init = function()
+					-- Require providers
+					require("hover.providers.lsp")
+					-- require('hover.providers.gh')
+					-- require('hover.providers.gh_user')
+					-- require('hover.providers.jira')
+					-- require('hover.providers.dap')
+					-- require('hover.providers.fold_preview')
+					require("hover.providers.diagnostic")
+					-- require('hover.providers.man')
+					require("hover.providers.dictionary")
+					-- require("hover.providers.highlight")
+				end,
+				preview_opts = {
+					border = "single",
+				},
+				-- Whether the contents of a currently open hover window should be moved
+				-- to a :h preview-window when pressing the hover keymap.
+				preview_window = false,
+				title = true,
+				mouse_providers = {
+					"LSP",
+				},
+				mouse_delay = 500,
+			})
+
+			-- Setup keymaps
+			vim.keymap.set("n", "K", require("hover").hover, { desc = "hover.nvim" })
+			vim.keymap.set("n", "gK", require("hover").hover_select, { desc = "hover.nvim (select)" })
+			vim.keymap.set("n", "<C-p>", function()
+				require("hover").hover_switch("previous")
+			end, { desc = "hover.nvim (previous source)" })
+			vim.keymap.set("n", "<C-n>", function()
+				require("hover").hover_switch("next")
+			end, { desc = "hover.nvim (next source)" })
+
+			-- Mouse support
+			vim.keymap.set("n", "<MouseMove>", require("hover").hover_mouse, { desc = "hover.nvim (mouse)" })
+			vim.o.mousemoveevent = true
+		end,
+	},
+
+	{
 		-- Main LSP Configuration
 		"neovim/nvim-lspconfig",
 		dependencies = {
@@ -915,6 +982,7 @@ require("lazy").setup({
 			{ "j-hui/fidget.nvim", opts = {} },
 			-- Autocompletion
 			"saghen/blink.cmp",
+			"https://git.sr.ht/~whynothugo/lsp_lines.nvim",
 		},
 		config = function()
 			-- Brief aside: **What is LSP?**
@@ -998,7 +1066,7 @@ require("lazy").setup({
 
 					-- Opens a popup that displays documentation about the word under your cursor
 					--  See `:help K` for why this keymap.
-					map("K", vim.lsp.buf.hover, "Hover Documentation")
+					-- map("K", vim.lsp.buf.hover, "Hover Documentation")
 
 					-- WARN: This is not Goto Definition, this is Goto Declaration.
 					--  For example, in C this would take you to the header.
@@ -1098,6 +1166,18 @@ require("lazy").setup({
 					end,
 				},
 			})
+
+			require("lsp_lines").setup()
+			vim.diagnostic.config({ virtual_text = true, virtual_lines = false })
+
+			vim.keymap.set("", "<leader>l", function()
+				local config = vim.diagnostic.config() or {}
+				if config.virtual_text then
+					vim.diagnostic.config({ virtual_text = false, virtual_lines = true })
+				else
+					vim.diagnostic.config({ virtual_text = true, virtual_lines = false })
+				end
+			end, { desc = "Toggle lsp_lines" })
 
 			-- LSP servers and clients are able to communicate to each other what features they support.
 			--  By default, Neovim doesn't support everything that is in the LSP specification.
